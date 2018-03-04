@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private Button SignInButton;
     private final int SIGN_IN = 9001;
-    static final String kl = "dasdsa";
+    static final String kl = "email";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

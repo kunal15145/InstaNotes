@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class my_courses extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,7 +23,10 @@ public class my_courses extends AppCompatActivity
         setContentView(R.layout.activity_my_courses);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        String em=getIntent().getExtras().getString("email");
+        TextView t;
+        t=(TextView)findViewById(R.id.textView);
+        t.setText(em);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
