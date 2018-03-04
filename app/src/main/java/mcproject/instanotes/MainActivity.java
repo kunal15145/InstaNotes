@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(GoogleSignInAccount account) {
-        Intent sendIntent = new Intent(this,Main2Activity.class);
+        Intent sendIntent = new Intent(this,my_courses.class);
         sendIntent.putExtra(kl,account.getEmail());
         startActivity(sendIntent);
     }
