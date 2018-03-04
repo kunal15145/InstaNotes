@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            GoogleSignInAccount account = null;
+            GoogleSignInAccount account;
             try {
                 account = task.getResult(ApiException.class);
                 updateUI(account);
