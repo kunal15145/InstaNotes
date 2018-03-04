@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 account = task.getResult(ApiException.class);
                 updateUI(account);
             } catch (ApiException e) {
-                Log.w("TAG","Sign In Failed");
+                Log.w("TAG","Sign-In Failed");
                 updateUI(null);
             }
         }
