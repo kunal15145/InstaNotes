@@ -31,7 +31,7 @@ public class my_courses extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Launch join course activity", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -43,6 +43,7 @@ public class my_courses extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
     }
 
