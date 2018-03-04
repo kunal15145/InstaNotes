@@ -17,6 +17,8 @@ import android.widget.TextView;
 public class my_courses extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +26,10 @@ public class my_courses extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String em=getIntent().getExtras().getString("email");
-        TextView t;
-        t=(TextView)findViewById(R.id.textView);
-        t.setText(em);
+        textView = findViewById(R.id.textView);
+        if(em!=null)
+            textView.setText(em);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
