@@ -16,8 +16,10 @@ import android.view.MenuItem;
 public class my_courses extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_courses);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,9 +90,7 @@ public class my_courses extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
 
         }
 

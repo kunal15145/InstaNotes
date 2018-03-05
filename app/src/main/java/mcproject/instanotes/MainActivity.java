@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null) {
             updateUI(account);
+            String emailid=account.getEmail();
+            String userid=account.getDisplayName();
         }
     }
 
