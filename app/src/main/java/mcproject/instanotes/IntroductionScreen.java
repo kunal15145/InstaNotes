@@ -50,7 +50,6 @@ public class IntroductionScreen extends AppCompatActivity {
                 updateUI(account);
             } catch (ApiException e) {
                 Log.w("TAG","Sign-In Failed");
-                updateUI(null);
             }
         }
     }
