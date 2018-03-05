@@ -4,6 +4,9 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="feature_screen1_title">Download/ Upload notes \n with just a few clicks</string>
+    <string name="feature_screen2_title">Add notes as \n public / private</string>
+    <string name="feature_screen3_title">Get notifications on the \n latest uploads</string>
+    <string name="feature_screen4_title">Request notes for a \n particular lecture</string>
     <string name="action_settings">Settings</string>
 </resources>
