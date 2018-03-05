@@ -9,4 +9,8 @@
     <string name="feature_screen3_title">Get notifications on the \n latest uploads</string>
     <string name="feature_screen4_title">Request notes for a \n particular lecture</string>
     <string name="action_settings">Settings</string>
+    <string-array name="Semester">
+        <item>Current Semester</item>
+        <item>Previous Semester</item>
+    </string-array>
 </resources>
