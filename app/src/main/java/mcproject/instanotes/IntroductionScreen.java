@@ -33,9 +33,8 @@ public class IntroductionScreen extends AppCompatActivity {
     private TextView[] dots;
     private int[] FeatureScreenLayouts;
     private CheckFirstTimeLaunch checkFirstTimeLaunch;
-    private Button SigninButton;
-    private GoogleSignInClient mGoogleSignInClient;
     private Button SignInButton;
+    private GoogleSignInClient mGoogleSignInClient;
     private final int SIGN_IN = 9001;
     static final String kl = "dasdsa";
 
@@ -45,7 +44,7 @@ public class IntroductionScreen extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            GoogleSignInAccount account = null;
+            GoogleSignInAccount account;
             try {
                 account = task.getResult(ApiException.class);
                 updateUI(account);
@@ -126,6 +125,15 @@ public class IntroductionScreen extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account!=null) {
+            updateUI(account);
+        }
+    }
+
     private void addDot(int i) {
         dots = new TextView[FeatureScreenLayouts.length];
         AllDots.removeAllViews();
@@ -138,20 +146,13 @@ public class IntroductionScreen extends AppCompatActivity {
     }
 
     private void launchMyCourses() {
-        checkFirstTimeLaunch.setFirstLaunch(false);
-        startActivity(new Intent(IntroductionScreen.this,my_courses.class));
-        finish();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null) {
             updateUI(account);
-            String emailid=account.getEmail();
-            String userid=account.getDisplayName();
         }
+        checkFirstTimeLaunch.setFirstLaunch(false);
+        startActivity(new Intent(IntroductionScreen.this,my_courses.class));
+        finish();
     }
 
     private void updateUI(GoogleSignInAccount account) {
