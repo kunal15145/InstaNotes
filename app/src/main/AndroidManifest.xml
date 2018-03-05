@@ -12,7 +12,11 @@
         <activity
             android:name=".my_courses"
             android:label="@string/title_activity_my_courses"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity android:name=".IntroductionScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
