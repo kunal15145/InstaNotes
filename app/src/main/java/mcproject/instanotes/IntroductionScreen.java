@@ -77,7 +77,7 @@ public class IntroductionScreen extends AppCompatActivity {
                 R.layout.feature_screen3,
                 R.layout.feature_screen4
         };
-        addDot(0);
+        makeDotVisible(0);
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.TRANSPARENT);
@@ -87,7 +87,6 @@ public class IntroductionScreen extends AppCompatActivity {
             public int getCount() {
                 return FeatureScreenLayouts.length;
             }
-
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
                 FeatureScreenlayoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -95,12 +94,8 @@ public class IntroductionScreen extends AppCompatActivity {
                 container.addView(view);
                 return view;
             }
-
             @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView((View)object);
-            }
-
+            public void destroyItem(ViewGroup container, int position, Object object) {container.removeView((View)object);}
             @Override
             public boolean isViewFromObject(View view, Object object) {
                 return (view==object);
@@ -109,19 +104,9 @@ public class IntroductionScreen extends AppCompatActivity {
         viewPager.setAdapter(ViewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                addDot(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}            @Override
+            public void onPageSelected(int position) {makeDotVisible(position);}            @Override
+            public void onPageScrollStateChanged(int state) {}
         });
     }
 
@@ -134,14 +119,18 @@ public class IntroductionScreen extends AppCompatActivity {
         }
     }
 
-    private void addDot(int i) {
+    private void makeDotVisible(int i) {
         dots = new TextView[FeatureScreenLayouts.length];
         AllDots.removeAllViews();
         for(int j=0;j<dots.length;j++){
-            dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            AllDots.addView(dots[i]);
+            dots[j] = new TextView(this);
+            dots[j].setText(Html.fromHtml("&#8226;"));
+            dots[j].setTextSize(35);
+            if(j==i){
+                dots[j].setTextColor(getResources().getColor(R.color.colorAccent));
+            }
+            else dots[j].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            AllDots.addView(dots[j]);
         }
     }
 
@@ -162,7 +151,6 @@ public class IntroductionScreen extends AppCompatActivity {
     }
 
     public void my_course(View view) {
-
         Intent signin = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signin,SIGN_IN);
     }
