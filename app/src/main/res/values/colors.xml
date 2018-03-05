@@ -8,5 +8,10 @@
     <color name="newblue">#1e4072</color>
     <color name="neworange">#f28500</color>
     <color name="newviolet">#715696</color>
+    <color name="black">#000000</color>
+    <color name="startbutton_pressed">#ab413c</color>
+    <color name="startbutton_focused">#ab0800</color>
+    <color name="startbutton_default">#ab0800</color>
+    <color name="background_featurescreens">#fffcf9</color>
 
 </resources>
