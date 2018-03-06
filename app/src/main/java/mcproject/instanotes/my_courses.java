@@ -62,6 +62,36 @@ public class my_courses extends AppCompatActivity
                 startActivity(intent);
             }
         });
+        Button transButton=(Button)findViewById(R.id.button3);
+        transButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent2;
+                intent2 = new Intent(view.getContext(),Transactions.class);
+                startActivity(intent2);
+            }
+        });
+        Button accbtn=(Button)findViewById(R.id.button4);
+        accbtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent3;
+                intent3 = new Intent(view.getContext(),Account.class);
+                startActivity(intent3);
+            }
+        });
+        /*Button transbutton2=(Button)findViewById(R.id.nav_camera);
+        transbutton2.setOnClickListener(new View.OnClickListener(){
+
+                                           @Override
+                                           public void onClick(View view) {
+                                               Intent intent=new Intent(view.getContext(),Transactions.class);
+                                               startActivity(intent);
+                                           }
+                                       }
+        );*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
