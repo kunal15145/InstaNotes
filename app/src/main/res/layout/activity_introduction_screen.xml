@@ -30,10 +30,6 @@
         android:layout_marginRight="50dp"
         android:text="Sign In"
         android:textSize="18sp"
-        android:onClick="my_course">
-
-
-
-    </Button>
+        android:onClick="my_course"/>
 
 </RelativeLayout>

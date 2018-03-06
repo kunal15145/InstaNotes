@@ -12,7 +12,7 @@
         android:id="@+id/static_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="3dp"
         android:layout_marginTop="6dp" />
 
     <ScrollView
@@ -27,7 +27,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="@color/colorPrimaryDark"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -68,7 +68,64 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="#ffffff"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                app:srcCompat="@color/newred" />
+
+                            <RelativeLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="60dp">
+
+                                <TextView
+                                    android:layout_width="95dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mobile Computing"
+                                    android:textColor="@android:color/black"
+                                    android:layout_alignParentLeft="true"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                     />
+
+                                <Button
+                                    android:layout_width="45dp"
+                                    android:layout_height="25dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:text="Join"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:background="@drawable/button_border"/>
+
+                            </RelativeLayout>
+
+                            <TextView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="Winter 2018" />
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="150dp"
+                        android:layout_height="160dp"
+                        android:layout_marginLeft="10dp"
+                        card_view:cardBackgroundColor="#ffffff"
+                        card_view:cardElevation="10px"
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -123,62 +180,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="#ffffff"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <ImageView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="80dp"
-                                app:srcCompat="@color/newred" />
-
-                            <RelativeLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="60dp">
-
-                                <TextView
-                                    android:layout_width="95dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="Mobile Computing"
-                                    android:textColor="@android:color/black"
-                                    android:layout_alignParentLeft="true"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                     />
-
-                                <Button
-                                    android:layout_width="45dp"
-                                    android:layout_height="25dp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_alignParentTop="true"
-                                    android:text="Join"
-                                    android:textColor="@android:color/black"
-                                    android:textSize="12sp"
-                                    android:background="@drawable/button_border"/>
-
-                            </RelativeLayout>
-
-                            <TextView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp"
-                                android:text="Winter 2018" />
-
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="150dp"
-                        android:layout_height="160dp"
-                        android:layout_marginLeft="10dp"
-                        card_view:cardBackgroundColor="#ffffff"
-                        card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -236,7 +238,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -249,7 +251,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="@color/colorPrimaryDark"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -276,7 +278,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="#ffffff"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -331,7 +333,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="#ffffff"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -386,7 +388,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="#ffffff"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -444,7 +446,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -457,7 +459,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="@color/colorPrimaryDark"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -484,7 +486,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="#ffffff"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -539,7 +541,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="#ffffff"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout
@@ -594,7 +596,7 @@
                         android:layout_marginLeft="10dp"
                         card_view:cardBackgroundColor="#ffffff"
                         card_view:cardElevation="10px"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="3dp">
 
 
                         <LinearLayout

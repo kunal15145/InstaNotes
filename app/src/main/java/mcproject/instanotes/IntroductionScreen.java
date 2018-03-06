@@ -126,9 +126,9 @@ public class IntroductionScreen extends AppCompatActivity {
             dots[j].setText(Html.fromHtml("&#8226;"));
             dots[j].setTextSize(35);
             if(j==i){
-                dots[j].setTextColor(getResources().getColor(R.color.colorAccent));
+                dots[j].setTextColor(getResources().getColor(R.color.newred));
             }
-            else dots[j].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            else dots[j].setTextColor(getResources().getColor(R.color.newgray));
             AllDots.addView(dots[j]);
         }
     }

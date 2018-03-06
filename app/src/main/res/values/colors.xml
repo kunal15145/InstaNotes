@@ -12,5 +12,6 @@
     <color name="startbutton_pressed">#ab413c</color>
     <color name="startbutton_focused">#ab0800</color>
     <color name="startbutton_default">#ab0800</color>
+    <color name="newgray">#d3d3d3</color>
     <color name="background_featurescreens">#fffcf9</color>
 </resources>
