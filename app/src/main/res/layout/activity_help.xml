@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
+    tools:context="mcproject.instanotes.Help">
+
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Popular"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentEnd="false"
+        android:layout_below="@+id/textView14"
+        app:srcCompat="@drawable/doc" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView14"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@id/imageView14"
+        android:text="Downloading/Uploading Notes"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_marginLeft="16dp"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="false"
+        android:layout_below="@+id/textView15"
+        android:layout_marginRight="15dp"
+        app:srcCompat="@drawable/doc" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView15"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@id/imageView15"
+        android:text="Changing Privacy of Notes"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="false"
+        android:layout_below="@+id/textView16"
+        android:layout_marginRight="15dp"
+        app:srcCompat="@drawable/doc" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView16"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@id/imageView16"
+        android:text="Requesting for New Notes"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="false"
+        android:layout_below="@+id/textView17"
+        android:layout_marginRight="15dp"
+        app:srcCompat="@drawable/doc" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView17"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@id/imageView17"
+        android:text="How the App Works"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentEnd="false"
+        android:layout_below="@+id/textView18"
+        android:layout_marginRight="15dp"
+        app:srcCompat="@drawable/doc" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView18"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@id/imageView18"
+        android:text="Accessing Past Courses"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/textView19"
+        android:background="@color/black"
+        android:id="@+id/view"></View>
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignStart="@+id/imageView18"
+        android:layout_below="@+id/view"
+        app:srcCompat="@drawable/feedback" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView19"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/imageView19"
+        android:text="Feedback"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+
+        android:layout_below="@id/imageView19"
+        android:background="@color/black"
+        android:id="@+id/view2"></View>
+
+
+</RelativeLayout>
