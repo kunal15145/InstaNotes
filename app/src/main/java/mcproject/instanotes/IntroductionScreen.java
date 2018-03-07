@@ -22,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
@@ -33,7 +34,7 @@ public class IntroductionScreen extends AppCompatActivity {
     private TextView[] dots;
     private int[] FeatureScreenLayouts;
     private CheckFirstTimeLaunch checkFirstTimeLaunch;
-    private Button SignInButton;
+    private SignInButton signinbutton;
     private GoogleSignInClient mGoogleSignInClient;
     private final int SIGN_IN = 9001;
     static final String kl = "dasdsa";
@@ -69,7 +70,14 @@ public class IntroductionScreen extends AppCompatActivity {
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,signInOptions);
-        SignInButton = findViewById(R.id.signin);
+        signinbutton = findViewById(R.id.signin);
+        signinbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signin = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signin,SIGN_IN);
+            }
+        });
         FeatureScreenLayouts = new int[]{
                 R.layout.feature_screen1,
                 R.layout.feature_screen2,
@@ -147,11 +155,6 @@ public class IntroductionScreen extends AppCompatActivity {
         Intent sendIntent = new Intent(this,my_courses.class);
         sendIntent.putExtra(kl,account.getEmail());
         startActivity(sendIntent);
-    }
-
-    public void my_course(View view) {
-        Intent signin = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signin,SIGN_IN);
     }
 
 }
