@@ -10,10 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by Harshit Verma on 06-03-2018.
- */
-
 public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHolder>{
 
 

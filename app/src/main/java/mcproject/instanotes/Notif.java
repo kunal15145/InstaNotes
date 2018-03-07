@@ -1,8 +1,5 @@
 package mcproject.instanotes;
 
-/**
- * Created by Harshit Verma on 06-03-2018.
- */
 
 public class Notif {
 

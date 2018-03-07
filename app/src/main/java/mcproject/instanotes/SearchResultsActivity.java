@@ -5,9 +5,6 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-/**
- * Created by airugh on 5/3/18.
- */
 
 public class SearchResultsActivity extends Activity {
 

@@ -10,10 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by Harshit Verma on 06-03-2018.
- */
-
 public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder>{
 
 

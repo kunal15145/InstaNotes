@@ -13,10 +13,6 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
-/**
- * Created by airugh on 5/3/18.
- */
-
 public class join_courses extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
