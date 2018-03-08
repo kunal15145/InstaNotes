@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "206843421553",
+    "firebase_url": "https://instanotes-1520185035382.firebaseio.com",
+    "project_id": "instanotes-1520185035382",
+    "storage_bucket": "instanotes-1520185035382.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206843421553:android:ec052d9d72a73284",
+        "android_client_info": {
+          "package_name": "mcproject.instanotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "206843421553-c2d60qbdecmd9g1jlccmpor2mgehbvh0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mcproject.instanotes",
+            "certificate_hash": "a216b19f86b0a9274c3262b374fa9ca9ee9ee2e0"
+          }
+        },
+        {
+          "client_id": "206843421553-su32o4pjcb6srr3rg1g1tr9oga6j551f.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "206843421553-58disdtpffknu7sovoc45vo49jac2nr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE-Qyhh3MlpVNnHD12MVaDk9zf4IOwsNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "206843421553-su32o4pjcb6srr3rg1g1tr9oga6j551f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

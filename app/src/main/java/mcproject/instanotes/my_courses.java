@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 
@@ -28,6 +30,7 @@ public class my_courses extends AppCompatActivity
 
     public TextView navUsername,credit,email;
     public CircleImageView dp1;
+    private FirebaseUser firebaseUser;
 
     @Override
 
@@ -114,10 +117,12 @@ public class my_courses extends AppCompatActivity
         credit.setText("7 Credits");
         email = headerView.findViewById(R.id.email);
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         navigationView.setNavigationItemSelectedListener(this);
-                navUsername.setText("dasdas");
-                email.setText("dasdas");
-                Uri uri = Uri.parse("dsadasd");
+                navUsername.setText(firebaseUser.getDisplayName());
+                email.setText(firebaseUser.getEmail());
+                Uri uri = firebaseUser.getPhotoUrl();
                 String TAG="url";
                 Log.d(TAG, String.valueOf(uri));
 
@@ -132,7 +137,7 @@ public class my_courses extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

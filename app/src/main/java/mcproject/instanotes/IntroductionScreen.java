@@ -45,19 +45,65 @@ public class IntroductionScreen extends AppCompatActivity {
     private PagerAdapter ViewPagerAdapter;
     private LinearLayout AllDots;
     private TextView[] dots;
-    private SignInButton signInButton;
     private int[] FeatureScreenLayouts;
     private CheckFirstTimeLaunch checkFirstTimeLaunch;
 
+    private SignInButton signInButton;
+    private FirebaseAuth firebaseAuth;
+    private static final int SIGN_IN = 9001;
+    private GoogleSignInClient googleSignInClient;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser!=null){
+            my_course_list(firebaseUser);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==SIGN_IN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthorization(account);
+            } catch (ApiException e) {
+                e.printStackTrace();
+                my_course_list(null);
+            }
+        }
+    }
+
+    private void firebaseAuthorization(GoogleSignInAccount account) {
+        AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+        firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    my_course_list(firebaseUser);
+                }
+                else{
+                    my_course_list(null);
+                }
+            }
+        });
+    }
+
+    private void my_course_list(FirebaseUser firebaseUser) {
+        if(firebaseUser!=null){
+            Intent intent = new Intent(IntroductionScreen.this,my_courses.class);
+            startActivity(intent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkFirstTimeLaunch = new CheckFirstTimeLaunch(this);
-        if(!checkFirstTimeLaunch.checkFirstLaunch()){
-            launchMyCourses();
-            finish();
-        }
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         setContentView(R.layout.activity_introduction_screen);
         // Login
@@ -66,10 +112,17 @@ public class IntroductionScreen extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(IntroductionScreen.this,my_courses.class);
-                startActivity(intent);
+                Intent intent = googleSignInClient.getSignInIntent();
+                startActivityForResult(intent,SIGN_IN);
             }
         });
+
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.Auth_KEY))
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         // Introduction Screen
         viewPager = findViewById(R.id.viewPageIntro);
