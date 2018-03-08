@@ -30,6 +30,7 @@ public class my_courses extends AppCompatActivity
 
     public TextView navUsername,credit,email;
     public CircleImageView dp1;
+    private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
 
     @Override
@@ -38,6 +39,7 @@ public class my_courses extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_courses);
+        firebaseAuth = FirebaseAuth.getInstance();
         Button notifbutton= findViewById(R.id.button2);
         notifbutton.setOnClickListener(new View.OnClickListener() {
 
@@ -117,7 +119,7 @@ public class my_courses extends AppCompatActivity
         credit.setText("7 Credits");
         email = headerView.findViewById(R.id.email);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         navigationView.setNavigationItemSelectedListener(this);
                 navUsername.setText(firebaseUser.getDisplayName());
@@ -173,7 +175,7 @@ public class my_courses extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_logout) {
-
+            //firebaseAuth.signOut();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
