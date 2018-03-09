@@ -38,7 +38,7 @@ public class IntroductionScreen extends AppCompatActivity {
     private LinearLayout AllDots;
     private TextView[] dots;
     private int[] FeatureScreenLayouts;
-    private CheckFirstTimeLaunch checkFirstTimeLaunch;
+ //   private CheckFirstTimeLaunch checkFirstTimeLaunch;
 
     private SignInButton signInButton;
     private FirebaseAuth firebaseAuth;
@@ -173,10 +173,10 @@ public class IntroductionScreen extends AppCompatActivity {
         }
     }
 
-    private void launchMyCourses() {
-        checkFirstTimeLaunch.setFirstLaunch(false);
-        Intent intent = new Intent(IntroductionScreen.this,my_courses.class);
-        startActivity(intent);
-        finish();
-    }
+//    private void launchMyCourses() {
+//        checkFirstTimeLaunch.setFirstLaunch(false);
+//        Intent intent = new Intent(IntroductionScreen.this,my_courses.class);
+//        startActivity(intent);
+//        finish();
+//    }
 }
