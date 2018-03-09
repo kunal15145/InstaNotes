@@ -40,46 +40,46 @@ public class my_courses extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_courses);
         firebaseAuth = FirebaseAuth.getInstance();
-        Button notifbutton= findViewById(R.id.button2);
-        notifbutton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent;
-                intent = new Intent(view.getContext(),Notifications.class);
-                startActivity(intent);
-            }
-        });
-        Button transButton= findViewById(R.id.button3);
-        transButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent2;
-                intent2 = new Intent(view.getContext(),Transactions.class);
-                startActivity(intent2);
-            }
-        });
-        Button accbtn= findViewById(R.id.button4);
-        accbtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent3;
-                intent3 = new Intent(view.getContext(),Account.class);
-                startActivity(intent3);
-            }
-        });
-        Button helpbtn= findViewById(R.id.button5);
-        helpbtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent4;
-                intent4 = new Intent(view.getContext(),Help.class);
-                startActivity(intent4);
-            }
-        });
+//        Button notifbutton= findViewById(R.id.button2);
+//        notifbutton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent;
+//                intent = new Intent(view.getContext(),Notifications.class);
+//                startActivity(intent);
+//            }
+//        });
+//        Button transButton= findViewById(R.id.button3);
+//        transButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent2;
+//                intent2 = new Intent(view.getContext(),Transactions.class);
+//                startActivity(intent2);
+//            }
+//        });
+//        Button accbtn= findViewById(R.id.button4);
+//        accbtn.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent3;
+//                intent3 = new Intent(view.getContext(),Account.class);
+//                startActivity(intent3);
+//            }
+//        });
+//        Button helpbtn= findViewById(R.id.button5);
+//        helpbtn.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent4;
+//                intent4 = new Intent(view.getContext(),Help.class);
+//                startActivity(intent4);
+//            }
+//        });
         /*Button transbutton2=(Button)findViewById(R.id.nav_camera);
         transbutton2.setOnClickListener(new View.OnClickListener(){
 
@@ -165,14 +165,23 @@ public class my_courses extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Intent intent2;
+        if (id == R.id.transac) {
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+            intent2=new Intent(getApplicationContext(),Transactions.class);
+            startActivity(intent2);
+        } else if (id == R.id.help) {
+//
+            intent2 = new Intent(getApplicationContext(),Help.class);
+            startActivity(intent2);
+        } else if (id == R.id.feedback) {
+//            intent2 = new Intent(getApplicationContext(),feedback.class);
+//            startActivity(intent2);
+//              to be made
+        } else if (id == R.id.settings) {
+            //            intent2 = new Intent(getApplicationContext(),settings.class);
+//            startActivity(intent2);
+//              to be made
 
         } else if (id == R.id.nav_logout) {
             //firebaseAuth.signOut();
