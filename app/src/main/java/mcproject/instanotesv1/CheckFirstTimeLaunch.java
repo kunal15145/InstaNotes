@@ -1,4 +1,4 @@
-package mcproject.instanotes;
+package mcproject.instanotesv1;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

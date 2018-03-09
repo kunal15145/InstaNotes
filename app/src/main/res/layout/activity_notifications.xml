@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#FFFCF9"
     android:layout_height="match_parent"
-    tools:context="mcproject.instanotes.Notifications">
+    tools:context="mcproject.instanotesv1.Notifications">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

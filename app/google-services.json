@@ -1,39 +1,35 @@
 {
   "project_info": {
-    "project_number": "206843421553",
-    "firebase_url": "https://instanotes-1520185035382.firebaseio.com",
-    "project_id": "instanotes-1520185035382",
-    "storage_bucket": "instanotes-1520185035382.appspot.com"
+    "project_number": "1070727904600",
+    "firebase_url": "https://instanotesv1-a4682.firebaseio.com",
+    "project_id": "instanotesv1-a4682",
+    "storage_bucket": "instanotesv1-a4682.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:206843421553:android:ec052d9d72a73284",
+        "mobilesdk_app_id": "1:1070727904600:android:93f2ac7c626cef78",
         "android_client_info": {
-          "package_name": "mcproject.instanotes"
+          "package_name": "mcproject.instanotesv1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "206843421553-c2d60qbdecmd9g1jlccmpor2mgehbvh0.apps.googleusercontent.com",
+          "client_id": "1070727904600-7fupa5069b0ulvn7pq412phg6ebo4sun.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "mcproject.instanotes",
+            "package_name": "mcproject.instanotesv1",
             "certificate_hash": "a216b19f86b0a9274c3262b374fa9ca9ee9ee2e0"
           }
         },
         {
-          "client_id": "206843421553-su32o4pjcb6srr3rg1g1tr9oga6j551f.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "206843421553-58disdtpffknu7sovoc45vo49jac2nr9.apps.googleusercontent.com",
+          "client_id": "1070727904600-749hqh8d8utotcfruh314032qk6p161i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCE-Qyhh3MlpVNnHD12MVaDk9zf4IOwsNw"
+          "current_key": "AIzaSyAfHKt-57APl3jn5b04tVndAKmNMRgde-k"
         }
       ],
       "services": {
@@ -44,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "206843421553-su32o4pjcb6srr3rg1g1tr9oga6j551f.apps.googleusercontent.com",
+              "client_id": "1070727904600-749hqh8d8utotcfruh314032qk6p161i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

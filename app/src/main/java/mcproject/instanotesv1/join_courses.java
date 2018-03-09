@@ -1,15 +1,12 @@
-package mcproject.instanotes;
+package mcproject.instanotesv1;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Spinner;
 

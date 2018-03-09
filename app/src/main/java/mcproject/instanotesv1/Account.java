@@ -1,16 +1,13 @@
-package mcproject.instanotes;
+package mcproject.instanotesv1;
 
-import android.media.Image;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.squareup.picasso.Picasso;
 
 public class Account extends AppCompatActivity {
 

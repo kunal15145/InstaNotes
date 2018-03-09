@@ -1,12 +1,13 @@
-package mcproject.instanotes;
+package mcproject.instanotesv1;
 
 
-public class Trans {
+public class Notif {
+
     private String title;
     private String shortdesc;
     private int image;
 
-    public Trans(String title, String shortdesc, int image) {
+    public Notif(String title, String shortdesc, int image) {
         this.title = title;
         this.shortdesc = shortdesc;
         this.image = image;

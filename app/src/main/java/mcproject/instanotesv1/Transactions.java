@@ -1,4 +1,4 @@
-package mcproject.instanotes;
+package mcproject.instanotesv1;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

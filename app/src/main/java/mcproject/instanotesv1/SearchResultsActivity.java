@@ -1,4 +1,4 @@
-package mcproject.instanotes;
+package mcproject.instanotesv1;
 
 import android.app.Activity;
 import android.app.SearchManager;

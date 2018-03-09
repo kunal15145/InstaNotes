@@ -1,4 +1,4 @@
-package mcproject.instanotes;
+package mcproject.instanotesv1;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
