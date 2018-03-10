@@ -28,7 +28,7 @@
         android:layout_height="68dp"
         app:civ_border_width="2dp"
         android:onClick="account"
-        app:civ_border_color="#ffff00"/>
+        app:civ_border_color="@color/newblue"/>
 
     <TextView
         android:id="@+id/username"

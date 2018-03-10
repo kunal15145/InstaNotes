@@ -184,13 +184,12 @@ public class my_courses extends AppCompatActivity
             intent2 = new Intent(getApplicationContext(),Help.class);
             startActivity(intent2);
         } else if (id == R.id.feedback) {
-//            intent2 = new Intent(getApplicationContext(),feedback.class);
-//            startActivity(intent2);
-//              to be made
+            intent2 = new Intent(getApplicationContext(),feedback.class);
+            startActivity(intent2);
+
         } else if (id == R.id.settings) {
-            //            intent2 = new Intent(getApplicationContext(),settings.class);
-//            startActivity(intent2);
-//              to be made
+            intent2 = new Intent(getApplicationContext(),Settings.class);
+            startActivity(intent2);
 
         } else if (id == R.id.nav_logout) {
             //firebaseAuth.signOut();
