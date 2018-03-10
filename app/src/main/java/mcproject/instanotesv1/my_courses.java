@@ -134,6 +134,7 @@ public class my_courses extends AppCompatActivity
                         .error(android.R.drawable.sym_def_app_icon)
                         .into(dp1);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
 
@@ -145,6 +146,14 @@ public class my_courses extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+//    @Override
+    public void account(View V)
+    {
+        Intent intent3;
+        intent3 = new Intent(V.getContext(),Account.class);
+        startActivity(intent3);
     }
 
     @Override
@@ -175,13 +184,12 @@ public class my_courses extends AppCompatActivity
             intent2 = new Intent(getApplicationContext(),Help.class);
             startActivity(intent2);
         } else if (id == R.id.feedback) {
-//            intent2 = new Intent(getApplicationContext(),feedback.class);
-//            startActivity(intent2);
-//              to be made
+            intent2 = new Intent(getApplicationContext(),feedback.class);
+            startActivity(intent2);
+
         } else if (id == R.id.settings) {
-            //            intent2 = new Intent(getApplicationContext(),settings.class);
-//            startActivity(intent2);
-//              to be made
+            intent2 = new Intent(getApplicationContext(),Settings.class);
+            startActivity(intent2);
 
         } else if (id == R.id.nav_logout) {
             //firebaseAuth.signOut();
