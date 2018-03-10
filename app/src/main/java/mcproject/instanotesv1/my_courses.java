@@ -134,6 +134,7 @@ public class my_courses extends AppCompatActivity
                         .error(android.R.drawable.sym_def_app_icon)
                         .into(dp1);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
 
@@ -145,6 +146,14 @@ public class my_courses extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+//    @Override
+    public void account(View V)
+    {
+        Intent intent3;
+        intent3 = new Intent(V.getContext(),Account.class);
+        startActivity(intent3);
     }
 
     @Override
