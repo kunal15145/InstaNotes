@@ -40,10 +40,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 public class IntroductionScreen extends AppCompatActivity {
 
 
@@ -70,6 +73,10 @@ public class IntroductionScreen extends AppCompatActivity {
     private static final String NAME_TAG = "Name";
     private static final String INSTA_COINS = "InstaCoins";
     private static final String PIC_URI = "PicUri";
+    private static final String CourseID_TAG = "CourseID";
+    private static final String CourseName_TAG = "CourseName";
+    private static final String InstructorName_TAG = "InstructorName";
+    private static final String Semester_TAG = "Semester";
 
 
     @Override
@@ -123,15 +130,48 @@ public class IntroductionScreen extends AppCompatActivity {
     }
 
     private void Add_CheckUser(FirebaseUser firebaseUser) {
-
-        db.collection("users")
+//        BufferedReader br=null;
+//        String line;
+//        try{
+//            br=new BufferedReader(new InputStreamReader(getAssets().open("a.csv")));
+//            int i=0;
+//            while((line=br.readLine())!=null){
+//                i++;
+//                final String course[]=line.split(",");
+//                Map<String,Object> NewCourseInfo = new HashMap<>();
+//                NewCourseInfo.put(CourseName_TAG,course[1]);
+//                NewCourseInfo.put(CourseID_TAG,course[0]);
+//                NewCourseInfo.put(InstructorName_TAG,course[2]);
+//                NewCourseInfo.put(Semester_TAG,"Winter 2018");
+//                db.collection("courses").document("Course"+i)
+//                        .set(NewCourseInfo)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Log.d("ok", "course added");
+//                            }
+//                        });
+//            }
+//            br.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        final FirebaseUser[] users=new FirebaseUser[1];
+        users[0]=firebaseUser;
+        db.collection("users").document(firebaseUser.getEmail())
             .get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if(task.isSuccessful()){
-                        for(DocumentSnapshot documentSnapshot:task.getResult()){
-                            currentUsers.add((String) documentSnapshot.getData().get(EMAIL_TAG));
+                        DocumentSnapshot doc=task.getResult();
+                        if(doc.exists()==false){
+                            Map<String,Object> NewUserInfo = new HashMap<>();
+                            NewUserInfo.put(NAME_TAG,users[0].getDisplayName());
+                            NewUserInfo.put(EMAIL_TAG,users[0].getEmail());
+                            NewUserInfo.put(INSTA_COINS,"5");
+                            NewUserInfo.put(PIC_URI,users[0].getPhotoUrl().toString());
+                            db.collection("users").document(users[0].getEmail()).set(NewUserInfo);
                         }
                     }
                     else {
@@ -139,29 +179,6 @@ public class IntroductionScreen extends AppCompatActivity {
                     }
                 }
             });
-
-        if(!currentUsers.contains(firebaseUser.getEmail())){
-            Map<String,Object> NewUserInfo = new HashMap<>();
-            NewUserInfo.put(NAME_TAG,firebaseUser.getDisplayName());
-            NewUserInfo.put(EMAIL_TAG,firebaseUser.getEmail());
-            NewUserInfo.put(INSTA_COINS,"5");
-            NewUserInfo.put(PIC_URI,firebaseUser.getPhotoUrl().toString());
-            db.collection("users")
-                    .add(NewUserInfo)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d("Added User",documentReference.getId());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("Error adding Document", String.valueOf(e));
-                        }
-                    });
-        }
-
     }
 
     private void my_course_list(FirebaseUser firebaseUser) {
@@ -235,6 +252,7 @@ public class IntroductionScreen extends AppCompatActivity {
             public void onPageSelected(int position) {makeDotVisible(position);}            @Override
             public void onPageScrollStateChanged(int state) {}
         });
+
     }
 
     private void makeDotVisible(int i) {
