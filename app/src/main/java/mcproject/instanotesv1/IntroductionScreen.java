@@ -181,7 +181,7 @@ public class IntroductionScreen extends AppCompatActivity {
             if(j==i){
                 dots[j].setTextColor(getResources().getColor(R.color.newred));
             }
-            else dots[j].setTextColor(getResources().getColor(R.color.newgray));
+            else dots[j].setTextColor(getResources().getColor(R.color.cardview_light_background));
             AllDots.addView(dots[j]);
         }
     }
