@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,29 +26,50 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class IntroductionScreen extends AppCompatActivity {
 
+
+    // Introduction Screen
     private ViewPager viewPager;
     private PagerAdapter ViewPagerAdapter;
     private LinearLayout AllDots;
     private TextView[] dots;
     private int[] FeatureScreenLayouts;
- //   private CheckFirstTimeLaunch checkFirstTimeLaunch;
 
+    // Sign In Screen
     private ProgressDialog progressDialog;
     private static final String LOADING = "Loading";
-
     private SignInButton signInButton;
     private FirebaseAuth firebaseAuth;
     private static final int SIGN_IN = 9001;
     private GoogleSignInClient googleSignInClient;
+
+    //Firestore
+    private FirebaseFirestore db;
+    private ArrayList<String> currentUsers = new ArrayList<>();
+
+    private static final String EMAIL_TAG = "Email";
+    private static final String NAME_TAG = "Name";
+    private static final String INSTA_COINS = "InstaCoins";
+    private static final String PIC_URI = "PicUri";
 
 
     @Override
@@ -87,6 +109,7 @@ public class IntroductionScreen extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    Add_CheckUser(firebaseUser);
                     my_course_list(firebaseUser);
                 }
                 else{
@@ -97,6 +120,48 @@ public class IntroductionScreen extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void Add_CheckUser(FirebaseUser firebaseUser) {
+
+        db.collection("users")
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for(DocumentSnapshot documentSnapshot:task.getResult()){
+                            currentUsers.add((String) documentSnapshot.getData().get(EMAIL_TAG));
+                        }
+                    }
+                    else {
+                        db.collection("users");
+                    }
+                }
+            });
+
+        if(!currentUsers.contains(firebaseUser.getEmail())){
+            Map<String,Object> NewUserInfo = new HashMap<>();
+            NewUserInfo.put(NAME_TAG,firebaseUser.getDisplayName());
+            NewUserInfo.put(EMAIL_TAG,firebaseUser.getEmail());
+            NewUserInfo.put(INSTA_COINS,"5");
+            NewUserInfo.put(PIC_URI,firebaseUser.getPhotoUrl().toString());
+            db.collection("users")
+                    .add(NewUserInfo)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("Added User",documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Error adding Document", String.valueOf(e));
+                        }
+                    });
+        }
+
     }
 
     private void my_course_list(FirebaseUser firebaseUser) {
@@ -128,6 +193,7 @@ public class IntroductionScreen extends AppCompatActivity {
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         // Introduction Screen
         viewPager = findViewById(R.id.viewPageIntro);
@@ -185,11 +251,4 @@ public class IntroductionScreen extends AppCompatActivity {
             AllDots.addView(dots[j]);
         }
     }
-
-//    private void launchMyCourses() {
-//        checkFirstTimeLaunch.setFirstLaunch(false);
-//        Intent intent = new Intent(IntroductionScreen.this,my_courses.class);
-//        startActivity(intent);
-//        finish();
-//    }
 }

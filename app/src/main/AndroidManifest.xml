@@ -23,12 +23,10 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="mcproject.instanotesv1.join_courses">
-            android:label="Join Courses"
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
@@ -47,7 +45,7 @@
         <activity android:name="mcproject.instanotesv1.Notifications" />
         <activity android:name="mcproject.instanotesv1.Transactions" />
         <activity android:name="mcproject.instanotesv1.Account" />
-        <activity android:name="mcproject.instanotesv1.Help"></activity>
+        <activity android:name="mcproject.instanotesv1.Help" />
     </application>
 
 </manifest>
