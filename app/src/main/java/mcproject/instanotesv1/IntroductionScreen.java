@@ -1,5 +1,6 @@
 package mcproject.instanotesv1;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -40,6 +41,9 @@ public class IntroductionScreen extends AppCompatActivity {
     private int[] FeatureScreenLayouts;
  //   private CheckFirstTimeLaunch checkFirstTimeLaunch;
 
+    private ProgressDialog progressDialog;
+    private static final String LOADING = "Loading";
+
     private SignInButton signInButton;
     private FirebaseAuth firebaseAuth;
     private static final int SIGN_IN = 9001;
@@ -72,6 +76,12 @@ public class IntroductionScreen extends AppCompatActivity {
 
     private void firebaseAuthorization(GoogleSignInAccount account) {
         AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(LOADING);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+
         firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -82,15 +92,18 @@ public class IntroductionScreen extends AppCompatActivity {
                 else{
                     my_course_list(null);
                 }
+                if(progressDialog.isShowing() && progressDialog!=null){
+                    progressDialog.dismiss();
+                }
             }
         });
     }
 
     private void my_course_list(FirebaseUser firebaseUser) {
-        if(firebaseUser!=null){
-            Intent intent = new Intent(IntroductionScreen.this,my_courses.class);
-            startActivity(intent);
-        }
+            if(firebaseUser!=null){
+                Intent intent = new Intent(IntroductionScreen.this,my_courses.class);
+                startActivity(intent);
+            }
     }
 
     @Override
