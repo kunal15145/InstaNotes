@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/InstaNotes.iml" filepath="$PROJECT_DIR$/InstaNotes.iml" />
+      <module fileurl="file://E:\MC\InstaNotesProject\InstaNotes.iml" filepath="E:\MC\InstaNotesProject\InstaNotes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InstaNotesProject.iml" filepath="$PROJECT_DIR$/InstaNotesProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

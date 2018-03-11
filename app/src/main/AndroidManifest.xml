@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="mcproject.instanotesv1.my_courses"
+            android:name=".my_courses"
             android:label="@string/title_activity_my_courses"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,20 +19,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="mcproject.instanotesv1.IntroductionScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".IntroductionScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="mcproject.instanotesv1.join_courses">
+        <activity android:name=".join_courses">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
-        <activity android:name="mcproject.instanotesv1.SearchResultsActivity">
+        <activity android:name=".SearchResultsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
 
@@ -43,10 +43,16 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name="mcproject.instanotesv1.Notifications" />
-        <activity android:name="mcproject.instanotesv1.Transactions" />
-        <activity android:name="mcproject.instanotesv1.Account" />
-        <activity android:name="mcproject.instanotesv1.Help" />
+        <activity android:name=".Notifications" />
+        <activity android:name=".Transactions" />
+        <activity android:name=".Account" />
+        <activity android:name=".Help" />
+        <activity
+            android:name=".FeedBack"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".settings"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

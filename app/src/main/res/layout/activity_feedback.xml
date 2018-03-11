@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mcproject.instanotesv1.FeedBack">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_actionbar"
+        android:background="@color/midnightblue"
+        android:theme="@style/ToolBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:fitsSystemWindows="true" />
+
+    <TextView
+        android:id="@+id/rate_me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="10dp"
+        android:text="Please rate our app"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:isIndicator="false"
+        android:theme="@style/RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rate_me"
+        android:layout_centerHorizontal="true"
+        android:numStars="5"
+        android:stepSize="1.0" />
+
+    <TextView
+        android:id="@+id/rate_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ratingBar"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="65dp"
+        android:text="Tell us what you think"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18dp" />
+
+
+    <Button
+
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp"
+        android:background="@drawable/buttonradius_feedback"
+        android:onClick="rateMe"
+        android:text="Submit"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/rate_us"
+        android:layout_marginEnd="29dp"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="Write your feedback here"
+        android:inputType="textPersonName" />
+
+
+</RelativeLayout>

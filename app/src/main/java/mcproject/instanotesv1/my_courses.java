@@ -175,7 +175,7 @@ public class my_courses extends AppCompatActivity
             intent2 = new Intent(getApplicationContext(),Help.class);
             startActivity(intent2);
         } else if (id == R.id.feedback) {
-//            intent2 = new Intent(getApplicationContext(),feedback.class);
+//            intent2 = new Intent(getApplicationContext(),FeedBack.class);
 //            startActivity(intent2);
 //              to be made
         } else if (id == R.id.settings) {
