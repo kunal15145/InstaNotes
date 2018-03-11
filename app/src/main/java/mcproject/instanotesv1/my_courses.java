@@ -14,11 +14,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.squareup.picasso.Picasso;
 
 
@@ -32,64 +39,23 @@ public class my_courses extends AppCompatActivity
     public CircleImageView dp1;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private FirebaseFirestore firestore;
+    private static final String INSTA_COINS = "InstaCoins";
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_courses);
-        firebaseAuth = FirebaseAuth.getInstance();
-//        Button notifbutton= findViewById(R.id.button2);
-//        notifbutton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent;
-//                intent = new Intent(view.getContext(),Notifications.class);
-//                startActivity(intent);
-//            }
-//        });
-//        Button transButton= findViewById(R.id.button3);
-//        transButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent2;
-//                intent2 = new Intent(view.getContext(),Transactions.class);
-//                startActivity(intent2);
-//            }
-//        });
-//        Button accbtn= findViewById(R.id.button4);
-//        accbtn.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent3;
-//                intent3 = new Intent(view.getContext(),Account.class);
-//                startActivity(intent3);
-//            }
-//        });
-//        Button helpbtn= findViewById(R.id.button5);
-//        helpbtn.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent4;
-//                intent4 = new Intent(view.getContext(),Help.class);
-//                startActivity(intent4);
-//            }
-//        });
-        /*Button transbutton2=(Button)findViewById(R.id.nav_camera);
-        transbutton2.setOnClickListener(new View.OnClickListener(){
 
-                                           @Override
-                                           public void onClick(View view) {
-                                               Intent intent=new Intent(view.getContext(),Transactions.class);
-                                               startActivity(intent);
-                                           }
-                                       }
-        );*/
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_my_courses);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firestore = FirebaseFirestore.getInstance();
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -116,7 +82,25 @@ public class my_courses extends AppCompatActivity
         navUsername = headerView.findViewById(R.id.username);
 
         credit = headerView.findViewById(R.id.credit);
-        credit.setText("7 Credits");
+
+        firestore.collection("users").document(firebaseUser.getEmail()).addSnapshotListener(
+                new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                        if(e!=null){
+                            Log.d("Failure Listining","ok");
+                            return;
+                        }
+                        else if(documentSnapshot!=null && documentSnapshot.exists()){
+                            Log.d("dasd", (String) documentSnapshot.get(INSTA_COINS));
+                            credit.setText((CharSequence) documentSnapshot.get(INSTA_COINS)+" credits");
+                        }
+                        else {
+                            Log.d("Current data",null);
+                        }
+                    }
+                }
+        );
         email = headerView.findViewById(R.id.email);
 
         firebaseUser = firebaseAuth.getCurrentUser();
