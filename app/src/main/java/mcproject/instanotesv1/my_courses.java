@@ -1,5 +1,6 @@
 package mcproject.instanotesv1;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -83,8 +84,9 @@ public class my_courses extends AppCompatActivity
 
         credit = headerView.findViewById(R.id.credit);
 
-        firestore.collection("users").document(firebaseUser.getEmail()).addSnapshotListener(
+        firestore.collection("users").document(firebaseUser.getUid()).addSnapshotListener(
                 new EventListener<DocumentSnapshot>() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
                         if(e!=null){
@@ -93,7 +95,7 @@ public class my_courses extends AppCompatActivity
                         }
                         else if(documentSnapshot!=null && documentSnapshot.exists()){
                             Log.d("dasd", (String) documentSnapshot.get(INSTA_COINS));
-                            credit.setText((CharSequence) documentSnapshot.get(INSTA_COINS)+" credits");
+                            credit.setText(documentSnapshot.get(INSTA_COINS) +" credits");
                         }
                         else {
                             Log.d("Current data",null);
