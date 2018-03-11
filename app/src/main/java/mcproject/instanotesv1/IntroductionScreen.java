@@ -158,27 +158,23 @@ public class IntroductionScreen extends AppCompatActivity {
 //        }
         final FirebaseUser[] users=new FirebaseUser[1];
         users[0]=firebaseUser;
-        db.collection("users").document(firebaseUser.getEmail())
-            .get()
-            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        Map<String,Object> NewUserInfo = new HashMap<>();
+        NewUserInfo.put(NAME_TAG,users[0].getDisplayName());
+        NewUserInfo.put(EMAIL_TAG,users[0].getEmail());
+        NewUserInfo.put(INSTA_COINS,"5");
+        NewUserInfo.put(PIC_URI,users[0].getPhotoUrl().toString());
+        db.collection("users").document(users[0].getUid()).set(NewUserInfo)
+          .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()){
-                        DocumentSnapshot doc=task.getResult();
-                        if(doc.exists()==false){
-                            Map<String,Object> NewUserInfo = new HashMap<>();
-                            NewUserInfo.put(NAME_TAG,users[0].getDisplayName());
-                            NewUserInfo.put(EMAIL_TAG,users[0].getEmail());
-                            NewUserInfo.put(INSTA_COINS,"5");
-                            NewUserInfo.put(PIC_URI,users[0].getPhotoUrl().toString());
-                            db.collection("users").document(users[0].getEmail()).set(NewUserInfo);
-                        }
-                    }
-                    else {
-                        db.collection("users");
-                    }
+                public void onSuccess(Void aVoid) {
+                    Log.d("sdfjkhsdkjfha", "written");
                 }
-            });
+          }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("sdjkfsahdkjfh", "Error writing document");
+                }
+        });
     }
 
     private void my_course_list(FirebaseUser firebaseUser) {
