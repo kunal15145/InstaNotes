@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Instant Access to Class Notes"
+        android:text="@string/instant_access_to_class_notes"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp" />
