@@ -1,8 +1,5 @@
 package mcproject.instanotesv1;
 
-/**
- * Created by Harshit Verma on 11-03-2018.
- */
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +15,8 @@ import java.util.ArrayList;
 
 public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
 
+    private static int COURSE_TYPE_CARD = 0;
+    private static int COURSE_INFO_CARD = 1;
     private ArrayList<SingleItemModel> itemsList;
     private Context mContext;
 
@@ -27,26 +26,39 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     }
 
     @Override
+    public int getItemViewType(int position){
+        if(position==0)
+            return COURSE_INFO_CARD;
+        else return COURSE_TYPE_CARD;
+    }
+
+    @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_single_card, null);
-        SingleItemRowHolder mh = new SingleItemRowHolder(v);
-        return mh;
+        if(i==COURSE_TYPE_CARD) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_single_card, null);
+            SingleItemRowHolder mh = new SingleItemRowHolder(v);
+            return mh;
+        }
+        else if(i==COURSE_INFO_CARD) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardbranch, null);
+            SingleItemRowHolder mh = new SingleItemRowHolder(v);
+            return mh;
+        }
+        return null;
     }
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
 
         SingleItemModel singleItem = itemsList.get(i);
-
-        holder.tvTitle.setText(singleItem.getName());
-
-
-       /* Glide.with(mContext)
-                .load(feedItem.getImageURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .error(R.drawable.bg)
-                .into(feedListRowHolder.thumbView);*/
+        if(i==COURSE_INFO_CARD) {
+            holder.cardtopic.setText(singleItem.getTopic());
+            holder.cardsem.setText(singleItem.getSem());
+            holder.cardbutton.setText("Join");
+        }
+        else if(i==COURSE_TYPE_CARD) {
+            // do nothing , add course branch
+        }
     }
 
     @Override
@@ -56,16 +68,19 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView tvTitle;
+        protected TextView cardtopic,cardsem;
+        protected TextView cardbutton;
+        protected ImageView cardimg;
 
-        protected ImageView itemImage;
 
 
         public SingleItemRowHolder(View view) {
             super(view);
 
-            this.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-//            this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
+            this.cardtopic = view.findViewById(R.id.cardtopic);
+            this.cardbutton = view.findViewById(R.id.cardbutton);
+            this.cardimg = view.findViewById(R.id.cardimg);
+            this.cardsem = view.findViewById(R.id.cardsem);
 
 
             view.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +88,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 public void onClick(View v) {
 
 
-                    Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), cardtopic.getText(), Toast.LENGTH_SHORT).show();
 
                 }
             });

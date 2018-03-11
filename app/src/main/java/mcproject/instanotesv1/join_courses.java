@@ -43,7 +43,15 @@ public class join_courses extends AppCompatActivity {
 
             ArrayList<SingleItemModel> singleItem = new ArrayList<SingleItemModel>();
             for (int j = 0; j <= 5; j++) {
-                singleItem.add(new SingleItemModel("Item " + j, "URL " + j));
+                if(j==1)
+                {
+                    singleItem.add(new SingleItemModel("Designing Human Centered Systems ", "URL ","Winter 2018","Join"));
+                }
+                else
+                {
+                    singleItem.add(new SingleItemModel("Mobile Computing ", "URL ","Monsoon 2018","Join"));
+                }
+
             }
 
             dm.setAllItemsInSection(singleItem);
