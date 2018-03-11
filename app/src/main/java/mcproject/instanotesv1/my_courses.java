@@ -84,7 +84,7 @@ public class my_courses extends AppCompatActivity
 
         credit = headerView.findViewById(R.id.credit);
 
-        firestore.collection("users").document(firebaseUser.getEmail()).addSnapshotListener(
+        firestore.collection("users").document(firebaseUser.getUid()).addSnapshotListener(
                 new EventListener<DocumentSnapshot>() {
                     @SuppressLint("SetTextI18n")
                     @Override

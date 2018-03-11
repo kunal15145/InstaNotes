@@ -38,18 +38,6 @@ public class join_courses extends AppCompatActivity {
     private static int OTHERS = 6;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        addData();
-        Log.d("sadasd", String.valueOf(this.allSampleData.size()));
-        RecyclerView my_recycler_view = findViewById(R.id.my_recycler_view);
-        my_recycler_view.setHasFixedSize(true);
-        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(this,allSampleData);
-        my_recycler_view.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
-        my_recycler_view.setAdapter(adapter);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -59,7 +47,28 @@ public class join_courses extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        add();
 
+        sub();
+
+    }
+
+    public void onStart(){
+        super.onStart();
+        addData();
+    }
+
+    public void onResume(){
+        super.onResume();
+        addData();
+    }
+
+    public void add(){
+        Log.d("asdkjfhasdf", "yagami gandu");
+    }
+
+    public void sub(){
+        Log.d("asdkjfhasdf", "yagami loda");
     }
 
     public void addData(){
@@ -121,5 +130,11 @@ public class join_courses extends AppCompatActivity {
                     }
                 }
             });
+        Log.d("sadasd", String.valueOf(this.allSampleData.size()));
+        RecyclerView my_recycler_view = findViewById(R.id.my_recycler_view);
+        my_recycler_view.setHasFixedSize(true);
+        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(this,this.allSampleData);
+        my_recycler_view.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
+        my_recycler_view.setAdapter(adapter);
     }
 }
