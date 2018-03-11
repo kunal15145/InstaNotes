@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -30,12 +32,17 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class my_courses extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+
+    List<Book> lstBook ;
     public TextView navUsername,credit,email;
     public CircleImageView dp1;
     private FirebaseAuth firebaseAuth;
@@ -49,9 +56,35 @@ public class my_courses extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
 
+//        getSupportActionBar().setLogo(R.drawable.notificon);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_my_courses);
+
+
+        lstBook = new ArrayList<>();
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+        RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
+        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this,lstBook);
+        myrv.setLayoutManager(new GridLayoutManager(this,2));
+        myrv.setAdapter(myAdapter);
+
+
+
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -60,6 +93,7 @@ public class my_courses extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +132,7 @@ public class my_courses extends AppCompatActivity
                             credit.setText(documentSnapshot.get(INSTA_COINS) +" credits");
                         }
                         else {
-                            Log.d("Current data",null);
+                            Log.d("Current data","");
                         }
                     }
                 }
@@ -142,18 +176,12 @@ public class my_courses extends AppCompatActivity
         startActivity(intent3);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_courses, menu);
-        return true;
+    public void onClick(View v){
+        Intent intent=new Intent(v.getContext(),Notifications.class);
+        startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
 
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -174,7 +202,7 @@ public class my_courses extends AppCompatActivity
             startActivity(intent2);
 
         } else if (id == R.id.settings) {
-            intent2 = new Intent(getApplicationContext(),Settings.class);
+            intent2 = new Intent(getApplicationContext(),settings.class);
             startActivity(intent2);
 
         } else if (id == R.id.nav_logout) {
