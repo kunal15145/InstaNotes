@@ -16,7 +16,7 @@
         android:layout_marginLeft="16dp"
         android:text="Device Notifications "
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="16sp"
          />
 
     <Switch
@@ -35,7 +35,7 @@
         android:layout_below="@+id/Notifi"
         android:layout_marginStart="0dp"
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="16sp"
         android:text="Download Over WiFi Only"
         />
 

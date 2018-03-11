@@ -16,7 +16,7 @@
         android:layout_marginLeft="16dp"
         android:text="Popular"
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
 
@@ -39,7 +39,7 @@
         android:layout_toRightOf="@id/imageView14"
         android:text="Downloading/Uploading Notes"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/imageView15"
@@ -61,7 +61,7 @@
         android:layout_toRightOf="@id/imageView15"
         android:text="Changing Privacy of Notes"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
     <ImageView
         android:id="@+id/imageView16"
         android:layout_width="30dp"
@@ -83,7 +83,7 @@
         android:layout_toRightOf="@id/imageView16"
         android:text="Requesting for New Notes"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
     <ImageView
         android:id="@+id/imageView17"
         android:layout_width="30dp"
@@ -104,7 +104,7 @@
         android:layout_toRightOf="@id/imageView17"
         android:text="How the App Works"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
     <ImageView
         android:id="@+id/imageView18"
         android:layout_width="30dp"
@@ -125,7 +125,7 @@
         android:layout_toRightOf="@id/imageView18"
         android:text="Accessing Past Courses"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
     <View
         android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"
@@ -155,7 +155,7 @@
         android:layout_toRightOf="@id/imageView19"
         android:text="Feedback"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
     <View
         android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"
