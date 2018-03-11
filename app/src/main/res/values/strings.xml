@@ -14,7 +14,7 @@
         <item>Previous Semester</item>
     </string-array>
     <string name="Auth_KEY">1070727904600-749hqh8d8utotcfruh314032qk6p161i.apps.googleusercontent.com</string>
-    <string name="instant_access_to_class_notes" />
+    <string name="instant_access_to_class_notes">Instant Access to Class Notes</string>
     <string name="Feedback_title">Feedback</string>
     <string name="Settings_title">Settings</string>
     <string name="devicenotification_settings">Device Notifications</string>
