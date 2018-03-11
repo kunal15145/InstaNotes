@@ -1,10 +1,7 @@
 package mcproject.instanotesv1;
 
-/**
- * Created by Harshit Verma on 10-03-2018.
- */
 
-public class SingleItemModel {
+public class SingleItemModel{
 
 
     private String topic;

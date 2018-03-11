@@ -6,24 +6,22 @@ import android.content.Context;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
-        import android.widget.Button;
-        import android.widget.TextView;
-        import android.widget.Toast;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.ItemRowHolder> {
 
-    private ArrayList<SectionDataModel> dataList;
+    private HashMap<Integer,ArrayList<SingleItemModel>> dataList;
     private Context mContext;
 
-    public RecyclerViewDataAdapter(Context context, ArrayList<SectionDataModel> dataList) {
-        this.dataList = dataList;
+    public RecyclerViewDataAdapter(Context context,HashMap<Integer,ArrayList<SingleItemModel>> datalist1) {
+        this.dataList = datalist1;
         this.mContext = context;
     }
 
     @Override
-    public ItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ItemRowHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, null);
         ItemRowHolder mh = new ItemRowHolder(v);
         return mh;
@@ -32,25 +30,11 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
 
-        final String sectionName = dataList.get(i).getHeaderTitle();
-
-        ArrayList singleSectionItems = dataList.get(i).getAllItemsInSection();
-
+        ArrayList<SingleItemModel> singleSectionItems = dataList.get(i);
         SectionListDataAdapter itemListDataAdapter = new SectionListDataAdapter(mContext, singleSectionItems);
-
         itemRowHolder.recycler_view_list.setHasFixedSize(true);
         itemRowHolder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         itemRowHolder.recycler_view_list.setAdapter(itemListDataAdapter);
-
-
-
-
-       /* Glide.with(mContext)
-                .load(feedItem.getImageURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .error(R.drawable.bg)
-                .into(feedListRowHolder.thumbView);*/
     }
 
     @Override
@@ -60,18 +44,11 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView itemTitle;
-
         protected RecyclerView recycler_view_list;
-
-        protected Button btnMore;
-
-
 
         public ItemRowHolder(View view) {
             super(view);
-
-            this.recycler_view_list = (RecyclerView) view.findViewById(R.id.recycler_view_list);
+            this.recycler_view_list = view.findViewById(R.id.recycler_view_list);
 
         }
 
