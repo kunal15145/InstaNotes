@@ -1,36 +1,67 @@
 package mcproject.instanotesv1;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.ArrayAdapter;
-import android.widget.SearchView;
-import android.widget.Spinner;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.WindowManager;
 
-public class join_courses extends AppCompatActivity{
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join_courses);
-        Spinner staticSpinner = (Spinner) findViewById(R.id.static_spinner);
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.Semester,
-                        android.R.layout.simple_spinner_item);
-        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        staticSpinner.setAdapter(staticAdapter);
+import java.util.ArrayList;
+
+public class join_courses extends AppCompatActivity {
 
 
-    }
+    ArrayList<SectionDataModel> allSampleData;
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        return true;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_join_courses);
+        allSampleData = new ArrayList<>();
+
+
+        createDummyData();
+
+
+        RecyclerView my_recycler_view = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        my_recycler_view.setHasFixedSize(true);
+
+        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(this, allSampleData);
+
+        my_recycler_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        my_recycler_view.setAdapter(adapter);
+
+
     }
+
+    public void createDummyData() {
+        for (int i = 1; i <= 5; i++) {
+
+            SectionDataModel dm = new SectionDataModel();
+
+            ArrayList<SingleItemModel> singleItem = new ArrayList<SingleItemModel>();
+            for (int j = 0; j <= 5; j++) {
+                if(j==1)
+                {
+                    singleItem.add(new SingleItemModel("Designing Human Centered Systems ", "URL ","Winter 2018","Join"));
+                }
+                else
+                {
+                    singleItem.add(new SingleItemModel("Mobile Computing ", "URL ","Monsoon 2018","Join"));
+                }
+
+            }
+
+            dm.setAllItemsInSection(singleItem);
+
+            allSampleData.add(dm);
+
+        }
+    }
+
+
 }

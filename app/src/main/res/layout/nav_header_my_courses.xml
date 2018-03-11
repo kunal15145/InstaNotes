@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
         android:id="@+id/credit"
@@ -26,7 +26,9 @@
         android:id="@+id/dp"
         android:layout_width="68dp"
         android:layout_height="68dp"
-        />
+        app:civ_border_width="2dp"
+        android:onClick="account"
+        app:civ_border_color="@color/newblue"/>
 
     <TextView
         android:id="@+id/username"
