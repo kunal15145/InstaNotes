@@ -17,4 +17,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="back_button" parent="android:Theme.DeviceDefault.NoActionBar" />
+
 </resources>

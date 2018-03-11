@@ -47,7 +47,7 @@
         <activity android:name=".Notifications" />
         <activity android:name=".Transactions" />
         <activity android:name=".Account" />
-        <activity android:name=".Help" />
+        <activity android:name=".Help"/>
         <activity android:name=".Settings" />
         <activity android:name=".feedback"></activity>
     </application>

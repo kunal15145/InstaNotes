@@ -84,6 +84,7 @@ public class my_courses extends AppCompatActivity
         credit = headerView.findViewById(R.id.credit);
 
         firestore.collection("users").document(firebaseUser.getEmail()).addSnapshotListener(
+
                 new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
