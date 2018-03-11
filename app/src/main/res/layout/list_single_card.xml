@@ -81,7 +81,6 @@
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 android:textColor="@color/newblue2"
-
                 />
 
 

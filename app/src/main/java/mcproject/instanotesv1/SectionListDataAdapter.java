@@ -36,28 +36,29 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         if(i==COURSE_TYPE_CARD) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_single_card, null);
-            SingleItemRowHolder mh = new SingleItemRowHolder(v);
-            return mh;
+            return new SingleItemRowHolder(v);
         }
         else if(i==COURSE_INFO_CARD) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardbranch, null);
-            SingleItemRowHolder mh = new SingleItemRowHolder(v);
-            return mh;
+            return new SingleItemRowHolder(v);
         }
         return null;
     }
 
     @Override
-    public void onBindViewHolder(SingleItemRowHolder holder, int i) {
+    public void onBindViewHolder(final SingleItemRowHolder holder, int i) {
 
-        SingleItemModel singleItem = itemsList.get(i);
-        if(i==COURSE_INFO_CARD) {
+        final SingleItemModel singleItem = itemsList.get(i);
+        if(holder.getItemViewType()==COURSE_TYPE_CARD){
             holder.cardtopic.setText(singleItem.getTopic());
             holder.cardsem.setText(singleItem.getSem());
-            holder.cardbutton.setText("Join");
-        }
-        else if(i==COURSE_TYPE_CARD) {
-            // do nothing , add course branch
+            holder.cardbutton.setText(singleItem.getJoinbtn());
+            holder.cardbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(),singleItem.getTopic(),Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -72,27 +73,12 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         protected TextView cardbutton;
         protected ImageView cardimg;
 
-
-
         public SingleItemRowHolder(View view) {
             super(view);
-
             this.cardtopic = view.findViewById(R.id.cardtopic);
             this.cardbutton = view.findViewById(R.id.cardbutton);
             this.cardimg = view.findViewById(R.id.cardimg);
             this.cardsem = view.findViewById(R.id.cardsem);
-
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    Toast.makeText(v.getContext(), cardtopic.getText(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
 
         }
 
