@@ -3,6 +3,7 @@ package mcproject.instanotesv1;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -32,9 +33,14 @@ public class Account extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_account);
-
+//        setContentView(R.layout.activity_help);
+//        setContentView(R.layout.activity_feedback);
+        Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tb);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         TextView sname= findViewById(R.id.textView21);
         TextView email= findViewById(R.id.textView23);
@@ -77,5 +83,11 @@ public class Account extends AppCompatActivity {
                 .load(uri)
                 .error(android.R.drawable.sym_def_app_icon)
                 .into(dp);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

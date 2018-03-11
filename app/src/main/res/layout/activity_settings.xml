@@ -5,21 +5,15 @@
     android:layout_height="match_parent"
     tools:context="mcproject.instanotesv1.settings">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_actionbar"
-        android:theme="@style/ToolBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"/>
+    <include layout="@layout/appbar" />
 
     <TextView
         android:id="@+id/device_notification"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_actionbar"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginTop="70sp"
+        android:layout_marginLeft="30sp"
         android:textColor="@color/black"
         android:text="@string/devicenotification_settings"
         android:textSize="18sp" />
@@ -30,18 +24,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/device_notification"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="120dp"
-        android:layout_below="@id/toolbar_actionbar"
+        android:layout_marginTop="70sp"
+        android:layout_marginLeft="120sp"
         android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/device_downloadoverwifi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_actionbar"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginTop="110sp"
+        android:layout_marginLeft="30sp"
         android:textColor="@color/black"
         android:text="@string/downloadoverwifi_settings"
         android:textSize="18sp" />
@@ -52,9 +44,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/device_downloadoverwifi"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="87dp"
-        android:layout_below="@id/toolbar_actionbar"
+        android:layout_marginTop="110sp"
+        android:layout_marginLeft="90sp"
         android:layout_gravity="center" />
 
 

@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:background="#FFFCF9"
     tools:context="mcproject.instanotesv1.Transactions">
-
+    <include layout="@layout/appbar" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/transRecView"
+        android:layout_marginTop="55sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>

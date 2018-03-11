@@ -8,6 +8,7 @@
     android:layout_marginRight="20dp"
     android:orientation="vertical"
     >
+    <include layout="@layout/appbar" />
     <Space
         android:layout_width="1dp"
         android:layout_height="20dp"/>
