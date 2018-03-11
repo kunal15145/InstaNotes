@@ -79,7 +79,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             this.cardbutton = view.findViewById(R.id.cardbutton);
             this.cardimg = view.findViewById(R.id.cardimg);
             this.cardsem = view.findViewById(R.id.cardsem);
-
         }
 
     }
