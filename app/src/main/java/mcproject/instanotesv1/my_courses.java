@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +21,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,7 +48,6 @@ public class my_courses extends AppCompatActivity
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firestore;
     private static final String INSTA_COINS = "InstaCoins";
-    boolean doubleBackToExitPressedOnce = false;
 
     @Override
 
@@ -58,14 +55,15 @@ public class my_courses extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
 
+//        getSupportActionBar().setLogo(R.drawable.notificon);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_my_courses);
 
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
 
         lstBook = new ArrayList<>();
-
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
@@ -78,11 +76,9 @@ public class my_courses extends AppCompatActivity
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
-
-        RecyclerView myrv = findViewById(R.id.recyclerview_id);
-
+        RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
         RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this,lstBook);
-        myrv.setLayoutManager(gridLayoutManager);
+        myrv.setLayoutManager(new GridLayoutManager(this,2));
         myrv.setAdapter(myAdapter);
 
 
@@ -94,8 +90,11 @@ public class my_courses extends AppCompatActivity
         firestore = FirebaseFirestore.getInstance();
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle(R.string.mycourses_title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -109,7 +108,7 @@ public class my_courses extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mActionBarToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -141,7 +140,9 @@ public class my_courses extends AppCompatActivity
                 }
         );
         email = headerView.findViewById(R.id.email);
+
         firebaseUser = firebaseAuth.getCurrentUser();
+
         navigationView.setNavigationItemSelectedListener(this);
                 navUsername.setText(firebaseUser.getDisplayName());
                 email.setText(firebaseUser.getEmail());
@@ -158,38 +159,31 @@ public class my_courses extends AppCompatActivity
 
     }
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(doubleBackToExitPressedOnce){
-                super.onBackPressed();
-                return;
-            }
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce=false;
-                }
-            },2000);
+            super.onBackPressed();
         }
     }
 
 //    @Override
-    public void account(View V) {
+    public void account(View V)
+    {
         Intent intent3;
-        intent3 = new Intent(V.getContext(), Account.class);
+        intent3 = new Intent(V.getContext(),Account.class);
         startActivity(intent3);
     }
 
-    public void onClick(View v) {
-        Intent intent = new Intent(v.getContext(), Notifications.class);
+    public void onClick(View v){
+        Intent intent=new Intent(v.getContext(),Notifications.class);
         startActivity(intent);
     }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

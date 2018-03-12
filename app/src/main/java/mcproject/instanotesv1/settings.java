@@ -18,10 +18,12 @@ public class settings extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);
 
-        Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(tb);
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle(R.string.Settings_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 //        working with switch1
         switch1= (Switch) findViewById(R.id.switch1_settings);
 
@@ -34,7 +36,7 @@ public class settings extends AppCompatActivity {
                     Toast.makeText(settings.this,"ON", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                Toast.makeText(settings.this, "OFF", Toast.LENGTH_SHORT).show();}
+                    Toast.makeText(settings.this, "OFF", Toast.LENGTH_SHORT).show();}
             }
         });
 
