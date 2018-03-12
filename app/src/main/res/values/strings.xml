@@ -19,4 +19,11 @@
     <string name="Settings_title">Settings</string>
     <string name="devicenotification_settings">Device Notifications</string>
     <string name="downloadoverwifi_settings">Download over Wifi only</string>
+    <string name="admin_viewfeedbacks">Feedbacks</string>
+    <string name="title_activity_admin_course">Admin_course</string>
+    <string name="course_code">Course Code</string>
+    <string name="course_name">Course Name</string>
+    <string name="course_instructor_name">Course Instructor Name</string>
+    <string name="semester">Semester</string>
+    <string name="create_course">Create Course</string>
 </resources>
