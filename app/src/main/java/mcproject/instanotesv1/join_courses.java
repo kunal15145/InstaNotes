@@ -51,12 +51,6 @@ public class join_courses extends AppCompatActivity{
             allSampleData.add(new ArrayList<SingleItemModel>());
         }
         addData();
-        RecyclerView my_recycler_view = findViewById(R.id.my_recycler_view);
-        my_recycler_view.setHasFixedSize(true);
-        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(this,this.allSampleData);
-        my_recycler_view.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
-        my_recycler_view.setAdapter(adapter);
-
     }
 
     public void addData(){
@@ -110,17 +104,28 @@ public class join_courses extends AppCompatActivity{
                                 }
                                 join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
                             }
-                       Log.d("this", String.valueOf(allSampleData.size()));
+                        set_join_courses();
                     }
                     else {
                         Log.d("Couldn't","Try Again");
                     }
+
                 }
             });
+
     }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void set_join_courses(){
+        Log.d("this", String.valueOf(allSampleData.size()));
+        RecyclerView my_recycler_view = findViewById(R.id.my_recycler_view);
+        my_recycler_view.setHasFixedSize(true);
+        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(this,allSampleData);
+        my_recycler_view.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
+        my_recycler_view.setAdapter(adapter);
     }
 }
