@@ -14,6 +14,7 @@
         <activity
             android:name=".my_courses"
             android:label="@string/title_activity_my_courses"
+            android:hardwareAccelerated="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,7 +52,7 @@
         <activity android:name=".Help" />
         <activity android:name=".feedback" />
         <activity android:name=".settings" />
-        <activity android:name=".Book_Activity" />
+        <activity android:name=".course_activity" />
         <activity
             android:name=".Admin_course"
             android:label="@string/title_activity_admin_course"

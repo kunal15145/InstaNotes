@@ -132,7 +132,6 @@ public class join_courses extends AppCompatActivity{
                     else {
                         Log.d("Couldn't","Try Again");
                     }
-
                 }
             });
 
