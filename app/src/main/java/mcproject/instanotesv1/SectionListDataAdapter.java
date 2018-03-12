@@ -4,6 +4,7 @@ package mcproject.instanotesv1;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,8 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                     Toast.makeText(view.getContext(),holder.cardtopic.getText(),LENGTH_SHORT).show();                }
             });
         }
-        if(holder.getItemViewType()==COURSE_INFO_CARD){
+        else if(holder.getItemViewType()==COURSE_INFO_CARD){
+            Log.d("this",singleItem.getTopic());
             holder.cardtopic.setText(singleItem.getTopic());
         }
     }

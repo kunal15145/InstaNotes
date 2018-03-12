@@ -56,7 +56,7 @@ public class Account extends AppCompatActivity {
         sname.setText(splitStr[1]);
         email.setText(firebaseUser.getEmail());
         db.collection("users")
-                .document(firebaseUser.getEmail())
+                .document(firebaseUser.getUid())
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {

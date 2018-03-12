@@ -49,8 +49,9 @@
         <activity android:name=".Transactions" />
         <activity android:name=".Account" />
         <activity android:name=".Help" />
-        <activity android:name=".Settings" />
-        <activity android:name=".feedback"></activity>
+        <activity android:name=".feedback" />
+        <activity android:name=".settings" />
+        <activity android:name=".Book_Activity" />
     </application>
 
 </manifest>
