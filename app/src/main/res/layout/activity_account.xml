@@ -43,7 +43,7 @@
         android:id="@+id/textView12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="First Name"
+        android:text="@string/Fname"
         android:textSize="20sp" />
     <Space
         android:layout_width="1dp"
@@ -53,7 +53,6 @@
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -65,7 +64,7 @@
         android:id="@+id/textView20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Second Name"
+        android:text="@string/Lname"
         android:textSize="20sp" />
     <Space
         android:layout_width="1dp"
@@ -75,7 +74,6 @@
         android:id="@+id/textView21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -87,7 +85,7 @@
         android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:text="@string/Em"
         android:textSize="20sp" />
     <Space
         android:layout_width="1dp"
@@ -97,7 +95,6 @@
         android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="email"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -109,7 +106,7 @@
         android:id="@+id/textView25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Credits"
+        android:text="@string/crdt"
         android:textSize="20sp" />
     <Space
         android:layout_width="1dp"
@@ -119,7 +116,6 @@
         android:id="@+id/textView22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="credits"
         android:textColor="@color/black"
         android:textSize="20sp" />
 

@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
-        android:text="Popular"
+        android:text="@string/popular"
         android:layout_marginTop="60sp"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -45,7 +45,7 @@
         android:layout_alignBottom="@+id/imageView14"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@id/imageView14"
-        android:text="Downloading/Uploading Notes"
+        android:text="@string/help1"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
@@ -67,7 +67,7 @@
         android:layout_alignBottom="@+id/imageView15"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@id/imageView15"
-        android:text="Changing Privacy of Notes"
+        android:text="@string/help2"
         android:textColor="@color/black"
         android:textSize="16sp" />
     <ImageView
@@ -89,7 +89,7 @@
         android:layout_alignBottom="@+id/imageView16"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@id/imageView16"
-        android:text="Requesting for New Notes"
+        android:text="@string/help3"
         android:textColor="@color/black"
         android:textSize="16sp" />
     <ImageView
@@ -110,7 +110,7 @@
         android:layout_alignBottom="@+id/imageView17"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@id/imageView17"
-        android:text="How the App Works"
+        android:text="@string/help4"
         android:textColor="@color/black"
         android:textSize="16sp" />
     <ImageView
@@ -131,7 +131,7 @@
         android:layout_alignBottom="@+id/imageView18"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@id/imageView18"
-        android:text="Accessing Past Courses"
+        android:text="@string/help5"
         android:textColor="@color/black"
         android:textSize="16sp" />
     <View
@@ -161,7 +161,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/imageView19"
-        android:text="Feedback"
+        android:text="@string/Feedback_title"
         android:textColor="@color/black"
         android:textSize="16sp" />
     <View

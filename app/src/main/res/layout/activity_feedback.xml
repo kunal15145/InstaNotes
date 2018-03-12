@@ -23,7 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="10dp"
-        android:text="Please rate our app"
+        android:text="@string/rate"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18dp" />
@@ -48,7 +48,7 @@
         android:layout_below="@+id/ratingBar"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="65dp"
-        android:text="Tell us what you think"
+        android:text="@string/tell_us"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18dp" />
@@ -64,7 +64,7 @@
         android:layout_marginBottom="76dp"
         android:background="@drawable/buttonradius_feedback"
         android:onClick="rateMe"
-        android:text="Submit"
+        android:text="@string/submit_button"
         android:textColor="@android:color/white" />
 
     <EditText
@@ -76,7 +76,7 @@
         android:layout_marginEnd="29dp"
         android:layout_marginTop="21dp"
         android:ems="10"
-        android:hint="Write your feedback here"
+        android:hint="@string/feedback_hint"
         android:inputType="textPersonName" />
 
 

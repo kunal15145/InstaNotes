@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:label="Join Courses"
+        android:label="@string/label"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <LinearLayout
@@ -34,7 +34,7 @@
                 android:drawableLeft="@drawable/search3"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Join Courses"
+                android:hint="@string/label"
                 android:textAlignment="center"></EditText>
             <!--<TextView-->
             <!--android:layout_width="match_parent"-->

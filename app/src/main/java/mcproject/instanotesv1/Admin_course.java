@@ -13,11 +13,13 @@ import android.view.View;
 
 public class Admin_course extends AppCompatActivity {
 
+    // Accesing courses
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_course);
 
+        //Setting up toolbar
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle("Courses");
