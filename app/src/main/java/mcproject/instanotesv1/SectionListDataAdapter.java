@@ -81,11 +81,9 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             holder.cardbutton.setText(singleItem.getJoinbtn());
             holder.cardbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view){
                     make_changes_firebase(holder);
                     Toast.makeText(view.getContext(),holder.cardtopic.getText(),LENGTH_SHORT).show();
-
-
                 }
             });
         }

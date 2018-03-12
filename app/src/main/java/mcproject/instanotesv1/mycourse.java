@@ -1,13 +1,13 @@
 package mcproject.instanotesv1;
 
 
-public class Book {
+public class mycourse {
 
     private String CourseName;
     private String Semester;
     private int Thumbnail;
 
-    public Book(String courseName, String semester, int thumbnail) {
+    public mycourse(String courseName, String semester, int thumbnail) {
         CourseName = courseName;
         Semester = semester;
         Thumbnail = thumbnail;

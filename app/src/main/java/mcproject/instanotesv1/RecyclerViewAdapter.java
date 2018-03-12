@@ -15,10 +15,10 @@ import android.content.Context;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext ;
-    private List<Book> mData ;
+    private List<mycourse> mData ;
 
 
-    public RecyclerViewAdapter(Context mContext, List<Book> mData) {
+    public RecyclerViewAdapter(Context mContext, List<mycourse> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -28,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View view ;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardview_item_book,parent,false);
+        view = mInflater.inflate(R.layout.mycourses_card,parent,false);
         return new MyViewHolder(view);
     }
 
@@ -41,7 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,Book_Activity.class);
+                Intent intent = new Intent(mContext,course_activity.class);
                 intent.putExtra("CourseName",mData.get(position).getCourseName());
                 intent.putExtra("SemName",mData.get(position).getSemester());
                 intent.putExtra("Thumbnail",mData.get(position).getThumbnail());

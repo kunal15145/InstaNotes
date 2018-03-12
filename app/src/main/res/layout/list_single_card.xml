@@ -37,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:layout_alignParentLeft="true"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="15sp"
+
                 />
 
 

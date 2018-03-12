@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="20dp"
+
     android:background="#FFFCF9"
-    android:layout_marginRight="20dp"
+
     android:orientation="vertical"
     >
     <!--<include layout="@layout/appbar" />-->
@@ -24,6 +24,7 @@
         android:id="@+id/imageView13"
         android:layout_width="68dp"
         android:layout_height="68dp"
+        android:layout_gravity="center_horizontal"
         app:civ_border_color="@color/newblue"
         app:civ_border_width="2dp" />
     <Space
@@ -43,7 +44,9 @@
         android:id="@+id/textView12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Fname"
+        android:text="First Name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textSize="20sp" />
     <Space
         android:layout_width="1dp"
@@ -53,6 +56,9 @@
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -64,7 +70,9 @@
         android:id="@+id/textView20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Lname"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Last Name"
         android:textSize="20sp" />
     <Space
         android:layout_width="1dp"
@@ -74,6 +82,9 @@
         android:id="@+id/textView21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -85,7 +96,9 @@
         android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Em"
+        android:text="Email"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textSize="20sp" />
     <Space
         android:layout_width="1dp"
@@ -95,6 +108,9 @@
         android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="email"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -106,7 +122,9 @@
         android:id="@+id/textView25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/crdt"
+        android:text="Credits"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textSize="20sp" />
     <Space
         android:layout_width="1dp"
@@ -116,6 +134,9 @@
         android:id="@+id/textView22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="credits"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
