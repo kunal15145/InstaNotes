@@ -4,8 +4,8 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
         android:fullBackupContent="@xml/backup_descriptor"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -28,9 +28,9 @@
         </activity>
         <activity
             android:name=".IntroductionScreen"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".join_courses"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".join_courses"
             android:hardwareAccelerated="true">
             <meta-data
                 android:name="android.app.default_searchable"
@@ -54,6 +54,11 @@
         <activity android:name=".feedback" />
         <activity android:name=".settings" />
         <activity android:name=".Book_Activity" />
+        <activity
+            android:name=".Admin_course"
+            android:label="@string/title_activity_admin_course"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Admin_addcourses"></activity>
     </application>
 
 </manifest>
