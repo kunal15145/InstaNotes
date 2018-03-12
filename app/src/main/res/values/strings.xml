@@ -19,4 +19,9 @@
     <string name="Settings_title">Settings</string>
     <string name="devicenotification_settings">Device Notifications</string>
     <string name="downloadoverwifi_settings">Download over Wifi only</string>
+    <string name="help_title">Help</string>
+    <string name="account_title">Account</string>
+    <string name="transactions_title">Transactions</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="mycourses_title">My Courses</string>
 </resources>
