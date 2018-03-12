@@ -1,5 +1,6 @@
 package mcproject.instanotesv1;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class join_courses extends AppCompatActivity{
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
+    private ProgressDialog dialog;
 
     private static int CSE = 0;
     private static int ECE = 1;
@@ -50,6 +52,9 @@ public class join_courses extends AppCompatActivity{
         for(int i=0;i<7;i++){
             allSampleData.add(new ArrayList<SingleItemModel>());
         }
+        dialog=new ProgressDialog(join_courses.this);
+        dialog.setMessage("Retrieving data, please wait.");
+        dialog.show();
         addData();
     }
 
@@ -121,6 +126,9 @@ public class join_courses extends AppCompatActivity{
     }
 
     public void set_join_courses(){
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
         Log.d("this", String.valueOf(allSampleData.size()));
         RecyclerView my_recycler_view = findViewById(R.id.my_recycler_view);
         my_recycler_view.setHasFixedSize(true);
