@@ -152,6 +152,12 @@ public class my_courses extends AppCompatActivity
                         else if(documentSnapshot!=null && documentSnapshot.exists()){
                             UsersCourses = (ArrayList<String>) documentSnapshot.get("Courses");
                             final ArrayList<mycourse> CurrentCourses = new ArrayList<>();
+                            if(UsersCourses.isEmpty()){
+                                if (dialog.isShowing()) {
+                                    dialog.dismiss();
+                                }
+                                addMyCourses(CurrentCourses);
+                            }
                             for (String s : UsersCourses) {
                                 firestore.collection("courses").document(s)
                                         .get()
@@ -166,8 +172,6 @@ public class my_courses extends AppCompatActivity
                                                 }
                                                 addMyCourses(CurrentCourses);
                                             }
-
-
                                         });
                             }
                         }
