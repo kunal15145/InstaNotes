@@ -1,6 +1,6 @@
 package mcproject.instanotesv1;
 
-        import android.content.Context;
+import android.content.Context;
         import android.content.Intent;
         import android.support.v7.widget.CardView;
         import android.support.v7.widget.RecyclerView;
@@ -11,10 +11,6 @@ package mcproject.instanotesv1;
         import android.widget.TextView;
 
         import java.util.List;
-
-/**
- * Created by Harshit on 11/03/2018.
- */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
@@ -45,21 +41,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(mContext,Book_Activity.class);
-
-                // passing data to the book activity
                 intent.putExtra("CourseName",mData.get(position).getCourseName());
                 intent.putExtra("SemName",mData.get(position).getSemester());
                 intent.putExtra("Thumbnail",mData.get(position).getThumbnail());
-                // start the activity
                 mContext.startActivity(intent);
 
             }
         });
-
-
-
     }
 
     @Override
@@ -76,11 +65,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            CourseName = (TextView) itemView.findViewById(R.id.textView9) ;
-            Semester = (TextView) itemView.findViewById(R.id.textView8) ;
-            img_book_thumbnail = (ImageView) itemView.findViewById(R.id.imageView11);
-
-            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
+            CourseName = itemView.findViewById(R.id.textView9);
+            Semester = itemView.findViewById(R.id.textView8);
+            img_book_thumbnail = itemView.findViewById(R.id.imageView11);
+            cardView = itemView.findViewById(R.id.cardview_id);
 
 
         }

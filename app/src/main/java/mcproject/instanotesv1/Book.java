@@ -1,8 +1,5 @@
 package mcproject.instanotesv1;
 
-/**
- * Created by Harshit Verma on 11-03-2018.
- */
 
 public class Book {
 
@@ -26,17 +23,5 @@ public class Book {
 
     public int getThumbnail() {
         return Thumbnail;
-    }
-
-    public void setCourseName(String courseName) {
-        CourseName = courseName;
-    }
-
-    public void setSemester(String semester) {
-        Semester = semester;
-    }
-
-    public void setThumbnail(int thumbnail) {
-        Thumbnail = thumbnail;
     }
 }

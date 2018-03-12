@@ -62,6 +62,7 @@ public class my_courses extends AppCompatActivity
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_my_courses);
 
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
 
         lstBook = new ArrayList<>();
 
@@ -79,8 +80,9 @@ public class my_courses extends AppCompatActivity
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
 
         RecyclerView myrv = findViewById(R.id.recyclerview_id);
+
         RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this,lstBook);
-        myrv.setLayoutManager(new GridLayoutManager(this,2));
+        myrv.setLayoutManager(gridLayoutManager);
         myrv.setAdapter(myAdapter);
 
 
@@ -107,7 +109,7 @@ public class my_courses extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
