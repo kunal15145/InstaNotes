@@ -19,12 +19,18 @@ import com.google.firebase.FirebaseApp;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -38,6 +44,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+    private ArrayList<String> courses;
 
     public SectionListDataAdapter(Context context, ArrayList<SingleItemModel> itemsList) {
         this.itemsList = itemsList;
@@ -75,7 +82,11 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             holder.cardbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(),holder.cardtopic.getText(),LENGTH_SHORT).show();                }
+                    make_changes_firebase(holder);
+                    Toast.makeText(view.getContext(),holder.cardtopic.getText(),LENGTH_SHORT).show();
+
+
+                }
             });
         }
         else if(holder.getItemViewType()==COURSE_INFO_CARD){
@@ -102,6 +113,38 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             this.cardimg = view.findViewById(R.id.cardimg);
             this.cardsem = view.findViewById(R.id.cardsem);
         }
+
+    }
+
+    public void make_changes_firebase(final SingleItemRowHolder holder){
+        firebaseFirestore.collection("users").document(firebaseUser.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot doc=task.getResult();
+                            courses = (ArrayList<String>) doc.get("Courses");
+                            firebaseFirestore.collection("courses")
+                                    .whereEqualTo("CourseName", holder.cardtopic.getText())
+                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                    if(task.isSuccessful()){
+                                        for (DocumentSnapshot doc:task.getResult()){
+                                            courses.add(doc.getId());
+                                            firebaseFirestore.collection("users").document(firebaseUser.getUid())
+                                                    .update("Courses", courses);
+                                        }
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                });
+
 
     }
 
