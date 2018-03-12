@@ -60,50 +60,61 @@ public class join_courses extends AppCompatActivity{
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if(task.isSuccessful()){
-                        for(DocumentSnapshot documentSnapshot:task.getResult()){
-                            if(documentSnapshot.get("CourseID").toString().contains("CSE")){
-                                if(join_courses.this.allSampleData.get(CSE).isEmpty()){
-                                    join_courses.this.allSampleData.get(CSE).add(new SingleItemModel("CSE","url",null,null));
+                        for(DocumentSnapshot documentSnapshot:task.getResult()) {
+                            int count = 0;
+                            if (documentSnapshot.get("CourseID").toString().contains("CSE")) {
+                                if (join_courses.this.allSampleData.get(CSE).isEmpty()) {
+                                    join_courses.this.allSampleData.get(CSE).add(new SingleItemModel("CSE", "url", null, null));
                                 }
-                                join_courses.this.allSampleData.get(CSE).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
-                            }
-                            else if(documentSnapshot.get("CourseID").toString().contains("ECE")){
-                                if(join_courses.this.allSampleData.get(ECE).isEmpty()){
-                                    join_courses.this.allSampleData.get(ECE).add(new SingleItemModel("ECE","url",null,null));
+                                String coursname = "";
+                                if(documentSnapshot.get("CourseName").toString().contains("(new)")){
+                                    coursname = documentSnapshot.get("CourseName").toString().replaceAll("(new)","");
                                 }
-                                join_courses.this.allSampleData.get(ECE).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
-
+                                join_courses.this.allSampleData.get(CSE).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                count++;
                             }
-                            else if(documentSnapshot.get("CourseID").toString().contains("DES")){
-                                if(join_courses.this.allSampleData.get(DES).isEmpty()){
-                                    join_courses.this.allSampleData.get(DES).add(new SingleItemModel("DESIGN","url",null,null));
+                            if (documentSnapshot.get("CourseID").toString().contains("ECE")) {
+                                if (join_courses.this.allSampleData.get(ECE).isEmpty()) {
+                                    join_courses.this.allSampleData.get(ECE).add(new SingleItemModel("ECE", "url", null, null));
                                 }
-                                join_courses.this.allSampleData.get(DES).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
+                                join_courses.this.allSampleData.get(ECE).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(), "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                count++;
                             }
-                            else if(documentSnapshot.get("CourseID").toString().contains("HSS")){
-                                if(join_courses.this.allSampleData.get(HSS).isEmpty()){
-                                    join_courses.this.allSampleData.get(HSS).add(new SingleItemModel("HSS","url",null,null));
+                            if (documentSnapshot.get("CourseID").toString().contains("DES")) {
+                                if (join_courses.this.allSampleData.get(DES).isEmpty()) {
+                                    join_courses.this.allSampleData.get(DES).add(new SingleItemModel("DESIGN", "url", null, null));
                                 }
-                                join_courses.this.allSampleData.get(HSS).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
+                                join_courses.this.allSampleData.get(DES).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(), "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                count++;
                             }
-                            else if(documentSnapshot.get("CourseID").toString().contains("MTH")){
-                                if(join_courses.this.allSampleData.get(MTH).isEmpty()){
-                                    join_courses.this.allSampleData.get(MTH).add(new SingleItemModel("MATHS","url",null,null));
+                            if (documentSnapshot.get("CourseID").toString().contains("HSS")) {
+                                if (join_courses.this.allSampleData.get(HSS).isEmpty()) {
+                                    join_courses.this.allSampleData.get(HSS).add(new SingleItemModel("HSS", "url", null, null));
                                 }
-                                join_courses.this.allSampleData.get(MTH).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
+                                join_courses.this.allSampleData.get(HSS).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(), "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                count++;
                             }
-                            else if(documentSnapshot.get("CourseID").toString().contains("BIO")){
-                                if(join_courses.this.allSampleData.get(BIO).isEmpty()){
-                                    join_courses.this.allSampleData.get(BIO).add(new SingleItemModel("BIO","url",null,null));
+                            if (documentSnapshot.get("CourseID").toString().contains("MTH")) {
+                                if (join_courses.this.allSampleData.get(MTH).isEmpty()) {
+                                    join_courses.this.allSampleData.get(MTH).add(new SingleItemModel("MATHS", "url", null, null));
                                 }
-                                join_courses.this.allSampleData.get(BIO).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
+                                join_courses.this.allSampleData.get(MTH).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(), "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                count++;
                             }
-                            else
-                                if(join_courses.this.allSampleData.get(OTHERS).isEmpty()){
-                                join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel("OTHERS","url",null,null));
+                            if (documentSnapshot.get("CourseID").toString().contains("BIO")) {
+                                if (join_courses.this.allSampleData.get(BIO).isEmpty()) {
+                                    join_courses.this.allSampleData.get(BIO).add(new SingleItemModel("BIO", "url", null, null));
                                 }
-                                join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
+                                join_courses.this.allSampleData.get(BIO).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(), "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                count++;
                             }
+                            if (count == 0) {
+                                if (join_courses.this.allSampleData.get(OTHERS).isEmpty()) {
+                                    join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel("OTHERS", "url", null, null));
+                                }
+                                join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(), "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                            }
+                        }
                         set_join_courses();
                     }
                     else {
