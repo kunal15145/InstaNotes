@@ -57,8 +57,9 @@
         <activity
             android:name=".Admin_course"
             android:label="@string/title_activity_admin_course"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".Admin_addcourses"></activity>
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity android:name=".Admin_addcourses" />
     </application>
 
 </manifest>
