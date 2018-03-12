@@ -26,4 +26,10 @@
     <string name="course_instructor_name">Course Instructor Name</string>
     <string name="semester">Semester</string>
     <string name="create_course">Create Course</string>
+    <string name="help_title">Help</string>
+    <string name="account_title">Account</string>
+    <string name="transactions_title">Transactions</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="mycourses_title">My Courses</string>
+
 </resources>
