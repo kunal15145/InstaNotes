@@ -34,6 +34,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -148,23 +149,33 @@ public class IntroductionScreen extends AppCompatActivity {
 //        }
         final FirebaseUser[] users=new FirebaseUser[1];
         users[0]=firebaseUser;
-        Map<String,Object> NewUserInfo = new HashMap<>();
-        NewUserInfo.put(NAME_TAG,users[0].getDisplayName());
-        NewUserInfo.put(EMAIL_TAG,users[0].getEmail());
-        NewUserInfo.put(INSTA_COINS,"5");
-        NewUserInfo.put(Courses_TAG, new ArrayList<String>());
-        NewUserInfo.put(PIC_URI,users[0].getPhotoUrl().toString());
-        db.collection("users").document(users[0].getUid()).set(NewUserInfo)
-          .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d("sdfjkhsdkjfha", "written");
+
+        db.collection("users").document(firebaseUser.getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if(!documentSnapshot.exists()){
+                    Map<String,Object> NewUserInfo = new HashMap<>();
+                    NewUserInfo.put(NAME_TAG,users[0].getDisplayName());
+                    NewUserInfo.put(EMAIL_TAG,users[0].getEmail());
+                    NewUserInfo.put(INSTA_COINS,"5");
+                    NewUserInfo.put(Courses_TAG, new ArrayList<String>());
+                    NewUserInfo.put(PIC_URI,users[0].getPhotoUrl().toString());
+                    db.collection("users").document(users[0].getUid()).set(NewUserInfo)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("sdfjkhsdkjfha", "written");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("sdjkfsahdkjfh", "Error writing document");
+                        }
+                    });
                 }
-          }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("sdjkfsahdkjfh", "Error writing document");
-                }
+            }
         });
     }
 
@@ -258,4 +269,5 @@ public class IntroductionScreen extends AppCompatActivity {
             AllDots.addView(dots[j]);
         }
     }
+
 }
