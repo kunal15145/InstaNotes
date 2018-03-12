@@ -17,6 +17,7 @@ public class Notifications extends AppCompatActivity{
 
 
     List<Notif> notifList;
+    // Main activity for notifications
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class Notifications extends AppCompatActivity{
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        // Hard coded default values
         notifList.add(
                 new Notif("You unlocked Media Security - 16.4.2018","2 days ago",R.drawable.person_photo)
         );

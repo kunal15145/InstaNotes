@@ -35,6 +35,7 @@ public class Transactions extends AppCompatActivity {
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
 
+        // Hard coded Transactions for now
         transList.add(
                 new Trans("You unlocked Media Security - 16.4.2018","2 days ago",R.drawable.person_photo)
         );

@@ -59,6 +59,7 @@ public class my_courses extends AppCompatActivity
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_my_courses);
 
+        // authenticate
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -76,7 +77,7 @@ public class my_courses extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
+        // Join courses
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +101,7 @@ public class my_courses extends AppCompatActivity
 
         credit = headerView.findViewById(R.id.credit);
 
+        // Setting content
         firestore.collection("users").document(firebaseUser.getUid()).addSnapshotListener(
                 new EventListener<DocumentSnapshot>() {
                     @SuppressLint("SetTextI18n")
@@ -177,6 +179,7 @@ public class my_courses extends AppCompatActivity
                     }
                 });
     }
+
 
     public void addMyCourses(ArrayList<mycourse> temp){
         if (dialog.isShowing()) {

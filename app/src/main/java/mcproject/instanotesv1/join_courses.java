@@ -28,6 +28,7 @@ public class join_courses extends AppCompatActivity{
     private FirebaseFirestore firebaseFirestore;
     private ProgressDialog dialog;
 
+    // List of all categories
     private static int CSE = 0;
     private static int ECE = 1;
     private static int DES = 2;
@@ -55,6 +56,7 @@ public class join_courses extends AppCompatActivity{
         addData();
     }
 
+    // Adding a course
     public void addData(){
         firebaseFirestore.collection("courses")
             .get()
@@ -136,6 +138,7 @@ public class join_courses extends AppCompatActivity{
             });
 
     }
+    // Back button
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

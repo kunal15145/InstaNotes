@@ -7,12 +7,13 @@ public class Notif {
     private String shortdesc;
     private int image;
 
+    //Default constructor
     public Notif(String title, String shortdesc, int image) {
         this.title = title;
         this.shortdesc = shortdesc;
         this.image = image;
     }
-
+    // Getter functions
     public String getTitle() {
         return title;
     }

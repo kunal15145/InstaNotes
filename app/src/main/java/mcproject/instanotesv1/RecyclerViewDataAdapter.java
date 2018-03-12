@@ -19,7 +19,7 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         this.dataList = datalist1;
         this.mContext = context;
     }
-
+    // Default Functions for Adapter
     @Override
     public ItemRowHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, null);

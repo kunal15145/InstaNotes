@@ -77,6 +77,7 @@ public class IntroductionScreen extends AppCompatActivity {
     }
 
     @Override
+    //google sign in
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==SIGN_IN){
@@ -117,6 +118,7 @@ public class IntroductionScreen extends AppCompatActivity {
         });
     }
 
+    // New user
     private void Add_CheckUser(FirebaseUser firebaseUser) {
 //        BufferedReader br=null;
 //        String line;

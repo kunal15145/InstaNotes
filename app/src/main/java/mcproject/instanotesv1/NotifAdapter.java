@@ -12,7 +12,7 @@ import java.util.List;
 
 public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder>{
 
-
+    // Recycler view for Notificaions
     private Context ctx;
     private List<Notif> notifList;
 
@@ -21,6 +21,7 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHol
         this.notifList = notifList;
     }
 
+    //Inflating the list
     @Override
     public NotifViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(ctx);
@@ -37,6 +38,7 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHol
     }
 
     @Override
+    // List size
     public int getItemCount() {
         return notifList.size();
     }
