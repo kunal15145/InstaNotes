@@ -1,5 +1,6 @@
 package mcproject.instanotesv1;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -56,85 +59,84 @@ public class join_courses extends AppCompatActivity{
     }
 
     public void addData(){
-        firebaseFirestore.collection("courses")
-            .get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()){
-                        for(DocumentSnapshot documentSnapshot:task.getResult()) {
-                            int count = 0;
-                            if (documentSnapshot.get("CourseID").toString().contains("CSE")) {
-                                if (join_courses.this.allSampleData.get(CSE).isEmpty()) {
-                                    join_courses.this.allSampleData.get(CSE).add(new SingleItemModel("CSE", "url", null, null));
-                                }
-                                String coursname = "";
-                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
-                                join_courses.this.allSampleData.get(CSE).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
-                                count++;
-                            }
-                            if (documentSnapshot.get("CourseID").toString().contains("ECE")) {
-                                if (join_courses.this.allSampleData.get(ECE).isEmpty()) {
-                                    join_courses.this.allSampleData.get(ECE).add(new SingleItemModel("ECE", "url", null, null));
-                                }
-                                String coursname = "";
-                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
-                                join_courses.this.allSampleData.get(ECE).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
-                                count++;
-                            }
-                            if (documentSnapshot.get("CourseID").toString().contains("DES")) {
-                                if (join_courses.this.allSampleData.get(DES).isEmpty()) {
-                                    join_courses.this.allSampleData.get(DES).add(new SingleItemModel("DESIGN", "url", null, null));
-                                }
-                                String coursname = "";
-                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
-                                join_courses.this.allSampleData.get(DES).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
-                                count++;
-                            }
-                            if (documentSnapshot.get("CourseID").toString().contains("HSS")) {
-                                if (join_courses.this.allSampleData.get(HSS).isEmpty()) {
-                                    join_courses.this.allSampleData.get(HSS).add(new SingleItemModel("HSS", "url", null, null));
-                                }
-                                String coursname = "";
-                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
-                                join_courses.this.allSampleData.get(HSS).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
-                                count++;
-                            }
-                            if (documentSnapshot.get("CourseID").toString().contains("MTH")) {
-                                if (join_courses.this.allSampleData.get(MTH).isEmpty()) {
-                                    join_courses.this.allSampleData.get(MTH).add(new SingleItemModel("MATHS", "url", null, null));
-                                }
-                                String coursname = "";
-                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
-                                join_courses.this.allSampleData.get(MTH).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
-                                count++;
-                            }
-                            if (documentSnapshot.get("CourseID").toString().contains("BIO")) {
-                                if (join_courses.this.allSampleData.get(BIO).isEmpty()) {
-                                    join_courses.this.allSampleData.get(BIO).add(new SingleItemModel("BIO", "url", null, null));
-                                }
-                                String coursname = "";
-                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
-                                join_courses.this.allSampleData.get(BIO).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
-                                count++;
-                            }
-                            if (count == 0) {
-                                if (join_courses.this.allSampleData.get(OTHERS).isEmpty()) {
-                                    join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel("OTHERS", "url", null, null));
-                                }
-                                String coursname = "";
-                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
-                                join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
-                            }
-                        }
-                        set_join_courses();
-                    }
-                    else {
-                        Log.d("Couldn't","Try Again");
-                    }
-                }
-            });
-
+         firebaseFirestore.collection("courses")
+                 .get()
+                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                     @Override
+                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                         if(task.isSuccessful()){
+                             for(DocumentSnapshot documentSnapshot:task.getResult()) {
+                                 int count = 0;
+                                 if (documentSnapshot.get("CourseID").toString().contains("CSE")) {
+                                     if (join_courses.this.allSampleData.get(CSE).isEmpty()) {
+                                         join_courses.this.allSampleData.get(CSE).add(new SingleItemModel("CSE", "url", null, null));
+                                     }
+                                     String coursname;
+                                     coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
+                                     join_courses.this.allSampleData.get(CSE).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                     count++;
+                                 }
+                                 if (documentSnapshot.get("CourseID").toString().contains("ECE")) {
+                                     if (join_courses.this.allSampleData.get(ECE).isEmpty()) {
+                                         join_courses.this.allSampleData.get(ECE).add(new SingleItemModel("ECE", "url", null, null));
+                                     }
+                                     String coursname;
+                                     coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
+                                     join_courses.this.allSampleData.get(ECE).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                     count++;
+                                 }
+                                 if (documentSnapshot.get("CourseID").toString().contains("DES")) {
+                                     if (join_courses.this.allSampleData.get(DES).isEmpty()) {
+                                         join_courses.this.allSampleData.get(DES).add(new SingleItemModel("DESIGN", "url", null, null));
+                                     }
+                                     String coursname = "";
+                                     coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
+                                     join_courses.this.allSampleData.get(DES).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                     count++;
+                                 }
+                                 if (documentSnapshot.get("CourseID").toString().contains("HSS")) {
+                                     if (join_courses.this.allSampleData.get(HSS).isEmpty()) {
+                                         join_courses.this.allSampleData.get(HSS).add(new SingleItemModel("HSS", "url", null, null));
+                                     }
+                                     String coursname = "";
+                                     coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
+                                     join_courses.this.allSampleData.get(HSS).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                     count++;
+                                 }
+                                 if (documentSnapshot.get("CourseID").toString().contains("MTH")) {
+                                     if (join_courses.this.allSampleData.get(MTH).isEmpty()) {
+                                         join_courses.this.allSampleData.get(MTH).add(new SingleItemModel("MATHS", "url", null, null));
+                                     }
+                                     String coursname = "";
+                                     coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
+                                     join_courses.this.allSampleData.get(MTH).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                     count++;
+                                 }
+                                 if (documentSnapshot.get("CourseID").toString().contains("BIO")) {
+                                     if (join_courses.this.allSampleData.get(BIO).isEmpty()) {
+                                         join_courses.this.allSampleData.get(BIO).add(new SingleItemModel("BIO", "url", null, null));
+                                     }
+                                     String coursname = "";
+                                     coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
+                                     join_courses.this.allSampleData.get(BIO).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                     count++;
+                                 }
+                                 if (count == 0) {
+                                     if (join_courses.this.allSampleData.get(OTHERS).isEmpty()) {
+                                         join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel("OTHERS", "url", null, null));
+                                     }
+                                     String coursname = "";
+                                     coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
+                                     join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
+                                 }
+                             }
+                             set_join_courses();
+                         }
+                         else {
+                             Log.d("Couldn't","Try Again");
+                         }
+                     }
+                 });
     }
     @Override
     public boolean onSupportNavigateUp() {

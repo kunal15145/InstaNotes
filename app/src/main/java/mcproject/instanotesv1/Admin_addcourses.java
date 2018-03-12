@@ -22,14 +22,10 @@ public class Admin_addcourses extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //operate on add course button
-        addcourse = (Button) findViewById(R.id.addcourse_button);
+        addcourse = findViewById(R.id.addcourse_button);
         addcourse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(Admin_addcourses.this, (((Button) findViewById(R.id.addcourse_button))).getText(), Toast.LENGTH_SHORT).show();
-//                Intent intent2 = new Intent(.this, .class);
-//                startActivity(intent2);
-//                finish();
 
             }
         });
