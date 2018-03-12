@@ -19,14 +19,16 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".IntroductionScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".StartScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".IntroductionScreen"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".join_courses"
             android:hardwareAccelerated="true">

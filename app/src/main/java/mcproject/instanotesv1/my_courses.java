@@ -58,15 +58,13 @@ public class my_courses extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
 
-//        getSupportActionBar().setLogo(R.drawable.notificon);
-//        getSupportActionBar().setDisplayUseLogoEnabled(true);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_my_courses);
 
 
         lstBook = new ArrayList<>();
+
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
@@ -79,6 +77,7 @@ public class my_courses extends AppCompatActivity
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
+
         RecyclerView myrv = findViewById(R.id.recyclerview_id);
         RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this,lstBook);
         myrv.setLayoutManager(new GridLayoutManager(this,2));
@@ -140,9 +139,7 @@ public class my_courses extends AppCompatActivity
                 }
         );
         email = headerView.findViewById(R.id.email);
-
         firebaseUser = firebaseAuth.getCurrentUser();
-
         navigationView.setNavigationItemSelectedListener(this);
                 navUsername.setText(firebaseUser.getDisplayName());
                 email.setText(firebaseUser.getEmail());
@@ -158,7 +155,6 @@ public class my_courses extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -182,19 +178,16 @@ public class my_courses extends AppCompatActivity
     }
 
 //    @Override
-    public void account(View V)
-    {
+    public void account(View V) {
         Intent intent3;
-        intent3 = new Intent(V.getContext(),Account.class);
+        intent3 = new Intent(V.getContext(), Account.class);
         startActivity(intent3);
     }
 
-    public void onClick(View v){
-        Intent intent=new Intent(v.getContext(),Notifications.class);
+    public void onClick(View v) {
+        Intent intent = new Intent(v.getContext(), Notifications.class);
         startActivity(intent);
     }
-
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
