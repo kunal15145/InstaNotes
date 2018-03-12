@@ -12,10 +12,10 @@ import java.util.HashMap;
 
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.ItemRowHolder> {
 
-    private HashMap<Integer,ArrayList<SingleItemModel>> dataList;
+    private ArrayList<ArrayList<SingleItemModel>> dataList;
     private Context mContext;
 
-    public RecyclerViewDataAdapter(Context context,HashMap<Integer,ArrayList<SingleItemModel>> datalist1) {
+    public RecyclerViewDataAdapter(Context context, ArrayList<ArrayList<SingleItemModel>> datalist1) {
         this.dataList = datalist1;
         this.mContext = context;
     }

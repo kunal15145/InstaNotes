@@ -1,6 +1,5 @@
 package mcproject.instanotesv1;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,11 +18,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class join_courses extends AppCompatActivity {
+public class join_courses extends AppCompatActivity{
 
-    private HashMap<Integer,ArrayList<SingleItemModel>> allSampleData = new HashMap<>();
+    private ArrayList<ArrayList<SingleItemModel>> allSampleData = new ArrayList<>();
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
@@ -44,36 +40,23 @@ public class join_courses extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_join_courses);
-//        setContentView(R.layout.activity_feedback);
-        Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        add();
-
-        sub();
-
-    }
-
-    public void onStart(){
-        super.onStart();
+        for(int i=0;i<7;i++){
+            allSampleData.add(new ArrayList<SingleItemModel>());
+        }
         addData();
-    }
+        RecyclerView my_recycler_view = findViewById(R.id.my_recycler_view);
+        my_recycler_view.setHasFixedSize(true);
+        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(this,this.allSampleData);
+        my_recycler_view.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
+        my_recycler_view.setAdapter(adapter);
 
-    public void onResume(){
-        super.onResume();
-        addData();
-    }
-
-    public void add(){
-        Log.d("asdkjfhasdf", "yagami gandu");
-    }
-
-    public void sub(){
-        Log.d("asdkjfhasdf", "yagami loda");
     }
 
     public void addData(){
@@ -85,49 +68,48 @@ public class join_courses extends AppCompatActivity {
                     if(task.isSuccessful()){
                         for(DocumentSnapshot documentSnapshot:task.getResult()){
                             if(documentSnapshot.get("CourseID").toString().contains("CSE")){
-                                if(!join_courses.this.allSampleData.containsKey(CSE)){
-                                    join_courses.this.allSampleData.put(CSE,new ArrayList<SingleItemModel>());
+                                if(join_courses.this.allSampleData.get(CSE).isEmpty()){
+                                    join_courses.this.allSampleData.get(CSE).add(new SingleItemModel("CSE","url",null,null));
                                 }
                                 join_courses.this.allSampleData.get(CSE).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
                             }
                             else if(documentSnapshot.get("CourseID").toString().contains("ECE")){
-                                if(!join_courses.this.allSampleData.containsKey(ECE)){
-                                    join_courses.this.allSampleData.put(ECE,new ArrayList<SingleItemModel>());
+                                if(join_courses.this.allSampleData.get(ECE).isEmpty()){
+                                    join_courses.this.allSampleData.get(ECE).add(new SingleItemModel("ECE","url",null,null));
                                 }
                                 join_courses.this.allSampleData.get(ECE).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
 
                             }
                             else if(documentSnapshot.get("CourseID").toString().contains("DES")){
-                                if(!join_courses.this.allSampleData.containsKey(DES)){
-                                    join_courses.this.allSampleData.put(DES,new ArrayList<SingleItemModel>());
+                                if(join_courses.this.allSampleData.get(DES).isEmpty()){
+                                    join_courses.this.allSampleData.get(DES).add(new SingleItemModel("DESIGN","url",null,null));
                                 }
                                 join_courses.this.allSampleData.get(DES).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
                             }
                             else if(documentSnapshot.get("CourseID").toString().contains("HSS")){
-                                if(!join_courses.this.allSampleData.containsKey(HSS)){
-                                    join_courses.this.allSampleData.put(HSS,new ArrayList<SingleItemModel>());
+                                if(join_courses.this.allSampleData.get(HSS).isEmpty()){
+                                    join_courses.this.allSampleData.get(HSS).add(new SingleItemModel("HSS","url",null,null));
                                 }
                                 join_courses.this.allSampleData.get(HSS).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
                             }
                             else if(documentSnapshot.get("CourseID").toString().contains("MTH")){
-                                if(!join_courses.this.allSampleData.containsKey(MTH)){
-                                    join_courses.this.allSampleData.put(MTH,new ArrayList<SingleItemModel>());
+                                if(join_courses.this.allSampleData.get(MTH).isEmpty()){
+                                    join_courses.this.allSampleData.get(MTH).add(new SingleItemModel("MATHS","url",null,null));
                                 }
                                 join_courses.this.allSampleData.get(MTH).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
                             }
                             else if(documentSnapshot.get("CourseID").toString().contains("BIO")){
-                                if(!join_courses.this.allSampleData.containsKey(BIO)){
-                                    join_courses.this.allSampleData.put(BIO,new ArrayList<SingleItemModel>());
+                                if(join_courses.this.allSampleData.get(BIO).isEmpty()){
+                                    join_courses.this.allSampleData.get(BIO).add(new SingleItemModel("BIO","url",null,null));
                                 }
                                 join_courses.this.allSampleData.get(BIO).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
                             }
-                            else {
-                                if(!join_courses.this.allSampleData.containsKey(OTHERS)){
-                                    join_courses.this.allSampleData.put(OTHERS,new ArrayList<SingleItemModel>());
+                            else
+                                if(join_courses.this.allSampleData.get(OTHERS).isEmpty()){
+                                join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel("OTHERS","url",null,null));
                                 }
                                 join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel(documentSnapshot.get("CourseName").toString(),"url",documentSnapshot.get("Semester").toString(),"JOIN"));
                             }
-                        }
                        Log.d("this", String.valueOf(allSampleData.size()));
                     }
                     else {
@@ -135,12 +117,6 @@ public class join_courses extends AppCompatActivity {
                     }
                 }
             });
-        Log.d("sadasd", String.valueOf(this.allSampleData.size()));
-        RecyclerView my_recycler_view = findViewById(R.id.my_recycler_view);
-        my_recycler_view.setHasFixedSize(true);
-        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(this,this.allSampleData);
-        my_recycler_view.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
-        my_recycler_view.setAdapter(adapter);
     }
     @Override
     public boolean onSupportNavigateUp() {

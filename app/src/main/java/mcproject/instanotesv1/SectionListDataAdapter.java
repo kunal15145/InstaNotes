@@ -2,6 +2,7 @@ package mcproject.instanotesv1;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.HashSet;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
 
@@ -19,6 +32,8 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     private static int COURSE_INFO_CARD = 1;
     private ArrayList<SingleItemModel> itemsList;
     private Context mContext;
+    private static final String CoursesJoined = "Courses";
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     public SectionListDataAdapter(Context context, ArrayList<SingleItemModel> itemsList) {
         this.itemsList = itemsList;
@@ -56,9 +71,11 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             holder.cardbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(),singleItem.getTopic(),Toast.LENGTH_SHORT).show();
-                }
+                    Toast.makeText(view.getContext(),holder.cardtopic.getText(),LENGTH_SHORT).show();                }
             });
+        }
+        if(holder.getItemViewType()==COURSE_INFO_CARD){
+            holder.cardtopic.setText(singleItem.getTopic());
         }
     }
 

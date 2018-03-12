@@ -41,7 +41,6 @@ public class my_courses extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-
     List<Book> lstBook ;
     public TextView navUsername,credit,email;
     public CircleImageView dp1;

@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 public class IntroductionScreen extends AppCompatActivity {
 
@@ -67,16 +68,12 @@ public class IntroductionScreen extends AppCompatActivity {
 
     //Firestore
     private FirebaseFirestore db;
-    private ArrayList<String> currentUsers = new ArrayList<>();
+
 
     private static final String EMAIL_TAG = "Email";
     private static final String NAME_TAG = "Name";
     private static final String INSTA_COINS = "InstaCoins";
     private static final String PIC_URI = "PicUri";
-    private static final String CourseID_TAG = "CourseID";
-    private static final String CourseName_TAG = "CourseName";
-    private static final String InstructorName_TAG = "InstructorName";
-    private static final String Semester_TAG = "Semester";
 
 
     @Override
@@ -120,7 +117,7 @@ public class IntroductionScreen extends AppCompatActivity {
                     my_course_list(firebaseUser);
                 }
                 else{
-                    my_course_list(null);
+                    //my_course_list(null);
                 }
                 if(progressDialog.isShowing() && progressDialog!=null){
                     progressDialog.dismiss();
