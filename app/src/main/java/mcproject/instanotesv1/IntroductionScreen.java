@@ -74,6 +74,7 @@ public class IntroductionScreen extends AppCompatActivity {
     private static final String NAME_TAG = "Name";
     private static final String INSTA_COINS = "InstaCoins";
     private static final String PIC_URI = "PicUri";
+    private static final String Courses_TAG="Courses";
 
 
     @Override
@@ -159,6 +160,7 @@ public class IntroductionScreen extends AppCompatActivity {
         NewUserInfo.put(NAME_TAG,users[0].getDisplayName());
         NewUserInfo.put(EMAIL_TAG,users[0].getEmail());
         NewUserInfo.put(INSTA_COINS,"5");
+        NewUserInfo.put(Courses_TAG, new ArrayList<String>());
         NewUserInfo.put(PIC_URI,users[0].getPhotoUrl().toString());
         db.collection("users").document(users[0].getUid()).set(NewUserInfo)
           .addOnSuccessListener(new OnSuccessListener<Void>() {
