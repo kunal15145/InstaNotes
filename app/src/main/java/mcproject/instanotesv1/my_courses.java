@@ -101,7 +101,7 @@ public class my_courses extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), join_courses.class);
+                Intent intent = new Intent(getApplicationContext(),join_courses.class);
                 startActivity(intent);
             }
         });
