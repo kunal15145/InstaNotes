@@ -69,10 +69,7 @@ public class join_courses extends AppCompatActivity{
                                     join_courses.this.allSampleData.get(CSE).add(new SingleItemModel("CSE", "url", null, null));
                                 }
                                 String coursname = "";
-                                if(documentSnapshot.get("CourseName").toString().contains("(new)")){
-                                    coursname = documentSnapshot.get("CourseName").toString().replaceAll("(new)","");
-                                }
-                                else coursname = documentSnapshot.get("CourseName").toString();
+                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
                                 join_courses.this.allSampleData.get(CSE).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
                                 count++;
                             }
@@ -81,10 +78,7 @@ public class join_courses extends AppCompatActivity{
                                     join_courses.this.allSampleData.get(ECE).add(new SingleItemModel("ECE", "url", null, null));
                                 }
                                 String coursname = "";
-                                if(documentSnapshot.get("CourseName").toString().contains("(new)")){
-                                    coursname = documentSnapshot.get("CourseName").toString().replaceAll("(new)","");
-                                }
-                                else coursname = documentSnapshot.get("CourseName").toString();
+                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
                                 join_courses.this.allSampleData.get(ECE).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
                                 count++;
                             }
@@ -93,10 +87,7 @@ public class join_courses extends AppCompatActivity{
                                     join_courses.this.allSampleData.get(DES).add(new SingleItemModel("DESIGN", "url", null, null));
                                 }
                                 String coursname = "";
-                                if(documentSnapshot.get("CourseName").toString().contains("(new)")){
-                                    coursname = documentSnapshot.get("CourseName").toString().replaceAll("(new)","");
-                                }
-                                else coursname = documentSnapshot.get("CourseName").toString();
+                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
                                 join_courses.this.allSampleData.get(DES).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
                                 count++;
                             }
@@ -105,10 +96,7 @@ public class join_courses extends AppCompatActivity{
                                     join_courses.this.allSampleData.get(HSS).add(new SingleItemModel("HSS", "url", null, null));
                                 }
                                 String coursname = "";
-                                if(documentSnapshot.get("CourseName").toString().contains("(new)")){
-                                    coursname = documentSnapshot.get("CourseName").toString().replaceAll("(new)","");
-                                }
-                                else coursname = documentSnapshot.get("CourseName").toString();
+                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
                                 join_courses.this.allSampleData.get(HSS).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
                                 count++;
                             }
@@ -117,10 +105,7 @@ public class join_courses extends AppCompatActivity{
                                     join_courses.this.allSampleData.get(MTH).add(new SingleItemModel("MATHS", "url", null, null));
                                 }
                                 String coursname = "";
-                                if(documentSnapshot.get("CourseName").toString().contains("(new)")){
-                                    coursname = documentSnapshot.get("CourseName").toString().replaceAll("(new)","");
-                                }
-                                else coursname = documentSnapshot.get("CourseName").toString();
+                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
                                 join_courses.this.allSampleData.get(MTH).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
                                 count++;
                             }
@@ -129,10 +114,7 @@ public class join_courses extends AppCompatActivity{
                                     join_courses.this.allSampleData.get(BIO).add(new SingleItemModel("BIO", "url", null, null));
                                 }
                                 String coursname = "";
-                                if(documentSnapshot.get("CourseName").toString().contains("(new)")){
-                                    coursname = documentSnapshot.get("CourseName").toString().replaceAll("(new)","");
-                                }
-                                else coursname = documentSnapshot.get("CourseName").toString();
+                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
                                 join_courses.this.allSampleData.get(BIO).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
                                 count++;
                             }
@@ -141,10 +123,7 @@ public class join_courses extends AppCompatActivity{
                                     join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel("OTHERS", "url", null, null));
                                 }
                                 String coursname = "";
-                                if(documentSnapshot.get("CourseName").toString().contains("(new)")){
-                                    coursname = documentSnapshot.get("CourseName").toString().replaceAll("(new)","");
-                                }
-                                else coursname = documentSnapshot.get("CourseName").toString();
+                                coursname = documentSnapshot.get("CourseName").toString().replaceAll("\\(.*?\\) ?", "");
                                 join_courses.this.allSampleData.get(OTHERS).add(new SingleItemModel(coursname, "url", documentSnapshot.get("Semester").toString(), "JOIN"));
                             }
                         }

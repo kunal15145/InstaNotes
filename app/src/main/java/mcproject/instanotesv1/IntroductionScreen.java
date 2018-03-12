@@ -177,6 +177,7 @@ public class IntroductionScreen extends AppCompatActivity {
     private void my_course_list(FirebaseUser firebaseUser) {
             if(firebaseUser!=null){
                 Intent intent = new Intent(IntroductionScreen.this,my_courses.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
     }

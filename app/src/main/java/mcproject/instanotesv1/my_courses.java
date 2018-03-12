@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,6 +50,7 @@ public class my_courses extends AppCompatActivity
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firestore;
     private static final String INSTA_COINS = "InstaCoins";
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
 
@@ -76,7 +79,7 @@ public class my_courses extends AppCompatActivity
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
         lstBook.add(new Book("Mobile Computing","Winter 2018",R.drawable.img4));
-        RecyclerView myrv = (RecyclerView) findViewById(R.id.recyclerview_id);
+        RecyclerView myrv = findViewById(R.id.recyclerview_id);
         RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this,lstBook);
         myrv.setLayoutManager(new GridLayoutManager(this,2));
         myrv.setAdapter(myAdapter);
@@ -163,7 +166,18 @@ public class my_courses extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(doubleBackToExitPressedOnce){
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            },2000);
         }
     }
 
