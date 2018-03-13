@@ -1,6 +1,7 @@
 package mcproject.instanotesv1;
 
 import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -97,6 +98,14 @@ public class my_courses extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
 
         dp1 = headerView.findViewById(R.id.dp);
+        dp1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3;
+                intent3 = new Intent(view.getContext(),Account.class);
+                startActivity(intent3);
+            }
+        });
         navUsername = headerView.findViewById(R.id.username);
 
         credit = headerView.findViewById(R.id.credit);
@@ -206,20 +215,10 @@ public class my_courses extends AppCompatActivity
         }
     }
 
-//    @Override
-    public void account(View V)
-    {
-        Intent intent3;
-        intent3 = new Intent(V.getContext(),Account.class);
-        startActivity(intent3);
-    }
-
     public void onClick(View v){
         Intent intent=new Intent(v.getContext(),Notifications.class);
         startActivity(intent);
     }
-
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -228,7 +227,6 @@ public class my_courses extends AppCompatActivity
         int id = item.getItemId();
         Intent intent2;
         if (id == R.id.transac) {
-
             intent2=new Intent(getApplicationContext(),Transactions.class);
             startActivity(intent2);
         } else if (id == R.id.help) {
@@ -244,7 +242,10 @@ public class my_courses extends AppCompatActivity
             startActivity(intent2);
 
         } else if (id == R.id.nav_logout) {
-            //firebaseAuth.signOut();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this,IntroductionScreen.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
