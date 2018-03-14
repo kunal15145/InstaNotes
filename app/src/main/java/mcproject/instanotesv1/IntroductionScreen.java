@@ -36,6 +36,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,6 +70,10 @@ public class IntroductionScreen extends AppCompatActivity {
     private static final String INSTA_COINS = "InstaCoins";
     private static final String PIC_URI = "PicUri";
     private static final String Courses_TAG="Courses";
+//    private String CourseName_TAG = "CourseName";
+//    private String CourseID_TAG = "CourseID";
+//    private String InstructorName_TAG = "InstructorName";
+//    private String Semester_TAG = "Semester";
 
 
     @Override
@@ -73,6 +81,7 @@ public class IntroductionScreen extends AppCompatActivity {
         super.onStart();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser!=null){
+            Add_CheckUser(firebaseUser);
             my_course_list(firebaseUser);
         }
     }
@@ -121,7 +130,7 @@ public class IntroductionScreen extends AppCompatActivity {
 
     // New user
     private void Add_CheckUser(FirebaseUser firebaseUser) {
-//        BufferedReader br=null;
+//        BufferedReader br;
 //        String line;
 //        try{
 //            br=new BufferedReader(new InputStreamReader(getAssets().open("a.csv")));
@@ -130,7 +139,8 @@ public class IntroductionScreen extends AppCompatActivity {
 //                i++;
 //                final String course[]=line.split(",");
 //                Map<String,Object> NewCourseInfo = new HashMap<>();
-//                NewCourseInfo.put(CourseName_TAG,course[1]);
+//                String temp = course[1].replaceAll("\\(.*?\\) ?", "");
+//                NewCourseInfo.put(CourseName_TAG,temp);
 //                NewCourseInfo.put(CourseID_TAG,course[0]);
 //                NewCourseInfo.put(InstructorName_TAG,course[2]);
 //                NewCourseInfo.put(Semester_TAG,"Winter 2018");
@@ -147,6 +157,7 @@ public class IntroductionScreen extends AppCompatActivity {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+
         final FirebaseUser[] users=new FirebaseUser[1];
         users[0]=firebaseUser;
 
