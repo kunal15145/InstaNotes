@@ -23,6 +23,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -242,10 +243,14 @@ public class my_courses extends AppCompatActivity
             startActivity(intent2);
 
         } else if (id == R.id.nav_logout) {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(this,IntroductionScreen.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            AuthUI.getInstance().signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            startActivity(new Intent(my_courses.this,IntroductionScreen.class));
+                            finish();
+                        }
+                    });
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

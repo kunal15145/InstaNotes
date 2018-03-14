@@ -195,6 +195,14 @@ public class IntroductionScreen extends AppCompatActivity {
         setContentView(R.layout.activity_introduction_screen);
         // Login
 
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.Auth_KEY))
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
         signInButton = findViewById(R.id.signin);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,14 +211,6 @@ public class IntroductionScreen extends AppCompatActivity {
                 startActivityForResult(intent,SIGN_IN);
             }
         });
-
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.Auth_KEY))
-                .requestEmail()
-                .build();
-        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
-        firebaseAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
 
         // Introduction Screen
         viewPager = findViewById(R.id.viewPageIntro);

@@ -74,7 +74,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     // Default functions
     @Override
-    public void onBindViewHolder(final SingleItemRowHolder holder, int i) {
+    public void onBindViewHolder(final SingleItemRowHolder holder, final int i) {
 
         final SingleItemModel singleItem = itemsList.get(i);
         if(holder.getItemViewType()==COURSE_TYPE_CARD){
@@ -86,6 +86,8 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 public void onClick(View view){
                     make_changes_firebase(holder);
                     Toast.makeText(view.getContext(),holder.cardtopic.getText(),LENGTH_SHORT).show();
+                    itemsList.remove(i);
+                    notifyDataSetChanged();
                 }
             });
         }
