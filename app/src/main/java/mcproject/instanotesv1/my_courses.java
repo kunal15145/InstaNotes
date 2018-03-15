@@ -1,9 +1,9 @@
 package mcproject.instanotesv1;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -61,6 +63,7 @@ public class my_courses extends AppCompatActivity
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_my_courses);
 
+
         // authenticate
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -78,6 +81,7 @@ public class my_courses extends AppCompatActivity
         getSupportActionBar().setTitle(R.string.mycourses_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         // Join courses
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -206,6 +210,7 @@ public class my_courses extends AppCompatActivity
     }
 
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -220,6 +225,10 @@ public class my_courses extends AppCompatActivity
         Intent intent=new Intent(v.getContext(),Notifications.class);
         startActivity(intent);
     }
+
+
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -257,4 +266,5 @@ public class my_courses extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

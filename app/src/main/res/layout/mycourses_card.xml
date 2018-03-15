@@ -30,14 +30,24 @@
                 android:layout_height="90dp"
                 app:srcCompat="@color/newviolet" />
 
-            <ImageView
+
+            <ImageButton
+                android:id="@+id/ib_popup_menu"
+                android:layout_width="20dp"
+                android:layout_height="50dp"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:src="@drawable/ic_action_navigation_more_vert" />
+
+            <!--<ImageView
                 android:id="@+id/imageView12"
                 android:layout_width="20dp"
                 android:layout_height="50dp"
 
                 android:layout_gravity="top|right"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@drawable/more" />
+                app:srcCompat="@drawable/more" />-->
 
         </FrameLayout>
 
