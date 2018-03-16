@@ -192,7 +192,6 @@ public class IntroductionScreen extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         setContentView(R.layout.activity_introduction_screen);
         // Login
-
         signInButton = findViewById(R.id.signin);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

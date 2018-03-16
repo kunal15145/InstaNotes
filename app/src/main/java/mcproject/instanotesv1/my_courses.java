@@ -241,11 +241,15 @@ public class my_courses extends AppCompatActivity
             startActivity(intent2);
 
         } else if (id == R.id.nav_logout) {
-            //firebaseAuth.signOut();
+            firebaseAuth.getInstance().signOut();
+            intent2=new Intent(getApplicationContext(), IntroductionScreen.class);
+            startActivity(intent2);
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
