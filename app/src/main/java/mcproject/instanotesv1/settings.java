@@ -12,6 +12,7 @@ public class settings extends AppCompatActivity {
 
     Switch switch1, switch2;
 
+    // Wifi and Notificaions Settings
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

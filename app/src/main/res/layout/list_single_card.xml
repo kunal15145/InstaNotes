@@ -35,7 +35,6 @@
                 android:id="@+id/cardtopic"
 
                 android:layout_height="wrap_content"
-                android:text="Mobile Computing"
                 android:textColor="@android:color/black"
                 android:layout_alignParentLeft="true"
                 android:textSize="15sp"

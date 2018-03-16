@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 public class Admin_addcourses extends AppCompatActivity {
 
+    // Admin access to create a course
     Button addcourse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/cardview_id"
     android:clickable="true"
+    app:cardUseCompatPadding="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:layout_width="160dp"
     android:layout_height="wrap_content"
@@ -30,14 +31,24 @@
                 android:layout_height="90dp"
                 app:srcCompat="@color/newviolet" />
 
-            <ImageView
+
+            <ImageButton
+                android:id="@+id/ib_popup_menu"
+                android:layout_width="20dp"
+                android:layout_height="50dp"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:src="@drawable/ic_action_navigation_more_vert" />
+
+            <!--<ImageView
                 android:id="@+id/imageView12"
                 android:layout_width="20dp"
                 android:layout_height="50dp"
 
                 android:layout_gravity="top|right"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@drawable/more" />
+                app:srcCompat="@drawable/more" />-->
 
         </FrameLayout>
 
@@ -47,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Operating Systems"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold" />

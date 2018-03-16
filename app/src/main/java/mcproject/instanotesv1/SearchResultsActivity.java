@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 public class SearchResultsActivity extends Activity {
 
+    // To display Search results
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

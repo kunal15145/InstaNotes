@@ -3,6 +3,7 @@ package mcproject.instanotesv1;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,8 +22,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +63,8 @@ public class my_courses extends AppCompatActivity
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_my_courses);
 
+
+        // authenticate
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -77,6 +83,7 @@ public class my_courses extends AppCompatActivity
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+        // Join courses
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,10 +103,19 @@ public class my_courses extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
 
         dp1 = headerView.findViewById(R.id.dp);
+        dp1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3;
+                intent3 = new Intent(view.getContext(),Account.class);
+                startActivity(intent3);
+            }
+        });
         navUsername = headerView.findViewById(R.id.username);
 
         credit = headerView.findViewById(R.id.credit);
 
+        // Setting content
         firestore.collection("users").document(firebaseUser.getUid()).addSnapshotListener(
                 new EventListener<DocumentSnapshot>() {
                     @SuppressLint("SetTextI18n")
@@ -182,6 +198,7 @@ public class my_courses extends AppCompatActivity
                 });
     }
 
+
     public void addMyCourses(ArrayList<mycourse> temp){
         if (dialog.isShowing()) {
             dialog.dismiss();
@@ -191,6 +208,7 @@ public class my_courses extends AppCompatActivity
         myrv.setLayoutManager(new GridLayoutManager(this,2));
         myrv.setAdapter(myAdapter);
     }
+
 
 
     @Override
@@ -203,18 +221,12 @@ public class my_courses extends AppCompatActivity
         }
     }
 
-//    @Override
-    public void account(View V)
-    {
-        Intent intent3;
-        intent3 = new Intent(V.getContext(),Account.class);
-        startActivity(intent3);
-    }
-
     public void onClick(View v){
         Intent intent=new Intent(v.getContext(),Notifications.class);
         startActivity(intent);
     }
+
+
 
 
 
@@ -225,7 +237,6 @@ public class my_courses extends AppCompatActivity
         int id = item.getItemId();
         Intent intent2;
         if (id == R.id.transac) {
-
             intent2=new Intent(getApplicationContext(),Transactions.class);
             startActivity(intent2);
         } else if (id == R.id.help) {
@@ -241,10 +252,14 @@ public class my_courses extends AppCompatActivity
             startActivity(intent2);
 
         } else if (id == R.id.nav_logout) {
-            firebaseAuth.getInstance().signOut();
-            intent2=new Intent(getApplicationContext(), IntroductionScreen.class);
-            startActivity(intent2);
-
+            AuthUI.getInstance().signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            startActivity(new Intent(my_courses.this,IntroductionScreen.class));
+                            finish();
+                        }
+                    });
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

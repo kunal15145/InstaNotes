@@ -18,6 +18,7 @@ public class feedback extends AppCompatActivity {
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_feedback);
+        // Setting Toolbar
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle(R.string.Feedback_title);

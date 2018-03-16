@@ -20,6 +20,8 @@ public class CheckFirstTimeLaunch {
         editor = sharedPreferences.edit();
     }
 
+    // Get started prompted only once
+
     void setFirstLaunch(boolean time){
         editor.putBoolean(IS_FIRST_LAUNCH,time);
         editor.commit();

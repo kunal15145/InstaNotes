@@ -36,6 +36,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
 
+    // Recycler View for my courses
     private static int COURSE_TYPE_CARD = 0;
     private static int COURSE_INFO_CARD = 1;
     private ArrayList<SingleItemModel> itemsList;
@@ -71,8 +72,9 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         return null;
     }
 
+    // Default functions
     @Override
-    public void onBindViewHolder(final SingleItemRowHolder holder, int i) {
+    public void onBindViewHolder(final SingleItemRowHolder holder, final int i) {
 
         final SingleItemModel singleItem = itemsList.get(i);
         if(holder.getItemViewType()==COURSE_TYPE_CARD){
@@ -84,6 +86,8 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 public void onClick(View view){
                     make_changes_firebase(holder);
                     Toast.makeText(view.getContext(),holder.cardtopic.getText(),LENGTH_SHORT).show();
+                    itemsList.remove(i);
+                    notifyDataSetChanged();
                 }
             });
         }
@@ -114,6 +118,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     }
 
+    // added courses to firebase
     public void make_changes_firebase(final SingleItemRowHolder holder){
         firebaseFirestore.collection("users").document(firebaseUser.getUid())
                 .get()

@@ -12,7 +12,7 @@ public class Help extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_help);
-//        setContentView(R.layout.activity_feedback);
+        // setting up toolbar
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle(R.string.help_title);
@@ -21,6 +21,7 @@ public class Help extends AppCompatActivity {
     }
 
     @Override
+    //back button
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;

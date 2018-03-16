@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class StartScreen extends AppCompatActivity implements View.OnClickListener{
 
+
     protected void onStart() {
         super.onStart();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -23,6 +24,7 @@ public class StartScreen extends AppCompatActivity implements View.OnClickListen
             startActivity(intent);
         }
     }
+    // redirecting to my courses on firebase authentication
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

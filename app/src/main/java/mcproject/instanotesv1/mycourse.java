@@ -7,12 +7,14 @@ public class mycourse {
     private String Semester;
     private int Thumbnail;
 
+    //Default constructor
     public mycourse(String courseName, String semester, int thumbnail) {
         CourseName = courseName;
         Semester = semester;
         Thumbnail = thumbnail;
     }
 
+    // Getter functions
     public String getCourseName() {
         return CourseName;
     }

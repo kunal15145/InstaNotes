@@ -21,7 +21,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="30dp"
         android:textColor="@color/black"
-        android:text="@string/devicenotification_settings"
+        android:text="@string/setting1"
         android:textSize="18sp" />
 
 
@@ -43,7 +43,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginLeft="30dp"
         android:textColor="@color/black"
-        android:text="@string/downloadoverwifi_settings"
+        android:text="@string/setting2"
         android:textSize="18sp" />
 
 

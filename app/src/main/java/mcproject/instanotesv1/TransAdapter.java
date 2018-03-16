@@ -20,6 +20,7 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHol
         this.ctx = ctx;
         this.transList = transList;
     }
+    // Recycler view adapter for Transactions
 
     @Override
     public TransViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,7 +36,7 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHol
         holder.transdesc.setText(trans.getShortdesc());
         holder.transimg.setImageDrawable(ctx.getResources().getDrawable(trans.getImage()));
     }
-
+    // Default functions
     @Override
     public int getItemCount() {
         return transList.size();

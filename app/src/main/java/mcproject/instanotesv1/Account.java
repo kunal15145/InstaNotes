@@ -24,6 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Account extends AppCompatActivity {
 
+    // Account activity
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore db;
@@ -33,14 +34,16 @@ public class Account extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_account);
-        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // Adding Toolbar
+        Toolbar mActionBarToolbar = findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle(R.string.account_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        // Initialising variables
         TextView sname= findViewById(R.id.textView21);
         TextView email= findViewById(R.id.textView23);
         TextView fname= findViewById(R.id.textView13);
@@ -50,6 +53,8 @@ public class Account extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+
+        // Assigning values from firebase
 
         Uri uri = firebaseUser.getPhotoUrl();
         String str = firebaseUser.getDisplayName();
@@ -77,13 +82,14 @@ public class Account extends AppCompatActivity {
                 });
         String TAG="url";
         Log.d(TAG, String.valueOf(uri));
-
+        // Setting profile pic
         Picasso.with(getApplicationContext())
                 .load(uri)
                 .error(android.R.drawable.sym_def_app_icon)
                 .into(dp);
     }
 
+    // Back button
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
