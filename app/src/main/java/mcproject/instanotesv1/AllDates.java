@@ -35,23 +35,46 @@ public class AllDates extends AppCompatActivity {
 
         // Hard coded Transactions for now
         datesList.add(
-                new Dates("18th April, 2018","Tuesday",R.drawable.unlock)
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
         );
         datesList.add(
-                new Dates("16th April, 2018","Tuesday",R.drawable.unlock)
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
         );
         datesList.add(
-                new Dates("16th April, 2018","Tuesday",R.drawable.unlock)
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
         );
         datesList.add(
-                new Dates("16th April, 2018","Tuesday",R.drawable.unlock)
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
+        );datesList.add(
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
         );
         datesList.add(
-                new Dates("16th April, 2018","Tuesday",R.drawable.unlock)
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
         );
         datesList.add(
-                new Dates("16th April, 2018","Tuesday",R.drawable.unlock)
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
         );
+        datesList.add(
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
+        );
+        datesList.add(
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
+        );datesList.add(
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
+        );
+        datesList.add(
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
+        );
+        datesList.add(
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
+        );
+        datesList.add(
+                new Dates("18th April, 2018","+2 more","Tuesday",R.drawable.unlock,R.drawable.person_photo,R.drawable.person_photo,R.drawable.person_photo)
+        );
+
+
+
+
 
         adapter2 = new DatesAdapter(this, datesList);
 

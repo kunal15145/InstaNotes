@@ -39,6 +39,10 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
         holder.textViewTitle.setText(dates.getTitle());
         holder.textViewDesc.setText(dates.getShortdesc());
         holder.imageView.setImageDrawable(ctx.getResources().getDrawable(dates.getImage()));
+        holder.datep1.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep1()));
+        holder.datep2.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep2()));
+        holder.datep3.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep3()));
+
     }
 
 
@@ -50,15 +54,21 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
 
 
     class DatesViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageView;
-        TextView textViewTitle,textViewDesc;
+        ImageView imageView,datep1,datep2,datep3;
+        TextView textViewTitle,textViewDesc,dateperson;
 
         public DatesViewHolder(View itemView) {
             super(itemView);
 
             imageView=itemView.findViewById(R.id.datesimg);
+            datep1=itemView.findViewById(R.id.datep1);
+            datep2=itemView.findViewById(R.id.datep2);
+            datep3=itemView.findViewById(R.id.datep3);
+            dateperson=itemView.findViewById(R.id.dateperson);
             textViewTitle=itemView.findViewById(R.id.datestitle);
             textViewDesc=itemView.findViewById(R.id.datesdesc);
+
+
 
 
         }
