@@ -9,7 +9,7 @@
     <string name="feature_screen3_title">Get notifications on the \n latest uploads</string>
     <string name="feature_screen4_title">Request notes for a \n particular lecture</string>
     <string name="action_settings">Settings</string>
-    <string-array name="Semester">
+    <string-array name="Semester_array">
         <item>Current Semester</item>
         <item>Previous Semester</item>
     </string-array>
@@ -48,6 +48,9 @@
     <string name="label">Join Courses</string>
     <string name="Unenroll">Unenroll</string>
     <string name="MC_title">Mobile Computing</string>
+    <string name="title_activity_dates_tab">Course Name</string>
+    <string name="tab_text_1">ALL</string>
+    <string name="tab_text_2">PRIVATE</string>
 
 
 </resources>

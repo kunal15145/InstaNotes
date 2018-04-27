@@ -43,7 +43,7 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<MyCoursesAdapter.MyVi
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,AllDates.class);
+                Intent intent = new Intent(mContext,DatesTab.class);
                 intent.putExtra("CourseName",mData.get(position).getCourseName());
                 intent.putExtra("SemName",mData.get(position).getSemester());
                 intent.putExtra("Thumbnail",mData.get(position).getThumbnail());

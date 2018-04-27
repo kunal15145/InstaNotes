@@ -14,7 +14,6 @@
         android:layout_width="360dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
-        card_view:cardElevation="10px"
         app:cardCornerRadius="5dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
