@@ -4,25 +4,22 @@ import android.content.Context;
         import android.content.Intent;
         import android.support.v7.widget.CardView;
         import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
         import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
         import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class MyCoursesAdapter extends RecyclerView.Adapter<MyCoursesAdapter.MyViewHolder> {
 
     private Context mContext ;
     private List<mycourse> mData ;
 
 
-    public RecyclerViewAdapter(Context mContext, List<mycourse> mData) {
+    public MyCoursesAdapter(Context mContext, List<mycourse> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
