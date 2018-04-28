@@ -52,5 +52,10 @@
     <string name="tab_text_1">ALL</string>
     <string name="tab_text_2">PRIVATE</string>
 
+    <string-array name="privacy_array">
+        <item>Public</item>
+        <item>Private</item>
+    </string-array>
+
 
 </resources>
