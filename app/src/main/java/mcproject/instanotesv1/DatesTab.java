@@ -53,8 +53,9 @@ public class DatesTab extends AppCompatActivity{
     Calendar currentDate;
     int day,month,year;
     TextView choosedate;
-
-
+    ImageView plusbutton;
+    TextView count;
+    int currentcount=0;
 
     int REQUEST_CAMERA=0;
     int SELECT_FILE=1;
@@ -79,8 +80,6 @@ public class DatesTab extends AppCompatActivity{
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dates_tab);
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_activity_dates_tab);
@@ -91,7 +90,7 @@ public class DatesTab extends AppCompatActivity{
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 
-        ivImage=findViewById(R.id.gallery);
+//        ivImage=findViewById(R.id.gallery);
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -105,19 +104,64 @@ public class DatesTab extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View view2=getLayoutInflater().inflate(R.layout.dialog_newnotes,null);
+
+                final View view2=getLayoutInflater().inflate(R.layout.dialog_newnotes,null);
+                count=view2.findViewById(R.id.count);
+                count.setText(String.valueOf(currentcount));
                 Spinner spinner=view2.findViewById(R.id.spinner1);
                 ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(DatesTab.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.privacy_array));
                 myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setSelection(0);
                 spinner.setAdapter(myAdapter);
 
+                currentDate=Calendar.getInstance();
+                day=currentDate.get(Calendar.DAY_OF_MONTH);
+                month=currentDate.get(Calendar.MONTH);
+                year=currentDate.get(Calendar.YEAR);
+                plusbutton=view2.findViewById(R.id.addbutton);
+                plusbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectImage();
+                        count.setText(String.valueOf(currentcount));
+                    }
+                });
+
+
+
+
+
+                choosedate=view2.findViewById(R.id.choosedate);
+                choosedate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatePickerDialog datePickerDialog=new DatePickerDialog(view2.getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                month=month+1;
+                                choosedate.setText(dayOfMonth+"/"+month+"/"+year);
+                            }
+                        },year,month,day);
+                        datePickerDialog.show();
+                    }
+                });
+
+
                 AlertDialog.Builder builder=new AlertDialog.Builder(DatesTab.this);
 
-
-
-                builder.setView(view2);
-//                        .setPositiveButton("OK")
+                builder.setView(view2)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
                 AlertDialog dialog=builder.create();
                 dialog.show();
 //                selectImage();
@@ -227,6 +271,7 @@ public class DatesTab extends AppCompatActivity{
             }
         }*/
         //ivImage.setImageBitmap(bm);
+        currentcount++;
     }
 
     private void onCaptureImageResult(Intent data) {
@@ -246,7 +291,9 @@ public class DatesTab extends AppCompatActivity{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ivImage.setImageBitmap(thumbnail);
+
+//        ivImage.setImageBitmap(thumbnail);
+          currentcount++;
     }
 
 

@@ -50,7 +50,6 @@ public class Tab1_ALL extends Fragment{
         month=currentDate.get(Calendar.MONTH);
         year=currentDate.get(Calendar.YEAR);
 
-        month=month+1;
 
         choosedate=rootView.findViewById(R.id.choosedate);
         choosedate.setOnClickListener(new View.OnClickListener() {

@@ -47,17 +47,16 @@
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/gallery"
-        android:layout_below="@+id/appbar"
-        android:src="@drawable/search3"
-        />
+    <!--<ImageView-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:id="@+id/gallery"-->
+        <!--android:layout_below="@+id/appbar"-->
+        <!--android:src="@drawable/search3"-->
+        <!--/>-->
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_below="@+id/gallery"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
