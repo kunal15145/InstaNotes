@@ -90,7 +90,7 @@ public class Tab2_PRIVATE extends Fragment{
         });
 
 
-        datesList=new ArrayList<>();
+        datesList = new ArrayList<>();
         recyclerView2 = rootView.findViewById(R.id.recyclerView2);
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -142,6 +142,5 @@ public class Tab2_PRIVATE extends Fragment{
                         adapter2.notifyDataSetChanged();
                     }
                 });
-
     }
 }

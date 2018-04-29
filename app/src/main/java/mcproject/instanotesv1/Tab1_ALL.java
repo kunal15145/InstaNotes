@@ -91,6 +91,7 @@ public class Tab1_ALL extends Fragment{
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                        datesList.clear();
                         if(e!=null){
                             return;
                         }

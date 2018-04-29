@@ -124,7 +124,7 @@ public class DatesTab extends AppCompatActivity{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.title_activity_dates_tab);
+        getSupportActionBar().setTitle(coursename);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         // Create the adapter that will return a fragment for each of the three
@@ -225,12 +225,11 @@ public class DatesTab extends AppCompatActivity{
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Log.d("sdfjkhsdkjfha", "written");
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.d("sdjkfsahdkjfh", "Error writing document");
+
                                     }
                                 });
                                 uploadImage();
@@ -508,13 +507,11 @@ public class DatesTab extends AppCompatActivity{
                                                 }
                                             }
                                         });
-
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
 
                             }
                         })
