@@ -1,6 +1,8 @@
 package mcproject.instanotesv1;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +43,13 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
         holder.datep1.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep1()));
         holder.datep2.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep2()));
         holder.datep3.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep3()));
-
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ctx,PreviewNotes.class);
+                ctx.startActivity(intent);
+            }
+        });
     }
 
 
@@ -55,7 +63,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
     class DatesViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView,datep1,datep2,datep3;
         TextView textViewTitle,textViewDesc,dateperson;
-
+        CardView cardView;
         public DatesViewHolder(View itemView) {
             super(itemView);
 
@@ -66,7 +74,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
             dateperson=itemView.findViewById(R.id.dateperson);
             textViewTitle=itemView.findViewById(R.id.datestitle);
             textViewDesc=itemView.findViewById(R.id.datesdesc);
-
+            cardView = itemView.findViewById(R.id.datasingle);
         }
     }
 }
