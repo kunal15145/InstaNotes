@@ -64,12 +64,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class my_courses extends AppCompatActivity{
 
 
-    public TextView navUsername,credit,email;
-    public CircleImageView dp1;
+    public TextView credit,email;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firestore;
-    private static final String INSTA_COINS = "InstaCoins";
     private ProgressDialog dialog;
 
     @Override
@@ -139,12 +137,12 @@ public class my_courses extends AppCompatActivity{
                 .withToolbar(mActionBarToolbar)
                 .withAccountHeader(headerResult)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Transaction").withIdentifier(1),
-                        new PrimaryDrawerItem().withName("Account Info").withIdentifier(2),
-                        new PrimaryDrawerItem().withName("Help").withIdentifier(3),
-                        new PrimaryDrawerItem().withName("FeedBack").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(5),
-                        new PrimaryDrawerItem().withName("Logout").withIdentifier(6)
+                        new PrimaryDrawerItem().withName("Transaction").withIcon(android.R.drawable.ic_menu_recent_history).withIdentifier(1),
+                        new PrimaryDrawerItem().withName("Account Info").withIcon(android.R.drawable.ic_dialog_info).withIdentifier(2),
+                        new PrimaryDrawerItem().withName("Help").withIcon(android.R.drawable.ic_menu_help).withIdentifier(3),
+                        new PrimaryDrawerItem().withName("FeedBack").withIcon(android.R.drawable.ic_menu_report_image).withIdentifier(4),
+                        new PrimaryDrawerItem().withName("Settings").withIcon(android.R.drawable.ic_menu_manage).withIdentifier(5),
+                        new PrimaryDrawerItem().withName("Logout").withIcon(android.R.drawable.btn_dialog).withIdentifier(6)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
