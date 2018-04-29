@@ -460,8 +460,7 @@ public class DatesTab extends AppCompatActivity{
             progressDialog.setTitle("Uploading "+String.valueOf(filePath.size())+" images");
             progressDialog.show();
             for(int i=0;i<filePath.size();i++) {
-                final StorageReference ref = storageReference.child("images/" + filePath.get(i));
-                Log.d("sdfjlsdf", String.valueOf(filePath.get(i)));
+                final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
                 ref.putFile(filePath.get(i))
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -476,8 +475,14 @@ public class DatesTab extends AppCompatActivity{
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if(task.isSuccessful()){
                                                     for (DocumentSnapshot doc:task.getResult()) {
-                                                        ArrayList<String> images = (ArrayList<String>) doc.get("Images");
-                                                        images.add(String.valueOf(ref.getDownloadUrl()));
+                                                        final ArrayList<String> images = (ArrayList<String>) doc.get("Images");
+                                                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                            @Override
+                                                            public void onSuccess(Uri uri) {
+                                                                Log.d("eriteruot", uri.toString());
+                                                                images.add(uri.toString());
+                                                            }
+                                                        });
                                                         firebaseFirestore.collection("uploads").document(doc.getId())
                                                                 .update(IMAGES_TAG, images);
                                                     }
@@ -502,6 +507,8 @@ public class DatesTab extends AppCompatActivity{
                                 progressDialog.setMessage("Uploaded " + (int) progress + "%");
                             }
                         });
+
+
             }
             progressDialog.dismiss();
 
