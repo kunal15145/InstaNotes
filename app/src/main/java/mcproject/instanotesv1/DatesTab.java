@@ -68,7 +68,7 @@ import java.util.UUID;
 public class DatesTab extends AppCompatActivity{
 
     String userChoosenTask;
-    ImageView ivImage;
+    ImageView ivImage,downarrow;
     DatePicker datepicker;
     Calendar currentDate;
     int day,month,year;
@@ -169,7 +169,22 @@ public class DatesTab extends AppCompatActivity{
 
 
                 choosedate=view2.findViewById(R.id.choosedate);
+                downarrow=view2.findViewById(R.id.dropdown);
                 choosedate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatePickerDialog datePickerDialog=new DatePickerDialog(view2.getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                month=month+1;
+                                choosedate.setText(dayOfMonth+"/"+month+"/"+year);
+                            }
+                        },year,month,day);
+                        datePickerDialog.show();
+                    }
+                });
+
+                downarrow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DatePickerDialog datePickerDialog=new DatePickerDialog(view2.getContext(), new DatePickerDialog.OnDateSetListener() {
