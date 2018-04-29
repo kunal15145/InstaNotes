@@ -135,12 +135,13 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
                     .into(new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            System.out.println();
                             image.setImageBitmap(bitmap);
                         }
 
                         @Override
                         public void onBitmapFailed(Drawable errorDrawable) {
-
+                            Log.d("dasdas",errorDrawable.toString());
                         }
 
                         @Override

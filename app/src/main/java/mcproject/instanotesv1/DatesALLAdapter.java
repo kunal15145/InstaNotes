@@ -44,7 +44,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
         holder.textViewDesc.setText(dates.getShortdesc());
         holder.imageView.setImageDrawable(ctx.getResources().getDrawable(dates.getImage()));
         int i=0;
-        if(i==1)
+        if(i==0)
         {
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,7 +93,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
 
 
     class DatesViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageView,datep1,datep2,datep3;
+        ImageView imageView;
         TextView textViewTitle,textViewDesc,dateperson;
         CardView cardView;
         public DatesViewHolder(View itemView) {
