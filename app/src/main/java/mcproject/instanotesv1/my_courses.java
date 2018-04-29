@@ -106,6 +106,8 @@ public class my_courses extends AppCompatActivity{
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), join_courses.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, 0);
+
             }
         });
 

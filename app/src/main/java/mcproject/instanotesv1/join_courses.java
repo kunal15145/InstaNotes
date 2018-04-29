@@ -1,7 +1,9 @@
 package mcproject.instanotesv1;
 
+import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +34,7 @@ public class join_courses extends AppCompatActivity{
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private FirebaseFirestore firebaseFirestore;
+    private static FirebaseFirestore firebaseFirestore;
     private ProgressDialog dialog;
     EditText editTextSearch;
 
@@ -42,6 +46,7 @@ public class join_courses extends AppCompatActivity{
     private static int MTH = 4;
     private static int BIO = 5;
     private static int OTHERS = 6;
+    RecyclerViewDataAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +82,36 @@ public class join_courses extends AppCompatActivity{
             }
         });
 
+        /*AutoCompleteTextView autoCompleteTextView1 = (AutoCompleteTextView) findViewById(R.id.editMobileNo);
+
+        final ArrayList<String> stringlist = new ArrayList<>();
+        firebaseFirestore.collection("courses")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(DocumentSnapshot documentSnapshot:task.getResult()){
+                                String s = (String) documentSnapshot.get("CourseName");
+                                stringlist.add((String) documentSnapshot.get("CourseName"));
+                            }
+                        }
+                    }
+                });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,stringlist);
+
+        autoCompleteTextView1.setAdapter(adapter);*/
+
 
     }
 
     private void filter(final String text) {
         //new array list that will hold the filtered data
-        final ArrayList<String> filterdNames = new ArrayList<>();
-
+        final ArrayList<ArrayList<SingleItemModel>> filterdNames = new ArrayList<>();
+        filterdNames.add(new ArrayList<SingleItemModel>());
+        filterdNames.get(0).add(new SingleItemModel("Courses",null,null,null));
 
         //looping through existing elements
         firebaseFirestore.collection("courses")
@@ -94,15 +122,17 @@ public class join_courses extends AppCompatActivity{
                         if(task.isSuccessful()){
                             for(DocumentSnapshot documentSnapshot:task.getResult()){
                                 String s = (String) documentSnapshot.get("CourseName");
-                                if(s.contains(text)){
-                                    filterdNames.add(s);
+                                if(s.toLowerCase().contains(text.toLowerCase())){
+                                    filterdNames.get(0).add(new SingleItemModel((String)documentSnapshot.get("CourseName"),null,(String)documentSnapshot.get("Semester"),"JOIN"));
                                 }
                             }
                         }
                     }
                 });
+        adapter.filterList(filterdNames);
 
     }
+
 
 
     // Adding a course
@@ -228,6 +258,7 @@ public class join_courses extends AppCompatActivity{
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        overridePendingTransition(0, R.anim.slide_out);
         return true;
     }
 
@@ -238,7 +269,7 @@ public class join_courses extends AppCompatActivity{
         Log.d("this", String.valueOf(allSampleData.size()));
         RecyclerView my_recycler_view = findViewById(R.id.my_recycler_view);
         my_recycler_view.setHasFixedSize(true);
-        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(this,allSampleData);
+        adapter = new RecyclerViewDataAdapter(this,allSampleData);
         my_recycler_view.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
         my_recycler_view.setAdapter(adapter);
     }

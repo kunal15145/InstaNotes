@@ -52,6 +52,11 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         this.mContext = context;
     }
 
+    public void filterList(ArrayList<SingleItemModel> filterdNames) {
+        this.itemsList = filterdNames;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position){
         if(position==0)
@@ -92,7 +97,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             });
         }
         else if(holder.getItemViewType()==COURSE_INFO_CARD){
-            Log.d("this",singleItem.getTopic());
             holder.cardtopic.setText(singleItem.getTopic());
         }
     }

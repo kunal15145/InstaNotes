@@ -14,12 +14,12 @@ import java.util.List;
  * Created by Harshit Verma on 15-03-2018.
  */
 
-public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHolder>{
+public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesViewHolder>{
 
     private Context ctx;
-    private List<Dates> datesList;
+    private List<DatesALL> datesList;
 
-    public DatesAdapter(Context ctx, List<Dates> datesList) {
+    public DatesALLAdapter(Context ctx, List<DatesALL> datesList) {
         this.ctx = ctx;
         this.datesList = datesList;
     }
@@ -34,7 +34,7 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
 
     @Override
     public void onBindViewHolder(DatesViewHolder holder, int position) {
-        Dates dates=datesList.get(position);
+        DatesALL dates=datesList.get(position);
         holder.textViewTitle.setText(dates.getTitle());
         holder.textViewDesc.setText(dates.getShortdesc());
         holder.imageView.setImageDrawable(ctx.getResources().getDrawable(dates.getImage()));
