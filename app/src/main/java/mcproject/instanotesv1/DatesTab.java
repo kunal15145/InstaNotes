@@ -381,5 +381,4 @@ public class DatesTab extends AppCompatActivity{
         return true;
     }
 
-
 }

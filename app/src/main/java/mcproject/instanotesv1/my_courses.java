@@ -3,6 +3,7 @@ package mcproject.instanotesv1;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -31,6 +33,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.picasso.Picasso;
 
 
@@ -38,8 +50,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class my_courses extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class my_courses extends AppCompatActivity{
 
 
     public TextView navUsername,credit,email;
@@ -92,65 +103,86 @@ public class my_courses extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mActionBarToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-
-        dp1 = headerView.findViewById(R.id.dp);
-        dp1.setOnClickListener(new View.OnClickListener() {
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
-            public void onClick(View view) {
-                Intent intent3;
-                intent3 = new Intent(view.getContext(),Account.class);
-                startActivity(intent3);
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
             }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Picasso.with(imageView.getContext()).cancelRequest(imageView);
+            }
+
+
         });
-        navUsername = headerView.findViewById(R.id.username);
 
-        credit = headerView.findViewById(R.id.credit);
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.img3)
+                .addProfiles(
+                        new ProfileDrawerItem().withName(firebaseUser.getDisplayName()).withEmail(firebaseUser.getEmail()).withIcon(firebaseUser.getPhotoUrl())
+                )
+                .build();
 
-        // Setting content
-        firestore.collection("users").document(firebaseUser.getUid()).addSnapshotListener(
-                new EventListener<DocumentSnapshot>() {
-                    @SuppressLint("SetTextI18n")
+
+        Drawer drawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(mActionBarToolbar)
+                .withAccountHeader(headerResult)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName("Transaction").withIcon(android.R.drawable.ic_menu_recent_history).withIdentifier(1),
+                        new PrimaryDrawerItem().withName("Account Info").withIcon(android.R.drawable.ic_dialog_info).withIdentifier(2),
+                        new PrimaryDrawerItem().withName("Help").withIcon(android.R.drawable.ic_menu_help).withIdentifier(3),
+                        new PrimaryDrawerItem().withName("FeedBack").withIcon(android.R.drawable.ic_menu_report_image).withIdentifier(4),
+                        new PrimaryDrawerItem().withName("Settings").withIcon(android.R.drawable.ic_menu_manage).withIdentifier(5),
+                        new PrimaryDrawerItem().withName("Logout").withIcon(android.R.drawable.btn_dialog).withIdentifier(6)
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                        if(e!=null){
-                            Log.d("Failure Listining","ok");
-                            return;
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem instanceof Nameable) {
+                            Intent intent2;
+                            if(((Nameable) drawerItem).getName().getText(view.getContext()).equals("Settings")){
+                                intent2 = new Intent(getApplicationContext(),settings.class);
+                                startActivity(intent2);
+                            }
+                            else if(((Nameable) drawerItem).getName().getText(view.getContext()).equals("Account Info")){
+                                intent2 = new Intent(view.getContext(),Account.class);
+                                startActivity(intent2);
+                            }
+                            else if(((Nameable) drawerItem).getName().getText(view.getContext()).equals("Transaction")){
+                                intent2 = new Intent(view.getContext(),Transactions.class);
+                                startActivity(intent2);
+                            }
+                            else if(((Nameable) drawerItem).getName().getText(view.getContext()).equals("Help")){
+                                intent2 = new Intent(view.getContext(),Help.class);
+                                startActivity(intent2);
+                            }
+                            else if(((Nameable) drawerItem).getName().getText(view.getContext()).equals("FeedBack")){
+                                intent2 = new Intent(view.getContext(),feedback.class);
+                                startActivity(intent2);
+                            }
+                            else if(((Nameable) drawerItem).getName().getText(view.getContext()).equals("Logout")){
+                                AuthUI.getInstance().signOut(view.getContext())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                startActivity(new Intent(my_courses.this,IntroductionScreen.class));
+                                                finish();
+                                            }
+                                        });
+                            }
                         }
-                        else if(documentSnapshot!=null && documentSnapshot.exists()){
-                            Log.d("dasd", (String) documentSnapshot.get(INSTA_COINS));
-                            credit.setText(documentSnapshot.get(INSTA_COINS) +" credits");
-                        }
-                        else {
-                            Log.d("Current data","");
-                        }
+
+                        return false;
                     }
-                }
-        );
-        email = headerView.findViewById(R.id.email);
+                })
+                .build();
 
-        firebaseUser = firebaseAuth.getCurrentUser();
-
-        navigationView.setNavigationItemSelectedListener(this);
-                navUsername.setText(firebaseUser.getDisplayName());
-                email.setText(firebaseUser.getEmail());
-                Uri uri = firebaseUser.getPhotoUrl();
-                String TAG="url";
-                Log.d(TAG, String.valueOf(uri));
-
-
-                Picasso.with(getApplicationContext())
-                        .load(uri)
-                        .error(android.R.drawable.sym_def_app_icon)
-                        .into(dp1);
-        navigationView.setNavigationItemSelectedListener(this);
+        drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
 
     }
 
@@ -223,47 +255,6 @@ public class my_courses extends AppCompatActivity
     public void onClick(View v){
         Intent intent=new Intent(v.getContext(),Notifications.class);
         startActivity(intent);
-    }
-
-
-
-
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        Intent intent2;
-        if (id == R.id.transac) {
-            intent2=new Intent(getApplicationContext(),Transactions.class);
-            startActivity(intent2);
-        } else if (id == R.id.help) {
-//
-            intent2 = new Intent(getApplicationContext(),Help.class);
-            startActivity(intent2);
-        } else if (id == R.id.feedback) {
-            intent2 = new Intent(getApplicationContext(),feedback.class);
-            startActivity(intent2);
-
-        } else if (id == R.id.settings) {
-            intent2 = new Intent(getApplicationContext(),settings.class);
-            startActivity(intent2);
-
-        } else if (id == R.id.nav_logout) {
-            AuthUI.getInstance().signOut(this)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            startActivity(new Intent(my_courses.this,IntroductionScreen.class));
-                            finish();
-                        }
-                    });
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
 }
