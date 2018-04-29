@@ -93,7 +93,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
 
 
     class DatesViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageView,datep1,datep2,datep3;
+        ImageView imageView;
         TextView textViewTitle,textViewDesc,dateperson;
         CardView cardView;
         public DatesViewHolder(View itemView) {

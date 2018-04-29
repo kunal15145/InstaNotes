@@ -478,36 +478,50 @@ public class DatesTab extends AppCompatActivity{
     }
 
     private void uploadImage() {
+        firebaseFirestore.collection("uploads")
+                .whereEqualTo(User_ID_TAG, firebaseUser.getUid())
+                .whereEqualTo(Course_TAG, getIntent().getExtras().getString("CourseName"))
+                .whereEqualTo(DATE_TAG, choosedate.getText())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documentSnapshots) {
+                        for (final DocumentSnapshot doc:documentSnapshots) {
+                            download_filePath=(ArrayList<String>)doc.get(IMAGES_TAG);
+                        }
+                    }
+                });
         if(filePath!=null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading "+String.valueOf(filePath.size())+" images");
             progressDialog.show();
             for(int i=0;i<filePath.size();i++) {
-                final StorageReference ref = storageReference.child("images/" + filePath.get(i));
-                Log.d("sdfjlsdf", String.valueOf(filePath.get(i)));
+                final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
                 ref.putFile(filePath.get(i))
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot){
+                            public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot){
+                                System.out.println(ref.getDownloadUrl().toString());
+                                Log.d("sadsa", String.valueOf(taskSnapshot.getDownloadUrl()));
                                 firebaseFirestore.collection("uploads")
                                         .whereEqualTo(User_ID_TAG, firebaseUser.getUid())
                                         .whereEqualTo(Course_TAG, getIntent().getExtras().getString("CourseName"))
                                         .whereEqualTo(DATE_TAG, choosedate.getText())
                                         .get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if(task.isSuccessful()){
-                                                    for (DocumentSnapshot doc:task.getResult()) {
-                                                        ArrayList<String> images = (ArrayList<String>) doc.get("Images");
-                                                        images.add(String.valueOf(ref.getDownloadUrl()));
-                                                        firebaseFirestore.collection("uploads").document(doc.getId())
-                                                                .update(IMAGES_TAG, images);
-                                                    }
+                                            public void onSuccess(QuerySnapshot documentSnapshots) {
+                                                for (final DocumentSnapshot doc:documentSnapshots) {
+                                                    download_filePath.add(taskSnapshot.getDownloadUrl().toString());
+                                                    Log.d("oieurojksdfh", String.valueOf(download_filePath.size()));
+                                                    firebaseFirestore.collection("uploads").document(doc.getId())
+                                                            .update(IMAGES_TAG, download_filePath);
                                                 }
                                             }
                                         });
+
                             }
+
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -523,7 +537,10 @@ public class DatesTab extends AppCompatActivity{
                                 progressDialog.setMessage("Uploaded " + (int) progress + "%");
                             }
                         });
+
+
             }
+
             progressDialog.dismiss();
 
         }
