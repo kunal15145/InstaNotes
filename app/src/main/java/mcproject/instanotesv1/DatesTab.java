@@ -217,7 +217,7 @@ public class DatesTab extends AppCompatActivity{
                                 Log.d("sdfjkds", String.valueOf(download_filePath.size()));
                                 Map<String,Object> NewUpload = new HashMap<>();
                                 NewUpload.put(User_ID_TAG, firebaseUser.getUid());
-                                NewUpload.put(OWN_TAG, spinner.getSelectedItemPosition());
+                                NewUpload.put(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()));
                                 NewUpload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
                                 NewUpload.put(DATE_TAG, choosedate.getText());
                                 NewUpload.put(IMAGES_TAG, download_filePath);

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +109,13 @@ public class Tab1_ALL extends Fragment{
                                     }
                                     DateFormat format2=new SimpleDateFormat("EEEE");
                                     String finalDay=format2.format(dt1);
+                                    String s = (String) documentSnapshot.get("OWN");
+                                    if(s.equals("0")){
+                                        System.out.println("Public");
+                                    }
+                                    else if(s.equals("1")){
+                                        System.out.println("Private");
+                                    }
                                     datesList.add(new DatesALL(input_date,String.valueOf(count),finalDay,R.drawable.unlock,R.drawable.user,R.drawable.user,R.drawable.user));
                                 }
                                 else {

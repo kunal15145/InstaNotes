@@ -68,7 +68,7 @@ public class Tab2_PRIVATE extends Fragment{
 
 
         datesList=new ArrayList<>();
-        recyclerView2 = (RecyclerView) rootView.findViewById(R.id.recyclerView2);
+        recyclerView2 = rootView.findViewById(R.id.recyclerView2);
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
 
