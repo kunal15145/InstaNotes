@@ -35,7 +35,7 @@ public class DatesPRIVATEAdapter extends RecyclerView.Adapter<DatesPRIVATEAdapte
     }
 
     @Override
-    public void onBindViewHolder(DatesViewHolder holder, int position) {
+    public void onBindViewHolder(final DatesViewHolder holder, int position) {
         DatesPRIVATE dates=datesList.get(position);
         holder.textViewTitle.setText(dates.getTitle());
         holder.textViewDesc.setText(dates.getShortdesc());
@@ -44,6 +44,7 @@ public class DatesPRIVATEAdapter extends RecyclerView.Adapter<DatesPRIVATEAdapte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ctx,PreviewNotes.class);
+                intent.putExtra("Date",holder.textViewTitle.getText());
                 ctx.startActivity(intent);
             }
         });

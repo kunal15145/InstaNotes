@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="mcproject.instanotesv1.DatesTab">
     <item
-        android:id="@+id/action_favorites"
+        android:id="@+id/action_favorites1"
         android:orderInCategory="100"
         android:title="@string/action_favorites"
         app:showAsAction="never" />
@@ -12,5 +12,4 @@
         android:orderInCategory="100"
         android:title="@string/action_request"
         app:showAsAction="never" />
-
 </menu>

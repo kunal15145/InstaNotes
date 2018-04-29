@@ -59,8 +59,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -68,7 +71,7 @@ import java.util.UUID;
 public class DatesTab extends AppCompatActivity{
 
     String userChoosenTask;
-    ImageView ivImage;
+    ImageView ivImage,downarrow;
     DatePicker datepicker;
     Calendar currentDate;
     int day,month,year;
@@ -90,6 +93,7 @@ public class DatesTab extends AppCompatActivity{
     private static final String OWN_TAG = "OWN";
     private static final String DATE_TAG = "DATE";
     private static final String Course_TAG="Course";
+    String coursename = null;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -116,9 +120,11 @@ public class DatesTab extends AppCompatActivity{
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
+        coursename = (String) getIntent().getExtras().get("CourseName");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.title_activity_dates_tab);
+        getSupportActionBar().setTitle(coursename);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         // Create the adapter that will return a fragment for each of the three
@@ -169,7 +175,25 @@ public class DatesTab extends AppCompatActivity{
 
 
                 choosedate=view2.findViewById(R.id.choosedate);
+                downarrow=view2.findViewById(R.id.dropdown);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                choosedate.setText(dateFormat.format(date));
                 choosedate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatePickerDialog datePickerDialog=new DatePickerDialog(view2.getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                month=month+1;
+                                choosedate.setText(dayOfMonth+"/"+month+"/"+year);
+                            }
+                        },year,month,day);
+                        datePickerDialog.show();
+                    }
+                });
+
+                downarrow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DatePickerDialog datePickerDialog=new DatePickerDialog(view2.getContext(), new DatePickerDialog.OnDateSetListener() {
@@ -193,7 +217,7 @@ public class DatesTab extends AppCompatActivity{
                                 Log.d("sdfjkds", String.valueOf(download_filePath.size()));
                                 Map<String,Object> NewUpload = new HashMap<>();
                                 NewUpload.put(User_ID_TAG, firebaseUser.getUid());
-                                NewUpload.put(OWN_TAG, spinner.getSelectedItemPosition());
+                                NewUpload.put(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()));
                                 NewUpload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
                                 NewUpload.put(DATE_TAG, choosedate.getText());
                                 NewUpload.put(IMAGES_TAG, download_filePath);
@@ -201,12 +225,11 @@ public class DatesTab extends AppCompatActivity{
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Log.d("sdfjkhsdkjfha", "written");
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.d("sdjkfsahdkjfh", "Error writing document");
+
                                     }
                                 });
                                 uploadImage();
@@ -489,13 +512,11 @@ public class DatesTab extends AppCompatActivity{
                                                 }
                                             }
                                         });
-
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
 
                             }
                         })
@@ -513,6 +534,10 @@ public class DatesTab extends AppCompatActivity{
             progressDialog.dismiss();
 
         }
+    }
+
+    public String getCoursename(){
+        return coursename;
     }
 
 }

@@ -35,18 +35,17 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
     }
 
     @Override
-    public void onBindViewHolder(DatesViewHolder holder, int position) {
+    public void onBindViewHolder(final DatesViewHolder holder, int position) {
         DatesALL dates=datesList.get(position);
         holder.textViewTitle.setText(dates.getTitle());
+        holder.dateperson.setText(dates.getDateperson());
         holder.textViewDesc.setText(dates.getShortdesc());
         holder.imageView.setImageDrawable(ctx.getResources().getDrawable(dates.getImage()));
-        holder.datep1.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep1()));
-        holder.datep2.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep2()));
-        holder.datep3.setImageDrawable(ctx.getResources().getDrawable(dates.getDatep3()));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ctx,PreviewNotes.class);
+                intent.putExtra("Date",holder.textViewTitle.getText());
                 ctx.startActivity(intent);
             }
         });
@@ -68,9 +67,6 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
             super(itemView);
 
             imageView=itemView.findViewById(R.id.datesimg);
-            datep1=itemView.findViewById(R.id.datep1);
-            datep2=itemView.findViewById(R.id.datep2);
-            datep3=itemView.findViewById(R.id.datep3);
             dateperson=itemView.findViewById(R.id.dateperson);
             textViewTitle=itemView.findViewById(R.id.datestitle);
             textViewDesc=itemView.findViewById(R.id.datesdesc);
