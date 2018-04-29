@@ -43,12 +43,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class DatesTab extends AppCompatActivity{
 
     String userChoosenTask;
-    ImageView ivImage;
     DatePicker datepicker;
     Calendar currentDate;
     int day,month,year;
@@ -80,7 +82,7 @@ public class DatesTab extends AppCompatActivity{
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dates_tab);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_activity_dates_tab);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -92,22 +94,22 @@ public class DatesTab extends AppCompatActivity{
 
 //        ivImage=findViewById(R.id.gallery);
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                final View view2=getLayoutInflater().inflate(R.layout.dialog_newnotes,null);
-                count=view2.findViewById(R.id.count);
-                count.setText(String.valueOf(currentcount));
+                final View view2 = getLayoutInflater().inflate(R.layout.dialog_newnotes,null);
+                count = view2.findViewById(R.id.count);
+
                 Spinner spinner=view2.findViewById(R.id.spinner1);
                 ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(DatesTab.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.privacy_array));
                 myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -123,15 +125,13 @@ public class DatesTab extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         selectImage();
-                        count.setText(String.valueOf(currentcount));
                     }
                 });
 
-
-
-
-
                 choosedate=view2.findViewById(R.id.choosedate);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                choosedate.setText(dateFormat.format(date));
                 choosedate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -35,7 +35,6 @@ public class DatesALL {
     public int getDatep3() {
         return datep3;
     }
-// Getter functions
 
     public String getTitle() {
         return title;
