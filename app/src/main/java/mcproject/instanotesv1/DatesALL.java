@@ -4,13 +4,13 @@ package mcproject.instanotesv1;
  * Created by Harshit Verma on 15-03-2018.
  */
 
-public class Dates {
+public class DatesALL {
     private String title,dateperson;
 
     private String shortdesc;
     private int image,datep1,datep2,datep3;
 
-    public Dates(String title, String dateperson, String shortdesc, int image, int datep1, int datep2, int datep3) {
+    public DatesALL(String title, String dateperson, String shortdesc, int image, int datep1, int datep2, int datep3) {
         this.title = title;
         this.dateperson = dateperson;
         this.shortdesc = shortdesc;

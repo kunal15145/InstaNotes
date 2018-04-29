@@ -31,6 +31,11 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         return mh;
     }
 
+    public void filterList(ArrayList<ArrayList<SingleItemModel>> filterdNames) {
+        this.dataList = filterdNames;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(final ItemRowHolder itemRowHolder, int i) {
         final ArrayList<SingleItemModel> singleSectionItems = dataList.get(i);
