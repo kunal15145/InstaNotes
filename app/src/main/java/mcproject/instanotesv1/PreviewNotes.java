@@ -8,6 +8,14 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +27,23 @@ public class PreviewNotes extends AppCompatActivity {
     private List<Notes> previewNotesList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PreviewNotesAdapter previewNotesAdapter;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    FirebaseFirestore firebaseFirestore;
+    String date = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_notes);
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        date = (String) getIntent().getExtras().get("Date");
         recyclerView = findViewById(R.id.recycler_view);
-        previewNotesAdapter = new PreviewNotesAdapter(previewNotesList);
+        previewNotesAdapter = new PreviewNotesAdapter(previewNotesList, this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -41,16 +58,45 @@ public class PreviewNotes extends AppCompatActivity {
     }
 
     private void prepareList() {
-        Notes previewNotes = new Notes("Test","Rajan Girsa",5,FALSE,"www.google.com",4,FALSE);
-        previewNotesList.add(previewNotes);
+        previewNotesList.clear();
+//        Notes previewNotes = new Notes("Test","Rajan Girsa",5,FALSE,"www.google.com",4,FALSE);
+//        previewNotesList.add(previewNotes);
+//
+//        previewNotes = new Notes("Test1","Rajan Girsa",1,TRUE,"www.google.com",1,TRUE);
+//        previewNotesList.add(previewNotes);
+//
+//        previewNotes = new Notes("Test2","Rajan Girsa",4,FALSE,"www.google.com",7,FALSE);
+//        previewNotesList.add(previewNotes);
+//
+//        previewNotes = new Notes("Test3","Rajan Girsa",2,TRUE,"www.google.com",3,TRUE);
+//        previewNotesList.add(previewNotes);
 
-        previewNotes = new Notes("Test1","Rajan Girsa",1,TRUE,"www.google.com",1,TRUE);
-        previewNotesList.add(previewNotes);
+        firebaseFirestore.collection("uploads")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                        if(e!=null){
+                            return;
+                        }
+                        else {
+                            for(final DocumentSnapshot documentSnapshot:documentSnapshots){
+                                if(documentSnapshot.get("DATE").equals(date)){
+                                    String uid = (String) documentSnapshot.get("UserID");
+                                    firebaseFirestore.collection("users")
+                                            .document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(DocumentSnapshot documentSnapshot1, FirebaseFirestoreException e) {
+                                            String name = (String) documentSnapshot1.get("Name");
+                                            ArrayList<String> list = (ArrayList<String>) documentSnapshot.get("Images");
+                                            previewNotesList.add(new Notes(date, name,5,FALSE,"www.google.com",list.size(),FALSE,list));
 
-        previewNotes = new Notes("Test2","Rajan Girsa",4,FALSE,"www.google.com",7,FALSE);
-        previewNotesList.add(previewNotes);
-
-        previewNotes = new Notes("Test3","Rajan Girsa",2,TRUE,"www.google.com",3,TRUE);
-        previewNotesList.add(previewNotes);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                        previewNotesAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 }

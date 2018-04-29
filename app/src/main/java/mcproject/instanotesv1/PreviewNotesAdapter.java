@@ -1,7 +1,12 @@
 package mcproject.instanotesv1;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -19,6 +27,7 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
 
     private List<Notes> previewNotesList;
 //    private int like_click = 0;
+    private Context context;
     private int fav_click = 0;
 
     public class itemHolder extends RecyclerView.ViewHolder {
@@ -42,8 +51,9 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
         }
     }
 
-    public PreviewNotesAdapter(List<Notes> previewNotesList){
+    public PreviewNotesAdapter(List<Notes> previewNotesList, PreviewNotes previewNotes){
         this.previewNotesList = previewNotesList;
+        this.context = previewNotes;
     }
 
     @Override
@@ -112,15 +122,33 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
         float width = holder.imgComment.getContext().getResources().getDimension(R.dimen.image);
         float height = holder.imgComment.getContext().getResources().getDimension(R.dimen.image);
         for(int i = 0; i< previewNotes.getImgCount(); ++i){
-            ImageView image = new ImageView(holder.imgDownload.getContext());
+            String s = previewNotes.getList().get(i);
+            final ImageView image = new ImageView(holder.imgDownload.getContext());
             image.setLayoutParams(new android.view.ViewGroup.LayoutParams((int) width, (int)height));
             image.setMaxHeight(250);
             image.setMaxWidth(250);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams( (int)width, (int)height);
             lp.setMargins(20,0,20,0);
             image.setLayoutParams(lp);
-            image.setImageResource(R.drawable.note);
-            // Adds the view to the layout
+            Picasso.with(context)
+                    .load(Uri.parse(s))
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            System.out.println("Hee;lll");
+                            image.setImageBitmap(bitmap);
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
+                            
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                        }
+                    });
             holder.imageLinear.addView(image);
         }
     }

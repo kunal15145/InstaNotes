@@ -1,11 +1,16 @@
 package mcproject.instanotesv1;
 
+import android.net.Uri;
+
+import java.util.ArrayList;
+
 public class Notes {
     private String title,user,link;
     private int like,imgCount;
     private boolean fav,isLiked;
+    private ArrayList<String> list;
 
-    public Notes(String title, String user, int like, boolean fav, String link, int imgCount, boolean isLiked){
+    public Notes(String title, String user, int like, boolean fav, String link, int imgCount, boolean isLiked, ArrayList<String> list){
         this.title = title;
         this.user = user;
         this.like = like;
@@ -13,6 +18,7 @@ public class Notes {
         this.link = link;
         this.imgCount = imgCount;
         this.isLiked = isLiked;
+        this.list = list;
     }
 
     public String getUser() {
@@ -69,6 +75,14 @@ public class Notes {
 
     public void setisLiked(boolean liked) {
         isLiked = liked;
+    }
+
+    public ArrayList<String> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<String> list) {
+        this.list = list;
     }
 }
 

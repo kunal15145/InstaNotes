@@ -35,15 +35,17 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
     }
 
     @Override
-    public void onBindViewHolder(DatesViewHolder holder, int position) {
+    public void onBindViewHolder(final DatesViewHolder holder, int position) {
         DatesALL dates=datesList.get(position);
         holder.textViewTitle.setText(dates.getTitle());
+        holder.dateperson.setText(dates.getDateperson());
         holder.textViewDesc.setText(dates.getShortdesc());
         holder.imageView.setImageDrawable(ctx.getResources().getDrawable(dates.getImage()));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ctx,PreviewNotes.class);
+                intent.putExtra("Date",holder.textViewTitle.getText());
                 ctx.startActivity(intent);
             }
         });

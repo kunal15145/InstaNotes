@@ -113,14 +113,11 @@ public class Tab1_ALL extends Fragment{
                                     String s = (String) documentSnapshot.get("OWN");
                                     System.out.println(String.valueOf(count));
                                     if(s.equals("0")){
-                                        datesList.add(new DatesALL(input_date,String.valueOf(count),finalDay,R.drawable.unlock));
+                                        datesList.add(new DatesALL(input_date,String.valueOf(count)+" uploads",finalDay,R.drawable.unlock));
                                     }
                                     else if(s.equals("1")){
-                                        datesList.add(new DatesALL(input_date,String.valueOf(count),finalDay,R.drawable.lock));
+                                        datesList.add(new DatesALL(input_date,String.valueOf(count)+" uploads",finalDay,R.drawable.lock));
                                     }
-                                }
-                                else {
-                                    continue;
                                 }
                             }
                         }

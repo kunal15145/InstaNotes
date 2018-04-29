@@ -134,9 +134,6 @@ public class Tab2_PRIVATE extends Fragment{
                                         datesList.add(new DatesPRIVATE(input_date,finalDay,R.drawable.lock));
                                     }
                                 }
-                                else {
-                                    continue;
-                                }
                             }
                         }
                         adapter2.notifyDataSetChanged();
