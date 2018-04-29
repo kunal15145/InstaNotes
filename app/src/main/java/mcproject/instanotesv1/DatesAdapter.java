@@ -67,9 +67,6 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.DatesViewHol
             textViewTitle=itemView.findViewById(R.id.datestitle);
             textViewDesc=itemView.findViewById(R.id.datesdesc);
 
-
-
-
         }
     }
 }

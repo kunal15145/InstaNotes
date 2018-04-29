@@ -80,22 +80,28 @@ public class join_courses extends AppCompatActivity{
 
     }
 
-    private void filter(String text) {
+    private void filter(final String text) {
         //new array list that will hold the filtered data
-        /*ArrayList<String> filterdNames = new ArrayList<>();
+        final ArrayList<String> filterdNames = new ArrayList<>();
 
 
         //looping through existing elements
-        for (Contact_A2_2015037 s : contacts) {
-            //if the existing elements contains the search input
-            if (s.getName().toLowerCase().contains(text.toLowerCase())) {
-                //adding the element to filtered list
-                filterdNames.add(s);
-            }
-        }
+        firebaseFirestore.collection("courses")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(DocumentSnapshot documentSnapshot:task.getResult()){
+                                String s = (String) documentSnapshot.get("CourseName");
+                                if(s.contains(text)){
+                                    filterdNames.add(s);
+                                }
+                            }
+                        }
+                    }
+                });
 
-        //calling a method of the adapter class and passing the filtered list
-        contactsAdapterA22015037.filterList(filterdNames);*/
     }
 
 
