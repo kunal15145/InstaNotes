@@ -40,7 +40,7 @@
     <string name="submit_button">Submit</string>
     <string name="feedback_hint">Write your feedback here</string>
     <string name="popular">Popular</string>
-    <string name="help1">Downloading/Uploading Notes</string>
+    <string name="help1">Uploading Notes</string>
     <string name="help2">Changing Privacy of Notes</string>
     <string name="help3">Requesting for New Notes</string>
     <string name="help4">How the App Works</string>
@@ -52,6 +52,11 @@
     <string name="tab_text_1">ALL</string>
     <string name="tab_text_2">PRIVATE</string>
     <string name="contact">Contact Us</string>
+    <string name="help1detail">Upload notes easily by setting the title and choosing the privacy settings</string>
+    <string name="help2detail">Option to upload notes as public/private</string>
+    <string name="help4detail">The app works on a credit based system. Earn credits by uploading notes and spend these credits to download notes</string>
+    <string name="action_favorites">Favorites</string>
+    <string name="action_request">Request for notes</string>
 
     <string-array name="privacy_array">
         <item>Public</item>
