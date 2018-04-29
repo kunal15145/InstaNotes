@@ -6,9 +6,27 @@
     <TextView
         android:id="@+id/frag1text"
         android:layout_width="match_parent"
-        android:layout_gravity="center_vertical"
         android:layout_marginTop="100dp"
-        android:text="Downloading/Uploading Notes"
+        android:textAlignment="center"
+        android:text="@string/help1"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="320dp"
+        android:src="@drawable/uploadnotes"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="320dp" />
+
+    <TextView
+        android:id="@+id/frag1text2"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:text="@string/help1detail"
         android:textSize="18sp"
         android:layout_height="wrap_content" />
+
+
 </LinearLayout>
