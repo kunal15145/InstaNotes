@@ -113,24 +113,35 @@ public class join_courses extends AppCompatActivity{
         filterdNames.add(new ArrayList<SingleItemModel>());
         filterdNames.get(0).add(new SingleItemModel("Courses",null,null,null));
 
-        //looping through existing elements
-        firebaseFirestore.collection("courses")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection("users")
+                .document(firebaseUser.getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for(DocumentSnapshot documentSnapshot:task.getResult()){
-                                String s = (String) documentSnapshot.get("CourseName");
-                                if(s.toLowerCase().contains(text.toLowerCase())){
-                                    filterdNames.get(0).add(new SingleItemModel((String)documentSnapshot.get("CourseName"),null,(String)documentSnapshot.get("Semester"),"JOIN"));
-                                }
-                            }
-                        }
+                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                        ArrayList<String> courses;
+                        courses = (ArrayList<String>) documentSnapshot.get("Courses");
+                        final ArrayList<String> finalCourses = courses;
+                        firebaseFirestore.collection("courses")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            for(DocumentSnapshot documentSnapshot:task.getResult()) {
+                                                if (!finalCourses.contains(documentSnapshot.getId())) {
+                                                    String s = (String) documentSnapshot.get("CourseName");
+                                                    if (s.toLowerCase().contains(text.toLowerCase())) {
+                                                        filterdNames.get(0).add(new SingleItemModel((String) documentSnapshot.get("CourseName"), null, (String) documentSnapshot.get("Semester"), "JOIN"));
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+
                     }
                 });
         adapter.filterList(filterdNames);
-
     }
 
 
