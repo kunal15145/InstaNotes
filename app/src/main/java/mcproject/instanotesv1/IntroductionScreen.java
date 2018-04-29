@@ -36,6 +36,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shobhitpuri.custombuttons.GoogleSignInButton;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class IntroductionScreen extends AppCompatActivity {
     // Sign In Screen
     private ProgressDialog progressDialog;
     private static final String LOADING = "Loading";
-    private SignInButton signInButton;
+    private GoogleSignInButton signInButton;
     private FirebaseAuth firebaseAuth;
     private static final int SIGN_IN = 9001;
     private GoogleSignInClient googleSignInClient;
