@@ -12,15 +12,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/choosedate"
         android:textColor="@color/black"
-        android:onClick="datepicker"
         android:text="Choose a date"/>
 
     <ImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
+        android:id="@+id/dropdown"
         android:layout_marginLeft="5dp"
-        android:onClick="datepicker"
-        android:id="@+id/imagedropdown"
         android:layout_toRightOf="@+id/choosedate"
         android:src="@drawable/dropdown"
         />

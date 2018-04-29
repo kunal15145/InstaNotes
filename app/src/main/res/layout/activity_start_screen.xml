@@ -15,7 +15,7 @@
         android:layout_marginTop="70dp"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center_horizontal"
-        app:srcCompat="?attr/colorButtonNormal" />
+        app:srcCompat="@drawable/instanoteslogo" />
 
     <TextView
         android:id="@+id/textView26"

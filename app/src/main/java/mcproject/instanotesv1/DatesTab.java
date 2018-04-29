@@ -71,7 +71,7 @@ import java.util.UUID;
 public class DatesTab extends AppCompatActivity{
 
     String userChoosenTask;
-    ImageView ivImage;
+    ImageView ivImage,downarrow;
     DatePicker datepicker;
     Calendar currentDate;
     int day,month,year;
@@ -131,6 +131,7 @@ public class DatesTab extends AppCompatActivity{
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+
 //        ivImage=findViewById(R.id.gallery);
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -174,10 +175,25 @@ public class DatesTab extends AppCompatActivity{
 
 
                 choosedate=view2.findViewById(R.id.choosedate);
+                downarrow=view2.findViewById(R.id.dropdown);
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
                 choosedate.setText(dateFormat.format(date));
                 choosedate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatePickerDialog datePickerDialog=new DatePickerDialog(view2.getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                month=month+1;
+                                choosedate.setText(dayOfMonth+"/"+month+"/"+year);
+                            }
+                        },year,month,day);
+                        datePickerDialog.show();
+                    }
+                });
+
+                downarrow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DatePickerDialog datePickerDialog=new DatePickerDialog(view2.getContext(), new DatePickerDialog.OnDateSetListener() {
@@ -201,7 +217,7 @@ public class DatesTab extends AppCompatActivity{
                                 Log.d("sdfjkds", String.valueOf(download_filePath.size()));
                                 Map<String,Object> NewUpload = new HashMap<>();
                                 NewUpload.put(User_ID_TAG, firebaseUser.getUid());
-                                NewUpload.put(OWN_TAG,spinner.getSelectedItemPosition());
+                                NewUpload.put(OWN_TAG, spinner.getSelectedItemPosition());
                                 NewUpload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
                                 NewUpload.put(DATE_TAG, choosedate.getText());
                                 NewUpload.put(IMAGES_TAG, download_filePath);
