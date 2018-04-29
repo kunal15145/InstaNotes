@@ -190,63 +190,6 @@ public class my_courses extends AppCompatActivity{
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
 
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, mActionBarToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-//
-//        NavigationView navigationView = findViewById(R.id.nav_view);
-//        View headerView = navigationView.getHeaderView(0);
-//
-//        dp1 = headerView.findViewById(R.id.dp);
-//        dp1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent3;
-//                intent3 = new Intent(view.getContext(),Account.class);
-//                startActivity(intent3);
-//            }
-//        });
-//        navUsername = headerView.findViewById(R.id.username);
-//
-//        credit = headerView.findViewById(R.id.credit);
-//
-//        // Setting content
-//        firestore.collection("users").document(firebaseUser.getUid()).addSnapshotListener(
-//                new EventListener<DocumentSnapshot>() {
-//                    @SuppressLint("SetTextI18n")
-//                    @Override
-//                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-//                        if(e!=null){
-//                            Log.d("Failure Listining","ok");
-//                            return;
-//                        }
-//                        else if(documentSnapshot!=null && documentSnapshot.exists()){
-//                            credit.setText(documentSnapshot.get(INSTA_COINS) +" credits");
-//                        }
-//                        else {
-//                            Log.d("Current data","");
-//                        }
-//                    }
-//                }
-//        );
-//        email = headerView.findViewById(R.id.email);
-//
-//        navigationView.setNavigationItemSelectedListener(this);
-//                navUsername.setText(firebaseUser.getDisplayName());
-//                email.setText(firebaseUser.getEmail());
-//                Uri uri = firebaseUser.getPhotoUrl();
-//                String TAG="url";
-//                Log.d(TAG, String.valueOf(uri));
-//                Picasso.with(getApplicationContext())
-//                        .load(uri)
-//                        .error(android.R.drawable.sym_def_app_icon)
-//                        .into(dp1);
-//        navigationView.setNavigationItemSelectedListener(this);
-//
-//    }
-
     }
 
     private void addCourse() {
@@ -319,40 +262,4 @@ public class my_courses extends AppCompatActivity{
         Intent intent=new Intent(v.getContext(),Notifications.class);
         startActivity(intent);
     }
-
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//        Intent intent2;
-//        if (id == R.id.transac) {
-//            intent2=new Intent(getApplicationContext(),Transactions.class);
-//            startActivity(intent2);
-//        } else if (id == R.id.help) {
-////
-//            intent2 = new Intent(getApplicationContext(),Help.class);
-//            startActivity(intent2);
-//        } else if (id == R.id.feedback) {
-//            intent2 = new Intent(getApplicationContext(),feedback.class);
-//            startActivity(intent2);
-//
-//        } else if (id == R.id.settings) {
-//            intent2 = new Intent(getApplicationContext(),settings.class);
-//            startActivity(intent2);
-//
-//        } else if (id == R.id.nav_logout) {
-//            AuthUI.getInstance().signOut(this)
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            startActivity(new Intent(my_courses.this,IntroductionScreen.class));
-//                            finish();
-//                        }
-//                    });
-//        }
-//
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-
 }

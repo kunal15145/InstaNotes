@@ -44,5 +44,9 @@ dependencies {
     implementation("com.mikepenz:materialdrawer:6.0.7@aar") {
         transitive = true
     }
+    dependencies {
+        implementation 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
+    }
+
 }
 apply plugin: 'com.google.gms.google-services'
