@@ -32,8 +32,6 @@ public class Tab1_ALL extends Fragment{
     RecyclerView recyclerView2;
     DatesAdapter adapter2;
 
-
-    DatePicker datepicker;
     Calendar currentDate;
     int day,month,year;
     TextView choosedate;
