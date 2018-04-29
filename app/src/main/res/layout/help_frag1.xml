@@ -15,7 +15,9 @@
 
     <ImageView
         android:layout_width="320dp"
+        android:id="@+id/imageview"
         android:src="@drawable/uploadnotes"
+        android:adjustViewBounds="true"
         android:layout_gravity="center_horizontal"
         android:layout_height="320dp" />
 
