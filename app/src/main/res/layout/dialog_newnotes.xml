@@ -20,6 +20,7 @@
         android:layout_height="15dp"
         android:layout_marginLeft="5dp"
         android:onClick="datepicker"
+        android:id="@+id/imagedropdown"
         android:layout_toRightOf="@+id/choosedate"
         android:src="@drawable/dropdown"
         />

@@ -106,7 +106,6 @@ public class DatesTab extends AppCompatActivity{
 
                 final View view2 = getLayoutInflater().inflate(R.layout.dialog_newnotes,null);
                 count = view2.findViewById(R.id.count);
-
                 Spinner spinner=view2.findViewById(R.id.spinner1);
                 ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(DatesTab.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.privacy_array));
                 myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -132,7 +131,7 @@ public class DatesTab extends AppCompatActivity{
                 choosedate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatePickerDialog datePickerDialog=new DatePickerDialog(view2.getContext(), new DatePickerDialog.OnDateSetListener() {
+                        DatePickerDialog datePickerDialog=new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 month=month+1;
@@ -326,7 +325,7 @@ public class DatesTab extends AppCompatActivity{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_favorites) {
+        if (id == R.id.action_favorites1) {
             return true;
         }
 
