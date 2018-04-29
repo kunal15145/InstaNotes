@@ -3,14 +3,18 @@ package mcproject.instanotesv1;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -24,6 +28,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,12 +40,30 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class DatesTab extends AppCompatActivity{
 
@@ -53,9 +76,20 @@ public class DatesTab extends AppCompatActivity{
     ImageView plusbutton;
     TextView count;
     int currentcount=0;
-
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     int REQUEST_CAMERA=0;
     int SELECT_FILE=1;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore firebaseFirestore;
+    ArrayList<Uri> filePath;
+    ArrayList<String> download_filePath;
+    private static final String IMAGES_TAG = "Images";
+    private static final String User_ID_TAG = "UserID";
+    private static final String OWN_TAG = "OWN";
+    private static final String DATE_TAG = "DATE";
+    private static final String Course_TAG="Course";
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -76,6 +110,11 @@ public class DatesTab extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dates_tab);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,11 +140,12 @@ public class DatesTab extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                filePath=new ArrayList<Uri>();
+                download_filePath=new ArrayList<String>();
                 final View view2=getLayoutInflater().inflate(R.layout.dialog_newnotes,null);
                 count=view2.findViewById(R.id.count);
                 count.setText(String.valueOf(currentcount));
-                Spinner spinner=view2.findViewById(R.id.spinner1);
+                final Spinner spinner=view2.findViewById(R.id.spinner1);
                 ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(DatesTab.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.privacy_array));
                 myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setSelection(0);
@@ -150,6 +190,26 @@ public class DatesTab extends AppCompatActivity{
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                Log.d("sdfjkds", String.valueOf(download_filePath.size()));
+                                Map<String,Object> NewUpload = new HashMap<>();
+                                NewUpload.put(User_ID_TAG, firebaseUser.getUid());
+                                NewUpload.put(OWN_TAG, spinner.getSelectedItemPosition());
+                                NewUpload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
+                                NewUpload.put(DATE_TAG, choosedate.getText());
+                                NewUpload.put(IMAGES_TAG, download_filePath);
+                                firebaseFirestore.collection("uploads").document().set(NewUpload)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("sdfjkhsdkjfha", "written");
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("sdjkfsahdkjfh", "Error writing document");
+                                    }
+                                });
+                                uploadImage();
                                 dialog.dismiss();
                             }
                         })
@@ -251,28 +311,41 @@ public class DatesTab extends AppCompatActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE)
-                onSelectFromGalleryResult(data);
+            if (requestCode == SELECT_FILE) {
+                try {
+                    onSelectFromGalleryResult(data);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
         }
     }
+
     @SuppressWarnings("deprecation")
-    private void onSelectFromGalleryResult(Intent data) {
-        /*Bitmap bm=null;
-        if (data != null) {
-            try {
-                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void onSelectFromGalleryResult(Intent data) throws IOException {
+        filePath=null;
+        if (data!=null){
+            ClipData clipData = data.getClipData();
+            if (clipData!=null) {
+                ArrayList<Uri> uris = new ArrayList<>();
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    ClipData.Item item = clipData.getItemAt(i);
+                    Uri uri = item.getUri();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    uris.add(uri);
+                }
+                filePath=uris;
             }
-        }*/
-        //ivImage.setImageBitmap(bm);
+        }
         currentcount++;
     }
 
     private void onCaptureImageResult(Intent data) {
+
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         File destination = new File(Environment.getExternalStorageDirectory(),
@@ -288,9 +361,9 @@ public class DatesTab extends AppCompatActivity{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 //        ivImage.setImageBitmap(thumbnail);
-          currentcount++;
+        filePath.add(Uri.fromFile(destination));
+        currentcount++;
     }
 
 
@@ -303,11 +376,14 @@ public class DatesTab extends AppCompatActivity{
 
     private void galleryIntent()
     {
-        Intent intent = new Intent();
+        Intent intent = new Intent("android.intent.action.MULTIPLE_PICK");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
+        startActivityForResult(intent, SELECT_FILE);
+
     }
 
 
@@ -376,6 +452,60 @@ public class DatesTab extends AppCompatActivity{
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private void uploadImage() {
+        if(filePath!=null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading "+String.valueOf(filePath.size())+" images");
+            progressDialog.show();
+            for(int i=0;i<filePath.size();i++) {
+                final StorageReference ref = storageReference.child("images/" + filePath.get(i));
+                Log.d("sdfjlsdf", String.valueOf(filePath.get(i)));
+                ref.putFile(filePath.get(i))
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot){
+                                firebaseFirestore.collection("uploads")
+                                        .whereEqualTo(User_ID_TAG, firebaseUser.getUid())
+                                        .whereEqualTo(Course_TAG, getIntent().getExtras().getString("CourseName"))
+                                        .whereEqualTo(DATE_TAG, choosedate.getText())
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    for (DocumentSnapshot doc:task.getResult()) {
+                                                        ArrayList<String> images = (ArrayList<String>) doc.get("Images");
+                                                        images.add(String.valueOf(ref.getDownloadUrl()));
+                                                        firebaseFirestore.collection("uploads").document(doc.getId())
+                                                                .update(IMAGES_TAG, images);
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                        .getTotalByteCount());
+                                progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                            }
+                        });
+            }
+            progressDialog.dismiss();
+
+        }
     }
 
 }
