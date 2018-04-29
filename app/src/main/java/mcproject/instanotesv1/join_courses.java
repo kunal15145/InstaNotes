@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +32,7 @@ public class join_courses extends AppCompatActivity{
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
     private ProgressDialog dialog;
+    EditText editTextSearch;
 
     // List of all categories
     private static int CSE = 0;
@@ -53,7 +57,47 @@ public class join_courses extends AppCompatActivity{
         dialog.setMessage("Retrieving data, please wait.");
         dialog.show();
         addData();
+
+        editTextSearch=findViewById(R.id.editMobileNo);
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //after the change calling the method and passing the search input
+                filter(editable.toString());
+            }
+        });
+
+
     }
+
+    private void filter(String text) {
+        //new array list that will hold the filtered data
+        /*ArrayList<String> filterdNames = new ArrayList<>();
+
+
+        //looping through existing elements
+        for (Contact_A2_2015037 s : contacts) {
+            //if the existing elements contains the search input
+            if (s.getName().toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        contactsAdapterA22015037.filterList(filterdNames);*/
+    }
+
 
     // Adding a course
     public void addData(){

@@ -51,6 +51,7 @@
     <string name="title_activity_dates_tab">Course Name</string>
     <string name="tab_text_1">ALL</string>
     <string name="tab_text_2">PRIVATE</string>
+    <string name="contact">Contact Us</string>
 
     <string-array name="privacy_array">
         <item>Public</item>
