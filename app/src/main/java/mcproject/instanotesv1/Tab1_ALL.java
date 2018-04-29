@@ -110,13 +110,13 @@ public class Tab1_ALL extends Fragment{
                                     DateFormat format2=new SimpleDateFormat("EEEE");
                                     String finalDay=format2.format(dt1);
                                     String s = (String) documentSnapshot.get("OWN");
+                                    System.out.println(String.valueOf(count));
                                     if(s.equals("0")){
-                                        System.out.println("Public");
+                                        datesList.add(new DatesALL(input_date,String.valueOf(count),finalDay,R.drawable.unlock));
                                     }
                                     else if(s.equals("1")){
-                                        System.out.println("Private");
+                                        datesList.add(new DatesALL(input_date,String.valueOf(count),finalDay,R.drawable.lock));
                                     }
-                                    datesList.add(new DatesALL(input_date,String.valueOf(count),finalDay,R.drawable.unlock,R.drawable.user,R.drawable.user,R.drawable.user));
                                 }
                                 else {
                                     continue;

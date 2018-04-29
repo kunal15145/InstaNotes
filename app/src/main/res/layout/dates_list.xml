@@ -68,7 +68,7 @@
                 android:layout_alignEnd="@+id/datesimg"
                 android:layout_alignParentBottom="true"
                 android:textSize="12sp"
-                android:text="2 uploads" />
+                android:text="0 uploads" />
 
 
         </RelativeLayout>
