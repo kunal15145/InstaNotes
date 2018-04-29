@@ -72,9 +72,6 @@ public class Tab2_PRIVATE extends Fragment{
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        datesList.add(new DatesPRIVATE("18th April, 2018","Tuesday",R.drawable.ppublic));
-
-
         adapter2 = new DatesPRIVATEAdapter(getActivity(), datesList);
 
         //setting adapter to recyclerview

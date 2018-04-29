@@ -59,8 +59,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -90,6 +93,7 @@ public class DatesTab extends AppCompatActivity{
     private static final String OWN_TAG = "OWN";
     private static final String DATE_TAG = "DATE";
     private static final String Course_TAG="Course";
+    String coursename = null;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -116,6 +120,8 @@ public class DatesTab extends AppCompatActivity{
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
+        coursename = (String) getIntent().getExtras().get("CourseName");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_activity_dates_tab);
@@ -124,7 +130,6 @@ public class DatesTab extends AppCompatActivity{
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
 
 //        ivImage=findViewById(R.id.gallery);
         // Set up the ViewPager with the sections adapter.
@@ -169,6 +174,9 @@ public class DatesTab extends AppCompatActivity{
 
 
                 choosedate=view2.findViewById(R.id.choosedate);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                choosedate.setText(dateFormat.format(date));
                 choosedate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -193,7 +201,7 @@ public class DatesTab extends AppCompatActivity{
                                 Log.d("sdfjkds", String.valueOf(download_filePath.size()));
                                 Map<String,Object> NewUpload = new HashMap<>();
                                 NewUpload.put(User_ID_TAG, firebaseUser.getUid());
-                                NewUpload.put(OWN_TAG, spinner.getSelectedItemPosition());
+                                NewUpload.put(OWN_TAG,spinner.getSelectedItemPosition());
                                 NewUpload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
                                 NewUpload.put(DATE_TAG, choosedate.getText());
                                 NewUpload.put(IMAGES_TAG, download_filePath);
@@ -506,6 +514,10 @@ public class DatesTab extends AppCompatActivity{
             progressDialog.dismiss();
 
         }
+    }
+
+    public String getCoursename(){
+        return coursename;
     }
 
 }
