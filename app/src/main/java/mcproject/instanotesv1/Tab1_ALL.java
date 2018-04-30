@@ -92,12 +92,13 @@ public class Tab1_ALL extends Fragment{
     }
 
     private void addnotes() {
-        datesList.clear();
         firebaseFirestore.collection("uploads")
+                .whereEqualTo(Course_TAG,coursename)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                        datesList.clear();
                         for(DocumentSnapshot documentSnapshot:documentSnapshots){
 
                             if(documentSnapshot.exists()){
@@ -118,9 +119,12 @@ public class Tab1_ALL extends Fragment{
                                 if(s.equals("0")){
                                     datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
                                 }
-                                else if(s.equals("1") && visitors.contains(firebaseUser.getUid())){
-                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.lock));
+                                else if(visitors.contains(firebaseUser.getUid())){
+                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
+
                                 }
+                                else
+                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.lock));
                             }
 
                         }
