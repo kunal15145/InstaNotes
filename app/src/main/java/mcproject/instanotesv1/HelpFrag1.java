@@ -24,27 +24,7 @@ public class HelpFrag1 extends Fragment{
     boolean isImageFitToScreen;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
-        View view=inflater.inflate(R.layout.help_frag1,container,false);
-        imageView = view.findViewById(R.id.frag1img);
-        Log.d("aabc","abc");
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                BitmapDrawable bitmapDrawable = ((BitmapDrawable) R.id.imageview);
-//                Bitmap bitmap = bitmapDrawable .getBitmap();
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                byte[] byteArray = stream.toByteArray();
-                Log.d("aabc","ab");
-                Intent intent = new Intent(v.getContext(), FullImageViewer.class);
-                intent.putExtra("resourseInt", R.drawable.uploadnotes);
-                startActivity(intent);
-            }
-        });
-
-
-        return view;
+        return inflater.inflate(R.layout.help_frag1, container, false);
 
     }
 

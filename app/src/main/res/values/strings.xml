@@ -44,7 +44,7 @@
     <string name="help2">Changing Privacy of Notes</string>
     <string name="help3">Requesting for New Notes</string>
     <string name="help4">How the App Works</string>
-    <string name="help5">Accessing Past Courses</string>
+    <string name="help5">Add notes as favorites</string>
     <string name="label">Join Courses</string>
     <string name="Unenroll">Unenroll</string>
     <string name="MC_title">Mobile Computing</string>
@@ -59,6 +59,8 @@
     <string name="action_request">Request for notes</string>
     <string name="title_activity_full_image_viewer">Full Image Viewer</string> <!--Change kr lio isse-->
     <string name="date_picker_title">Pick date for notes.</string>
+    <string name="help3detail">You can request for notes of a particular date by a simple click</string>
+    <string name="help5detail">Add certain notes to your favorites section</string>
 
     <string-array name="privacy_array">
         <item>Public</item>
