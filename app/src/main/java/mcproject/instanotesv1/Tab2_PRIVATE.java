@@ -107,37 +107,37 @@ public class Tab2_PRIVATE extends Fragment{
 
     private void addprivatenotes() {
 
-        firebaseFirestore.collection("uploads")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-                        if(e!=null){
-                            return;
-                        }
-                        else {
-                            for(DocumentSnapshot documentSnapshot:documentSnapshots){
-                                if(documentSnapshot.get("Course").equals(coursename)){
-                                    ArrayList<String> list = (ArrayList<String>) documentSnapshot.get("Images");
-                                    int count = list.size();
-                                    String input_date= (String) documentSnapshot.get("DATE");
-                                    SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
-                                    Date dt1= null;
-                                    try {
-                                        dt1 = format1.parse(input_date);
-                                    } catch (ParseException e1) {
-                                        e1.printStackTrace();
-                                    }
-                                    DateFormat format2=new SimpleDateFormat("EEEE");
-                                    String finalDay=format2.format(dt1);
-                                    String s = (String) documentSnapshot.get("OWN");
-                                    if(s.equals("1") && documentSnapshot.get("UserID").equals(firebaseUser.getUid())){
-                                        datesList.add(new DatesPRIVATE(input_date,finalDay,R.drawable.lock));
-                                    }
-                                }
-                            }
-                        }
-                        adapter2.notifyDataSetChanged();
-                    }
-                });
+//        firebaseFirestore.collection("uploads")
+//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+//                        if(e!=null){
+//                            return;
+//                        }
+//                        else {
+//                            for(DocumentSnapshot documentSnapshot:documentSnapshots){
+//                                if(documentSnapshot.get("Course").equals(coursename)){
+//                                    ArrayList<String> list = (ArrayList<String>) documentSnapshot.get("Images");
+//                                    int count = list.size();
+//                                    String input_date= (String) documentSnapshot.get("DATE");
+//                                    SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
+//                                    Date dt1= null;
+//                                    try {
+//                                        dt1 = format1.parse(input_date);
+//                                    } catch (ParseException e1) {
+//                                        e1.printStackTrace();
+//                                    }
+//                                    DateFormat format2=new SimpleDateFormat("EEEE");
+//                                    String finalDay=format2.format(dt1);
+//                                    String s = (String) documentSnapshot.get("OWN");
+//                                    if(s.equals("1") && documentSnapshot.get("UserID").equals(firebaseUser.getUid())){
+//                                        datesList.add(new DatesPRIVATE(input_date,finalDay,R.drawable.lock));
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        adapter2.notifyDataSetChanged();
+//                    }
+//                });
     }
 }

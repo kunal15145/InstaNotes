@@ -87,43 +87,43 @@ public class Tab1_ALL extends Fragment{
     }
 
     private void addnotes() {
-        firebaseFirestore.collection("uploads")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-                        datesList.clear();
-                        if(e!=null){
-                            return;
-                        }
-                        else {
-                            for(DocumentSnapshot documentSnapshot:documentSnapshots){
-                                if(documentSnapshot.get("Course").equals(coursename)){
-                                    ArrayList<String> list = (ArrayList<String>) documentSnapshot.get("Images");
-                                    int count = list.size();
-                                    String input_date= (String) documentSnapshot.get("DATE");
-                                    SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
-                                    Date dt1= null;
-                                    try {
-                                        dt1 = format1.parse(input_date);
-                                    } catch (ParseException e1) {
-                                        e1.printStackTrace();
-                                    }
-                                    DateFormat format2=new SimpleDateFormat("EEEE");
-                                    String finalDay=format2.format(dt1);
-                                    String s = (String) documentSnapshot.get("OWN");
-                                    System.out.println(String.valueOf(count));
-                                    if(s.equals("0")){
-                                        datesList.add(new DatesALL(input_date,String.valueOf(count)+" uploads",finalDay,R.drawable.unlock));
-                                    }
-                                    else if(s.equals("1")){
-                                        datesList.add(new DatesALL(input_date,String.valueOf(count)+" uploads",finalDay,R.drawable.lock));
-                                    }
-                                }
-                            }
-                        }
-                        adapter2.notifyDataSetChanged();
-                    }
-                });
+//        firebaseFirestore.collection("uploads")
+//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+//                        datesList.clear();
+//                        if(e!=null){
+//                            return;
+//                        }
+//                        else {
+//                            for(DocumentSnapshot documentSnapshot:documentSnapshots){
+//                                if(documentSnapshot.get("Course").equals(coursename)){
+//                                    ArrayList<String> list = (ArrayList<String>) documentSnapshot.get("Images");
+//                                    int count = list.size();
+//                                    String input_date= (String) documentSnapshot.get("DATE");
+//                                    SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
+//                                    Date dt1= null;
+//                                    try {
+//                                        dt1 = format1.parse(input_date);
+//                                    } catch (ParseException e1) {
+//                                        e1.printStackTrace();
+//                                    }
+//                                    DateFormat format2=new SimpleDateFormat("EEEE");
+//                                    String finalDay=format2.format(dt1);
+//                                    String s = (String) documentSnapshot.get("OWN");
+//                                    System.out.println(String.valueOf(count));
+//                                    if(s.equals("0")){
+//                                        datesList.add(new DatesALL(input_date,String.valueOf(count)+" uploads",finalDay,R.drawable.unlock));
+//                                    }
+//                                    else if(s.equals("1")){
+//                                        datesList.add(new DatesALL(input_date,String.valueOf(count)+" uploads",finalDay,R.drawable.lock));
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        adapter2.notifyDataSetChanged();
+//                    }
+//                });
     }
 
 }
