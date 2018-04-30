@@ -42,13 +42,19 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
     private FirebaseFirestore firebaseFirestore;
     private static final String User_ID_TAG = "UserID";
     private static final String Unlock_TAG = "Unlocks";
+    private String coursename;
+    private static final String OWN_TAG = "OWN";
+    private static final String DATE_TAG = "DATE";
+    private static final String Course_TAG="Course";
 
-    public DatesALLAdapter(Context ctx, List<DatesALL> datesList) {
+
+    public DatesALLAdapter(Context ctx, List<DatesALL> datesList, String coursename) {
+        this.ctx = ctx;
+        this.datesList = datesList;
+        this.coursename = coursename;
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        this.ctx = ctx;
-        this.datesList = datesList;
     }
 
     //Inflating the list
@@ -66,15 +72,17 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
         holder.dateperson.setText(dates.getDateperson());
         holder.textViewDesc.setText(dates.getShortdesc());
         holder.imageView.setImageDrawable(ctx.getResources().getDrawable(dates.getImage()));
-        int i=0;
-        if(i==0)
+        if(holder.imageView.getDrawable().getConstantState()==ctx.getResources().getDrawable(R.drawable.unlock).getConstantState())
         {
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(ctx,PreviewNotes.class);
                     intent.putExtra("Date",holder.textViewTitle.getText());
+                    intent.putExtra("coursename",coursename);
+                    intent.putExtra("Flag",0);
                     ctx.startActivity(intent);
+
                 }
             });
         }
@@ -94,26 +102,53 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                                             .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot documentSnapshots) {
+                                            final String[] id = new String[1];
 
                                             if(documentSnapshots.isEmpty()){
-                                                Map<String,Object> NewUnlock = new HashMap<>();
+                                                final Map<String,Object> NewUnlock = new HashMap<>();
                                                 NewUnlock.put(User_ID_TAG, firebaseUser.getUid());
-                                                ArrayList<String> unl=new ArrayList<String>();
-                                                NewUnlock.put(Unlock_TAG, unl);
-                                                firebaseFirestore.collection("unlocks").document().set(NewUnlock)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
+                                                final ArrayList<String> unl=new ArrayList<String>();
+                                                firebaseFirestore.collection("uploads")
+                                                        .whereEqualTo(OWN_TAG, "1")
+                                                        .whereEqualTo(Course_TAG, coursename)
+                                                        .whereEqualTo(DATE_TAG, holder.textViewTitle.getText())
+                                                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(QuerySnapshot documentSnapshots) {
+                                                        for(DocumentSnapshot doc2 : documentSnapshots){
+                                                            unl.add(doc2.getId());
+                                                            NewUnlock.put(Unlock_TAG, unl);
+                                                            firebaseFirestore.collection("unlocks").document().set(NewUnlock)
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
 
-                                                            }
-                                                        });
+                                                                        }
+                                                                    });
+                                                        }
+                                                    }
+                                                });
+
+
                                             }
                                             else{
-                                                for(DocumentSnapshot doc : documentSnapshots){
-                                                    ArrayList<String> unl= (ArrayList<String>) doc.get(Unlock_TAG);
-                                                    
-                                                    firebaseFirestore.collection("unlocks").document(doc.getId())
-                                                            .update(Unlock_TAG, unl);
+                                                for(final DocumentSnapshot doc : documentSnapshots){
+                                                    final ArrayList<String> unl= (ArrayList<String>) doc.get(Unlock_TAG);
+                                                    firebaseFirestore.collection("uploads")
+                                                            .whereEqualTo(OWN_TAG, "1")
+                                                            .whereEqualTo(Course_TAG, coursename)
+                                                            .whereEqualTo(DATE_TAG, holder.textViewTitle.getText())
+                                                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(QuerySnapshot documentSnapshots) {
+                                                            for(DocumentSnapshot doc2 : documentSnapshots){
+                                                                unl.add(doc2.getId());
+                                                                firebaseFirestore.collection("unlocks").document(doc.getId())
+                                                                        .update(Unlock_TAG, unl);
+                                                            }
+                                                        }
+                                                    });
+
                                                 }
                                             }
                                         }
