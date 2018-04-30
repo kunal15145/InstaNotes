@@ -98,7 +98,7 @@ public class Tab1_ALL extends Fragment{
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
-                    public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                    public void onEvent(QuerySnapshot documentSnapshots, final FirebaseFirestoreException e) {
                         for(DocumentSnapshot documentSnapshot:documentSnapshots){
                             final ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
                             final String date = (String) documentSnapshot.get("DATE");
@@ -111,9 +111,9 @@ public class Tab1_ALL extends Fragment{
                             }
                             DateFormat format2=new SimpleDateFormat("EEEE");
                             final String finalDay=format2.format(dt1);
-                            String s = (String) documentSnapshot.get("OWN");
+                            final String s = (String) documentSnapshot.get("OWN");
                             if(s.equals("0")){
-                                datesList.add(new DatesALL(date,String.valueOf(list.size())+"uploads",finalDay,R.drawable.unlock));
+                                datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
                             }
                             else if(s.equals("1")){
                                 final String docid = documentSnapshot.getId();
@@ -122,19 +122,26 @@ public class Tab1_ALL extends Fragment{
                                         .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                             @Override
                                             public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                                                if(documentSnapshot.exists()) {
+                                                if(documentSnapshot.exists()){
                                                     ArrayList<String> list1 = (ArrayList<String>) documentSnapshot.get("Unlocks");
-                                                    if (list1.contains(docid)) {
-                                                        datesList.add(new DatesALL(date, String.valueOf(list.size()) + " uploads", finalDay, R.drawable.unlock));
-                                                    } else
-                                                        datesList.add(new DatesALL(date, String.valueOf(list.size()) + " uploads", finalDay, R.drawable.lock));
+                                                    if(list1.contains(docid)){
+                                                        datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
+                                                    }
+                                                    else{
+                                                        datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.lock));
+                                                    }
                                                 }
-                                                else {
-                                                    datesList.add(new DatesALL(date, String.valueOf(list.size()) + " uploads", finalDay, R.drawable.lock));
-                                                }
+                                                else
+                                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.lock));
                                             }
                                         });
-//                                datesList.add(new DatesALL(date,String.valueOf(list.size())+"uploads",finalDay,R.drawable.lock));
+                                datesList.sort(new Comparator<DatesALL>() {
+                                    @Override
+                                    public int compare(DatesALL datesALL, DatesALL t1) {
+                                        return -1*datesALL.getTitle().compareTo(t1.getTitle());
+                                    }
+                                });
+                                adapter2.notifyDataSetChanged();
                             }
                         }
                         datesList.sort(new Comparator<DatesALL>() {
