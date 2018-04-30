@@ -30,34 +30,34 @@ public class HelpFragMain extends Fragment implements View.OnClickListener {
         initView(view);
     }
     private void initView(View view){
-        ImageView imageView=(ImageView)view.findViewById(R.id.help2);
+        ImageView imageView= view.findViewById(R.id.help2);
         imageView.setOnClickListener(this);
-        TextView textView=(TextView)view.findViewById(R.id.help3);
+        TextView textView= view.findViewById(R.id.help3);
         textView.setOnClickListener(this);
 
-        ImageView imageView2=(ImageView)view.findViewById(R.id.help4);
+        ImageView imageView2= view.findViewById(R.id.help4);
         imageView2.setOnClickListener(this);
-        TextView textView2=(TextView)view.findViewById(R.id.help5);
+        TextView textView2= view.findViewById(R.id.help5);
         textView2.setOnClickListener(this);
 
-        ImageView imageView3=(ImageView)view.findViewById(R.id.help6);
+        ImageView imageView3= view.findViewById(R.id.help6);
         imageView3.setOnClickListener(this);
-        TextView textView3=(TextView)view.findViewById(R.id.help7);
+        TextView textView3= view.findViewById(R.id.help7);
         textView3.setOnClickListener(this);
 
-        ImageView imageView4=(ImageView)view.findViewById(R.id.help8);
+        ImageView imageView4= view.findViewById(R.id.help8);
         imageView4.setOnClickListener(this);
-        TextView textView4=(TextView)view.findViewById(R.id.help9);
+        TextView textView4= view.findViewById(R.id.help9);
         textView4.setOnClickListener(this);
 
-        ImageView imageView5=(ImageView)view.findViewById(R.id.help10);
+        ImageView imageView5= view.findViewById(R.id.help10);
         imageView5.setOnClickListener(this);
-        TextView textView5=(TextView)view.findViewById(R.id.help11);
+        TextView textView5= view.findViewById(R.id.help11);
         textView5.setOnClickListener(this);
 
-        ImageView imageView6=(ImageView)view.findViewById(R.id.help12);
+        ImageView imageView6= view.findViewById(R.id.help12);
         imageView6.setOnClickListener(this);
-        TextView textView6=(TextView)view.findViewById(R.id.help13);
+        TextView textView6= view.findViewById(R.id.help13);
         textView6.setOnClickListener(this);
 
     }

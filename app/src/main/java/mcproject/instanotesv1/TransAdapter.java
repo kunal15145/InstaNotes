@@ -49,7 +49,6 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.TransViewHol
 
         public TransViewHolder(View itemView) {
             super(itemView);
-
             transimg=itemView.findViewById(R.id.transimg);
             transtitle=itemView.findViewById(R.id.transtitle);
             transdesc=itemView.findViewById(R.id.transdesc);
