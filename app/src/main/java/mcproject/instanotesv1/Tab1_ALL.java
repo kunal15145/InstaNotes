@@ -118,7 +118,7 @@ public class Tab1_ALL extends Fragment{
                                 if(s.equals("0")){
                                     datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
                                 }
-                                else if(s.equals("1") && visitors.contains(firebaseUser.getUid())){
+                                else if(s.equals("1") || visitors.contains(firebaseUser.getUid())){
                                     datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.lock));
                                 }
                             }
