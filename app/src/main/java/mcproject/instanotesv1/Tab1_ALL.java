@@ -94,7 +94,7 @@ public class Tab1_ALL extends Fragment{
     }
 
     private void addnotes() {
-
+        datesList.clear();
         firebaseFirestore.collection("uploads")
                 .whereEqualTo(Course_TAG,coursename)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

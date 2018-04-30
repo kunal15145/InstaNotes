@@ -143,7 +143,7 @@ public class DatesTab extends AppCompatActivity{
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,7 +215,6 @@ public class DatesTab extends AppCompatActivity{
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Log.d("sdfjkds", String.valueOf(download_filePath.size()));
                                 final Map<String,Object> NewUpload = new HashMap<>();
                                 NewUpload.put(User_ID_TAG, firebaseUser.getUid());
                                 NewUpload.put(IMAGES_TAG, download_filePath);
@@ -230,7 +229,6 @@ public class DatesTab extends AppCompatActivity{
                                             @Override
                                             public void onSuccess(QuerySnapshot documentSnapshots) {
                                                 if(documentSnapshots.isEmpty()){
-                                                    Log.d("sdfskdjfh", "New date uploaded");
                                                     final Map<String,Object> Newsuperupload = new HashMap<>();
                                                     Newsuperupload.put(DATE_TAG, choosedate.getText());
                                                     Newsuperupload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
@@ -242,6 +240,19 @@ public class DatesTab extends AppCompatActivity{
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
+                                                                    firebaseFirestore.collection("users")
+                                                                            .document(firebaseUser.getUid())
+                                                                            .get()
+                                                                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                                @Override
+                                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                                    String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                                    int t = Integer.parseInt(instacoins);
+                                                                                    firebaseFirestore.collection("users")
+                                                                                            .document(firebaseUser.getUid())
+                                                                                            .update("InstaCoins",String.valueOf(t+1));
+                                                                                }
+                                                                            });
                                                                 }
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                         @Override
@@ -251,13 +262,30 @@ public class DatesTab extends AppCompatActivity{
                                                     });
                                                 }
                                                 else {
-                                                    Log.d("sdfdsljf", "Old date exists");
                                                     for (DocumentSnapshot documentSnapshot : documentSnapshots) {
                                                         ArrayList<Map<String, Object>> uplo = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
                                                         uplo.add(NewUpload);
                                                         firebaseFirestore.collection("uploads")
                                                                 .document(documentSnapshot.getId())
-                                                                .update("User_uploads", uplo);
+                                                                .update("User_uploads", uplo)
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        firebaseFirestore.collection("users")
+                                                                                .document(firebaseUser.getUid())
+                                                                                .get()
+                                                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                                        String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                                        int t = Integer.parseInt(instacoins);
+                                                                                        firebaseFirestore.collection("users")
+                                                                                                .document(firebaseUser.getUid())
+                                                                                                .update("InstaCoins",String.valueOf(t+1));
+                                                                                    }
+                                                                                });
+                                                                    }
+                                                                });
 
                                                     }
                                                 }

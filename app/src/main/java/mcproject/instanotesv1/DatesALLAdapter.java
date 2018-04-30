@@ -42,13 +42,15 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
     private FirebaseFirestore firebaseFirestore;
     private static final String User_ID_TAG = "UserID";
     private static final String Unlock_TAG = "Unlocks";
+    String coursename;
 
-    public DatesALLAdapter(Context ctx, List<DatesALL> datesList) {
+    public DatesALLAdapter(Context ctx, List<DatesALL> datesList, String coursename) {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
         this.ctx = ctx;
         this.datesList = datesList;
+        this.coursename = coursename;
     }
 
     //Inflating the list

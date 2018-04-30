@@ -114,7 +114,7 @@ public class Tab2_PRIVATE extends Fragment{
 
     private void addprivatenotes() {
 
-
+        datesList.clear();
         firebaseFirestore.collection("uploads")
                 .whereEqualTo(Course_TAG,coursename)
                 .whereEqualTo(OWN_TAG,"1")
