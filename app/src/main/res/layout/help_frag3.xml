@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/frag1text"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:textAlignment="center"
+        android:text="@string/help3"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="320dp"
+        android:src="@drawable/requestingfornotes"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="320dp" />
 
     <TextView
-        android:id="@+id/frag3text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:id="@+id/frag1text2"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:text="@string/help3detail"
         android:textSize="18sp"
-        android:text="Requesting for New Notes" />
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>

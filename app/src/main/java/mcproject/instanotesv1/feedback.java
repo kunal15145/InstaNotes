@@ -75,6 +75,7 @@ public class feedback extends AppCompatActivity {
                         Log.d("akjsdgajk", "Comment successful");
                     }
                 });
+        finish();
 
     }
 }
