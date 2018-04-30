@@ -74,75 +74,61 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
         holder.textViewDesc.setText(dates.getShortdesc());
         holder.imageView.setImageDrawable(ctx.getResources().getDrawable(dates.getImage()));
 
-        firebaseFirestore.collection("uploads")
-                .whereEqualTo(OWN_TAG, "1")
-                .whereEqualTo(Course_TAG, coursename)
-                .whereEqualTo(DATE_TAG, holder.textViewTitle.getText())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot documentSnapshots) {
-                        for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-                            ArrayList<String> l = (ArrayList<String>) documentSnapshot.get(Visitors);
-                            if(l.contains(holder.textViewTitle.getText())){
-                                if (holder.imageView.getDrawable().getConstantState() == ctx.getResources().getDrawable(R.drawable.unlock).getConstantState()) {
-                                    holder.cardView.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Intent intent = new Intent(ctx, PreviewNotes.class);
-                                            intent.putExtra("Date", holder.textViewTitle.getText());
-                                            intent.putExtra("coursename", coursename);
-                                            intent.putExtra("Flag", 0);
-                                            ctx.startActivity(intent);
+        if (holder.imageView.getDrawable().getConstantState() == ctx.getResources().getDrawable(R.drawable.unlock).getConstantState()) {
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ctx, PreviewNotes.class);
+                    intent.putExtra("Date", holder.textViewTitle.getText());
+                    intent.putExtra("coursename", coursename);
+                    intent.putExtra("Flag", 0);
+                    ctx.startActivity(intent);
 
-                                        }
-                                    });
-                                }
-                            }
-                            else {
-                                holder.cardView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                                        builder.setMessage("Do you want to unlock this lecture? This will cost you 1 instacoin")
-                                                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+        } else {
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                    builder.setMessage("Do you want to unlock this lecture? This will cost you 1 instacoin")
+                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    firebaseFirestore.collection("uploads")
+                                            .whereEqualTo(OWN_TAG, "1")
+                                            .whereEqualTo(Course_TAG, coursename)
+                                            .whereEqualTo(DATE_TAG, holder.textViewTitle.getText())
+                                            .get()
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot documentSnapshots) {
+                                                    for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                                                        ArrayList<String> l = (ArrayList<String>) documentSnapshot.get(Visitors);
+                                                        l.add(firebaseUser.getUid());
                                                         firebaseFirestore.collection("uploads")
-                                                                .whereEqualTo(OWN_TAG, "1")
-                                                                .whereEqualTo(Course_TAG, coursename)
-                                                                .whereEqualTo(DATE_TAG, holder.textViewTitle.getText())
-                                                                .get()
-                                                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                                                    @Override
-                                                                    public void onSuccess(QuerySnapshot documentSnapshots) {
-                                                                        for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-                                                                            ArrayList<String> l = (ArrayList<String>) documentSnapshot.get(Visitors);
-                                                                            l.add(firebaseUser.getUid());
-                                                                            firebaseFirestore.collection("uploads")
-                                                                                    .document(documentSnapshot.getId())
-                                                                                    .update(Visitors, l);
-                                                                        }
-                                                                    }
-                                                                });
-                                                        dialog.dismiss();
+                                                                .document(documentSnapshot.getId())
+                                                                .update(Visitors, l);
                                                     }
-                                                })
-                                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        dialog.dismiss();
-                                                    }
-                                                });
-                                        AlertDialog dialog = builder.create();
-                                        dialog.show();
-                                    }
-                                });
+                                                }
+                                            });
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
 
-                            }
-                        }
-                    }
-                });
+
+        }
+
     }
 
 

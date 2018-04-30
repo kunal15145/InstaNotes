@@ -4,13 +4,13 @@ package mcproject.instanotesv1;
 import java.util.ArrayList;
 
 public class Notes {
-    private String title,user,link;
+    private String title,user,link, userid;
     private int like,imgCount,dislike;
     private boolean fav,isLiked,isDisliked;
     private ArrayList<String> list;
     private String picuri;
 
-    public Notes(String title, String user, int like, int dislike, boolean fav, String link, int imgCount, boolean isLiked, boolean isDisliked, ArrayList<String> list,String s){
+    public Notes(String title, String user, int like, int dislike, boolean fav, String link, int imgCount, boolean isLiked, boolean isDisliked, ArrayList<String> list,String s, String userid){
         this.title = title;
         this.user = user;
         this.like = like;
@@ -21,6 +21,7 @@ public class Notes {
         this.isDisliked=isDisliked;
         this.list = list;
         this.picuri = s;
+        this.userid=userid;
     }
 
     public String getUser() {
@@ -29,6 +30,13 @@ public class Notes {
 
     public void setUser(String user) {
         this.user = user;
+    }
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getTitle() {

@@ -3,6 +3,7 @@ package mcproject.instanotesv1;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -39,6 +40,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,8 +48,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -68,10 +73,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class DatesTab extends AppCompatActivity{
+public class DatesTab extends AppCompatActivity implements Notif_datepicker.DateDialogListener{
 
     String userChoosenTask;
-    Spinner spinner;
     ImageView ivImage,downarrow;
     DatePicker datepicker;
     Calendar currentDate;
@@ -94,21 +98,14 @@ public class DatesTab extends AppCompatActivity{
     private static final String OWN_TAG = "OWN";
     private static final String DATE_TAG = "DATE";
     private static final String Course_TAG="Course";
-    private static final String Visitors = "Visitors";
+    private static final String Visitors="Visitors";
+    private static final String DIALOG_DATE = "Notification.DateDialog";
+    Spinner spinner;
+
     String coursename = null;
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
     @Override
@@ -124,7 +121,7 @@ public class DatesTab extends AppCompatActivity{
 
         coursename = (String) getIntent().getExtras().get("CourseName");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(coursename);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -144,7 +141,7 @@ public class DatesTab extends AppCompatActivity{
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,10 +168,6 @@ public class DatesTab extends AppCompatActivity{
                         count.setText(String.valueOf(currentcount));
                     }
                 });
-
-
-
-
 
                 choosedate=view2.findViewById(R.id.choosedate);
                 downarrow=view2.findViewById(R.id.dropdown);
@@ -308,7 +301,6 @@ public class DatesTab extends AppCompatActivity{
 
                                             }
                                         });
-
                                 uploadImage();
                                 dialog.dismiss();
                             }
@@ -354,6 +346,35 @@ public class DatesTab extends AppCompatActivity{
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onFinishDialog(final Date date) {
+
+        Map<String, Object> notification = new HashMap<>();
+        notification.put("User",firebaseUser.getEmail());
+        notification.put("Date",date);
+        notification.put("CourseName",coursename);
+        firebaseFirestore.collection("notifications").document(coursename).set(notification)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(DatesTab.this, "Added notification in "+coursename, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("DateTab", "Error adding document", e);
+                    }
+                });
+        Toast.makeText(this, "Selected Date :"+ formatDate(date), Toast.LENGTH_SHORT).show();
+    }
+
+    public String formatDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String hireDate = sdf.format(date);
+        return hireDate;
     }
 
     public static class Utility {
@@ -505,6 +526,11 @@ public class DatesTab extends AppCompatActivity{
         if (id == R.id.action_favorites) {
             return true;
         }
+        else if(id == R.id.action_request){
+            android.app.FragmentManager fm = getFragmentManager();
+            Notif_datepicker dialog = new Notif_datepicker();
+            dialog.show(fm, DIALOG_DATE);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -630,10 +656,7 @@ public class DatesTab extends AppCompatActivity{
                                 progressDialog.setMessage("Uploaded " + (int) progress + "%");
                             }
                         });
-
-
             }
-
             progressDialog.dismiss();
 
         }
