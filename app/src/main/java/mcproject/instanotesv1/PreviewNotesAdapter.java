@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -31,6 +34,9 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
 //    private int like_click = 0;
     private Context context;
     private int fav_click = 0;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore firebaseFirestore;
 
     public class itemHolder extends RecyclerView.ViewHolder {
 
@@ -56,6 +62,9 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
     public PreviewNotesAdapter(List<Notes> previewNotesList, PreviewNotes previewNotes){
         this.previewNotesList = previewNotesList;
         this.context = previewNotes;
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
     @Override
