@@ -2,6 +2,7 @@ package mcproject.instanotesv1;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -15,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -29,11 +33,17 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
 //    private int like_click = 0;
     private Context context;
     private int fav_click = 0;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore firebaseFirestore;
+    private String OWN_TAG = "OWN";
+    private String DATE_TAG = "DATE";
+    private String Course_TAG="Course";
 
     public class itemHolder extends RecyclerView.ViewHolder {
 
-        public TextView txtTitle, txtUser, txtLike;
-        public ImageView imgLike, imgUser, imgComment, imgDownload, imgFav;
+        public TextView txtTitle, txtUser, txtLike, textdislike;
+        public ImageView imgLike, imgUser, imgDownload, imgFav,imgDislike;
         public LinearLayout imageLinear;
         public View view;
 
@@ -44,16 +54,23 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             txtUser = itemView.findViewById(R.id.textUser);
             txtLike = itemView.findViewById(R.id.textLike);
             imgLike = itemView.findViewById(R.id.imageLike);
-            imgComment = itemView.findViewById(R.id.imageComment);
+            imgDislike = itemView.findViewById(R.id.imagedislike);
+            textdislike = itemView.findViewById(R.id.textdislike);
             imgFav = itemView.findViewById(R.id.imageFav);
             imgDownload = itemView.findViewById(R.id.imageDownload);
             imgUser = itemView.findViewById(R.id.imageUser);
         }
     }
 
-    public PreviewNotesAdapter(List<Notes> previewNotesList, PreviewNotes previewNotes){
+    public PreviewNotesAdapter(List<Notes> previewNotesList, PreviewNotes previewNotes, String coursename, String own, String date){
         this.previewNotesList = previewNotesList;
         this.context = previewNotes;
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        OWN_TAG=own;
+        Course_TAG=coursename;
+        DATE_TAG=date;
     }
 
     @Override
@@ -87,11 +104,23 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
             holder.imgLike.setImageResource(R.drawable.like);
         }
+        if(previewNotes.getisDisliked() == TRUE){
+            previewNotes.setDislike(previewNotes.getDislike());
+            holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+            holder.imgDislike.setImageResource(R.drawable.green_dislike);
+        }
+        else{
+            previewNotes.setDislike(previewNotes.getDislike());
+            holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+            holder.imgDislike.setImageResource(R.drawable.dislike);
+        }
         //change this to boolean and then if liked then show green else show normal and increment as always.
         holder.imgLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(previewNotes.getisLiked() == TRUE){
+//                    firebaseFirestore.collection("uploads")
+//                            .whereEqualTo()
                     previewNotes.setisLiked(FALSE);
                     previewNotes.setLike(previewNotes.getLike()-1);
                     holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
@@ -101,6 +130,22 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
                     previewNotes.setLike(previewNotes.getLike()+1);
                     holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
                     holder.imgLike.setImageResource(R.drawable.green_like);
+                }
+            }
+        });
+        holder.imgDislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(previewNotes.getisDisliked() == TRUE){
+                    previewNotes.setisDisliked(FALSE);
+                    previewNotes.setDislike(previewNotes.getDislike()-1);
+                    holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+                    holder.imgDislike.setImageResource(R.drawable.dislike);
+                }else {
+                    previewNotes.setisDisliked(TRUE);
+                    previewNotes.setDislike(previewNotes.getDislike()+1);
+                    holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+                    holder.imgDislike.setImageResource(R.drawable.green_dislike);
                 }
             }
         });
@@ -119,10 +164,29 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             }
         });
 
-        float width = holder.imgComment.getContext().getResources().getDimension(R.dimen.image);
-        float height = holder.imgComment.getContext().getResources().getDimension(R.dimen.image);
+        Picasso.with(context)
+                .load(previewNotes.getPicuri())
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        holder.imgUser.setImageBitmap(bitmap);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+
+        float width = holder.imgLike.getContext().getResources().getDimension(R.dimen.image);
+        float height = holder.imgLike.getContext().getResources().getDimension(R.dimen.image);
         for(int i = 0; i< previewNotes.getImgCount(); ++i){
-            String s = previewNotes.getList().get(i);
+            final String s = previewNotes.getList().get(i);
             final ImageView image = new ImageView(holder.imgDownload.getContext());
             image.setLayoutParams(new android.view.ViewGroup.LayoutParams((int) width, (int)height));
             image.setMaxHeight(250);
@@ -130,6 +194,15 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams( (int)width, (int)height);
             lp.setMargins(20,0,20,0);
             image.setLayoutParams(lp);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), FullImageViewer.class);
+                    intent.putExtra("resourceInt",s);
+                    context.startActivity(intent);
+
+                }
+            });
             Picasso.with(context)
                     .load(Uri.parse(s))
                     .into(new Target() {

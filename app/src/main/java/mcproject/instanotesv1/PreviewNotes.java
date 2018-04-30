@@ -55,7 +55,7 @@ public class PreviewNotes extends AppCompatActivity {
         type = (int) getIntent().getExtras().get("Flag");
 
         recyclerView = findViewById(R.id.recycler_view);
-        previewNotesAdapter = new PreviewNotesAdapter(previewNotesList, this);
+        previewNotesAdapter = new PreviewNotesAdapter(previewNotesList, this, coursnema, String.valueOf(type), date);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -86,36 +86,66 @@ public class PreviewNotes extends AppCompatActivity {
             firebaseFirestore.collection("uploads")
                     .whereEqualTo(DATE_TAG, date)
                     .whereEqualTo(Course_TAG, coursnema)
-                    .whereEqualTo(OWN_TAG, "0")
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
-                            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-
-                                final ArrayList<Map<String, Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
-                                for (int i = 0; i < list.size(); i++) {
-
-                                    final ArrayList<String> list1 = (ArrayList<String>) list.get(i).get("Images");
-                                    String s = (String) list.get(i).get("Dislikes");
-                                    final String s1 = (String) list.get(i).get("Likes");
-                                    String userid = (String) list.get(i).get("UserID");
-                                    firebaseFirestore.collection("users")
-                                            .document(userid)
-                                            .get()
-                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    String name = (String) task.getResult().get("Name");
-                                                    previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), FALSE, "www.google.com", list1.size(), FALSE, list1));
-                                                }
-                                            });
-
-                                    previewNotesAdapter.notifyDataSetChanged();
-                                }
-
+                            if(e!=null){
+                                return;
                             }
+                            else {
+                                for(DocumentSnapshot documentSnapshot:documentSnapshots){
+                                    ArrayList<String> visitors = (ArrayList<String>) documentSnapshot.get("Visitors");
+                                    if(visitors==null){
 
+                                            final ArrayList<Map<String, Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
+                                            for (int i = 0; i < list.size(); i++) {
+
+                                                final ArrayList<String> list1 = (ArrayList<String>) list.get(i).get("Images");
+                                                final String s = (String) list.get(i).get("Dislikes");
+                                                final String s1 = (String) list.get(i).get("Likes");
+                                                final String userid = (String) list.get(i).get("UserID");
+                                                firebaseFirestore.collection("users")
+                                                        .document(userid)
+                                                        .get()
+                                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                String name = (String) task.getResult().get("Name");
+                                                                String uri = (String) task.getResult().get("PicUri");
+                                                                previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri));
+                                                            }
+                                                        });
+                                            }
+
+                                    }
+                                    else {
+
+                                        if (visitors.contains(firebaseUser.getUid())) {
+                                            final ArrayList<Map<String, Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
+                                            for (int i = 0; i < list.size(); i++) {
+
+                                                final ArrayList<String> list1 = (ArrayList<String>) list.get(i).get("Images");
+                                                final String s = (String) list.get(i).get("Dislikes");
+                                                final String s1 = (String) list.get(i).get("Likes");
+                                                final String userid = (String) list.get(i).get("UserID");
+                                                firebaseFirestore.collection("users")
+                                                        .document(userid)
+                                                        .get()
+                                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                String name = (String) task.getResult().get("Name");
+                                                                String uri = (String) task.getResult().get("PicUri");
+                                                                previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri));
+                                                            }
+                                                        });
+                                            }
+
+                                        }
+                                    }
+                                }
+                                System.out.println(previewNotesList.size());
+                            }
                         }
                     });
         }
@@ -134,22 +164,22 @@ public class PreviewNotes extends AppCompatActivity {
                                 for (int i = 0; i < list.size(); i++) {
 
                                     final ArrayList<String> list1 = (ArrayList<String>) list.get(i).get("Images");
-                                    String s = (String) list.get(i).get("Dislikes");
+                                    final String s = (String) list.get(i).get("Dislikes");
                                     final String s1 = (String) list.get(i).get("Likes");
                                     final String userid = (String) list.get(i).get("UserID");
-                                    firebaseFirestore.collection("users")
-                                            .document(userid)
-                                            .get()
-                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    String name = (String) task.getResult().get("Name");
-                                                    if(firebaseUser.getUid().equals(userid)){
-                                                        previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), FALSE, "www.google.com", list1.size(), FALSE, list1));
+                                    if(firebaseUser.getUid().equals(userid)) {
+                                        firebaseFirestore.collection("users")
+                                                .document(userid)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        String name = (String) task.getResult().get("Name");
+                                                        String uri = (String) task.getResult().get("PicUri");
+                                                        previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri));
                                                     }
-                                                }
-                                            });
-
+                                                });
+                                    }
                                     previewNotesAdapter.notifyDataSetChanged();
                                 }
 

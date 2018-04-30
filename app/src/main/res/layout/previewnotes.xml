@@ -96,30 +96,42 @@
                 android:layout_toEndOf="@+id/imageLike"
                 android:layout_toRightOf="@+id/imageLike"
                 android:textColor="@android:color/black"
-                android:text="1" />
+                android:text="0" />
 
             <ImageView
-                android:id="@+id/imageComment"
+                android:id="@+id/imagedislike"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_below="@+id/textTitle"
-                android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/textLike"
                 android:layout_toRightOf="@+id/textLike"
-                app:srcCompat="@drawable/comment" />
+                app:srcCompat="@drawable/dislike" />
+            <TextView
+                android:id="@+id/textdislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textTitle"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/imagedislike"
+                android:layout_toRightOf="@+id/imagedislike"
+                android:textColor="@android:color/black"
+                android:text="0" />
 
             <ImageView
                 android:id="@+id/imageFav"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_below="@+id/textTitle"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/imageComment"
-                android:layout_toRightOf="@+id/imageComment"
+                android:layout_toEndOf="@+id/textdislike"
+                android:layout_toRightOf="@+id/textdislike"
                 app:srcCompat="@drawable/star" />
 
             <ImageView

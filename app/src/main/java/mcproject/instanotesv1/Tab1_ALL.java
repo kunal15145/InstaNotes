@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +29,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +39,6 @@ public class Tab1_ALL extends Fragment{
 
     RecyclerView recyclerView2;
     DatesALLAdapter adapter2;
-
     Calendar currentDate;
     int day,month,year;
     TextView choosedate;
@@ -45,8 +46,6 @@ public class Tab1_ALL extends Fragment{
     String coursename;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
-    private static final String OWN_TAG = "OWN";
-    private static final String DATE_TAG = "DATE";
     private static final String Course_TAG="Course";
 
     List<DatesALL> datesList;
@@ -93,43 +92,56 @@ public class Tab1_ALL extends Fragment{
     }
 
     private void addnotes() {
-
         firebaseFirestore.collection("uploads")
                 .whereEqualTo(Course_TAG,coursename)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                        datesList.clear();
                         for(DocumentSnapshot documentSnapshot:documentSnapshots){
-                            ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
-                            String date = (String) documentSnapshot.get("DATE");
-                            SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
-                            Date dt1= null;
-                            try {
-                                dt1 = format1.parse(date);
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
+
+                            if(documentSnapshot.exists()){
+
+                                final ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
+                                final String date = (String) documentSnapshot.get("DATE");
+                                SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
+                                ArrayList<String> visitors = (ArrayList<String>) documentSnapshot.get("Visitors");
+                                Date dt1= null;
+                                try {
+                                    dt1 = format1.parse(date);
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                }
+                                DateFormat format2=new SimpleDateFormat("EEEE");
+                                final String finalDay=format2.format(dt1);
+                                final String s = (String) documentSnapshot.get("OWN");
+                                if(s.equals("0")){
+                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
+                                }
+                                else if(visitors.contains(firebaseUser.getUid())){
+                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
+
+                                }
+                                else
+                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.lock));
                             }
-                            DateFormat format2=new SimpleDateFormat("EEEE");
-                            String finalDay=format2.format(dt1);
-                            String s = (String) documentSnapshot.get("OWN");
-                            if(s.equals("0")){
-                                datesList.add(new DatesALL(date,String.valueOf(list.size())+"uploads",finalDay,R.drawable.unlock));
-                            }
-                            else if(s.equals("1")){
-                                datesList.add(new DatesALL(date,String.valueOf(list.size())+"uploads",finalDay,R.drawable.lock));
-                            }
+
                         }
-                        datesList.sort(new Comparator<DatesALL>() {
+                        Collections.sort(datesList, new Comparator<DatesALL>() {
                             @Override
                             public int compare(DatesALL datesALL, DatesALL t1) {
-                                return datesALL.getTitle().compareTo(t1.getTitle());
+                                return -1*datesALL.getTitle().compareTo(t1.getTitle());
                             }
                         });
+                        /*datesList.sort(new Comparator<DatesALL>() {
+                            @Override
+                            public int compare(DatesALL datesALL, DatesALL t1) {
+                                return -1*datesALL.getTitle().compareTo(t1.getTitle());
+                            }
+                        });*/
                         adapter2.notifyDataSetChanged();
                     }
                 });
-
     }
-
 }
