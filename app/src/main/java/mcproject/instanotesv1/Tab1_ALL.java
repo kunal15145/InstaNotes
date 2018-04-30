@@ -122,11 +122,16 @@ public class Tab1_ALL extends Fragment{
                                         .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                             @Override
                                             public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                                                ArrayList<String> list1 = (ArrayList<String>) documentSnapshot.get("Unlocks");
-                                                if(list1.contains(docid)){
-                                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
+                                                if(documentSnapshot.exists()) {
+                                                    ArrayList<String> list1 = (ArrayList<String>) documentSnapshot.get("Unlocks");
+                                                    if (list1.contains(docid)) {
+                                                        datesList.add(new DatesALL(date, String.valueOf(list.size()) + " uploads", finalDay, R.drawable.unlock));
+                                                    } else
+                                                        datesList.add(new DatesALL(date, String.valueOf(list.size()) + " uploads", finalDay, R.drawable.lock));
                                                 }
-                                                else datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.lock));
+                                                else {
+                                                    datesList.add(new DatesALL(date, String.valueOf(list.size()) + " uploads", finalDay, R.drawable.lock));
+                                                }
                                             }
                                         });
 //                                datesList.add(new DatesALL(date,String.valueOf(list.size())+"uploads",finalDay,R.drawable.lock));
