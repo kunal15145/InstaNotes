@@ -161,7 +161,7 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
         float width = holder.imgLike.getContext().getResources().getDimension(R.dimen.image);
         float height = holder.imgLike.getContext().getResources().getDimension(R.dimen.image);
         for(int i = 0; i< previewNotes.getImgCount(); ++i){
-            String s = previewNotes.getList().get(i);
+            final String s = previewNotes.getList().get(i);
             final ImageView image = new ImageView(holder.imgDownload.getContext());
             image.setLayoutParams(new android.view.ViewGroup.LayoutParams((int) width, (int)height));
             image.setMaxHeight(250);
@@ -169,6 +169,15 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams( (int)width, (int)height);
             lp.setMargins(20,0,20,0);
             image.setLayoutParams(lp);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), FullImageViewer.class);
+                    intent.putExtra("resourceInt",s);
+                    context.startActivity(intent);
+
+                }
+            });
             Picasso.with(context)
                     .load(Uri.parse(s))
                     .into(new Target() {
@@ -187,17 +196,6 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
 
                         }
                     });
-            image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
-                    Intent intent = new Intent(v.getContext(), FullImageViewer.class);
-                    intent.putExtra("resourseInt", bitmap);
-                    context.startActivity(intent);
-
-                }
-            });
             holder.imageLinear.addView(image);
         }
     }

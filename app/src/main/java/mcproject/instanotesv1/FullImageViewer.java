@@ -2,13 +2,19 @@ package mcproject.instanotesv1;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -102,11 +108,28 @@ public class FullImageViewer extends AppCompatActivity {
         {
             return;
         }
-        Bitmap res = getIntent().getParcelableExtra("resourceInt");
+        String s = (String) getIntent().getExtras().get("resourceInt");
 
-        ImageView view = findViewById(R.id.fullscreen_content);
+        final ImageView view = findViewById(R.id.fullscreen_content);
 
-        view.setImageBitmap(res);
+        Picasso.with(this)
+                .load(Uri.parse(s))
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        view.setImageBitmap(bitmap);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        Log.d("dasdas",errorDrawable.toString());
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
