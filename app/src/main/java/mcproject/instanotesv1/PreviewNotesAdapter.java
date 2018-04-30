@@ -1,9 +1,11 @@
 package mcproject.instanotesv1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -135,13 +137,13 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
                     .into(new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            System.out.println("Hee;lll");
+                            System.out.println();
                             image.setImageBitmap(bitmap);
                         }
 
                         @Override
                         public void onBitmapFailed(Drawable errorDrawable) {
-                            
+                            Log.d("dasdas",errorDrawable.toString());
                         }
 
                         @Override
@@ -149,6 +151,15 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
 
                         }
                     });
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), FullImageViewer.class);
+                    intent.putExtra("resourseInt", image.getId());
+                    context.startActivity(intent);
+
+                }
+            });
             holder.imageLinear.addView(image);
         }
     }

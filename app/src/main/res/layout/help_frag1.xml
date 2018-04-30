@@ -15,7 +15,10 @@
 
     <ImageView
         android:layout_width="320dp"
+        android:id="@+id/frag1img"
         android:src="@drawable/uploadnotes"
+        android:adjustViewBounds="true"
+        android:clickable="true"
         android:layout_gravity="center_horizontal"
         android:layout_height="320dp" />
 

@@ -1,6 +1,8 @@
 package mcproject.instanotesv1;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -41,14 +43,45 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
         holder.dateperson.setText(dates.getDateperson());
         holder.textViewDesc.setText(dates.getShortdesc());
         holder.imageView.setImageDrawable(ctx.getResources().getDrawable(dates.getImage()));
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ctx,PreviewNotes.class);
-                intent.putExtra("Date",holder.textViewTitle.getText());
-                ctx.startActivity(intent);
-            }
-        });
+        int i=0;
+        if(i==0)
+        {
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ctx,PreviewNotes.class);
+                    intent.putExtra("Date",holder.textViewTitle.getText());
+                    ctx.startActivity(intent);
+                }
+            });
+        }
+        else
+        {
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(ctx);
+                    builder.setMessage("Do you want to unlock this lecture? This will cost you 1 instacoin")
+                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    AlertDialog dialog=builder.create();
+                    dialog.show();
+                }
+            });
+
+
+        }
+
     }
 
 
@@ -60,7 +93,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
 
 
     class DatesViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageView,datep1,datep2,datep3;
+        ImageView imageView;
         TextView textViewTitle,textViewDesc,dateperson;
         CardView cardView;
         public DatesViewHolder(View itemView) {
