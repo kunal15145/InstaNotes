@@ -4,15 +4,30 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Harshit Verma on 15-03-2018.
@@ -22,12 +37,18 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
 
     private Context ctx;
     private List<DatesALL> datesList;
-    private String coursename;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore firebaseFirestore;
+    private static final String User_ID_TAG = "UserID";
+    private static final String Unlock_TAG = "Unlocks";
 
-    public DatesALLAdapter(Context ctx, List<DatesALL> datesList, String coursename) {
+    public DatesALLAdapter(Context ctx, List<DatesALL> datesList) {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         this.ctx = ctx;
         this.datesList = datesList;
-        this.coursename = coursename;
     }
 
     //Inflating the list
@@ -53,8 +74,6 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                 public void onClick(View view) {
                     Intent intent = new Intent(ctx,PreviewNotes.class);
                     intent.putExtra("Date",holder.textViewTitle.getText());
-                    intent.putExtra("coursename",coursename);
-                    intent.putExtra("Flag",0);
                     ctx.startActivity(intent);
                 }
             });
@@ -68,7 +87,37 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                     builder.setMessage("Do you want to unlock this lecture? This will cost you 1 instacoin")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                 @Override
+
                                 public void onClick(DialogInterface dialog, int which) {
+                                    firebaseFirestore.collection("unlocks")
+                                            .whereEqualTo(User_ID_TAG, firebaseUser.getUid())
+                                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot documentSnapshots) {
+
+                                            if(documentSnapshots.isEmpty()){
+                                                Map<String,Object> NewUnlock = new HashMap<>();
+                                                NewUnlock.put(User_ID_TAG, firebaseUser.getUid());
+                                                ArrayList<String> unl=new ArrayList<String>();
+                                                NewUnlock.put(Unlock_TAG, unl);
+                                                firebaseFirestore.collection("unlocks").document().set(NewUnlock)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+
+                                                            }
+                                                        });
+                                            }
+                                            else{
+                                                for(DocumentSnapshot doc : documentSnapshots){
+                                                    ArrayList<String> unl= (ArrayList<String>) doc.get(Unlock_TAG);
+                                                    
+                                                    firebaseFirestore.collection("unlocks").document(doc.getId())
+                                                            .update(Unlock_TAG, unl);
+                                                }
+                                            }
+                                        }
+                                    });
                                     dialog.dismiss();
                                 }
                             })
