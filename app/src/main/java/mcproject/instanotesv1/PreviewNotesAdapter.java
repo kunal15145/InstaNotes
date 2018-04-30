@@ -42,7 +42,7 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
     public class itemHolder extends RecyclerView.ViewHolder {
 
         public TextView txtTitle, txtUser, txtLike, textdislike;
-        public ImageView imgLike, imgUser, imgComment, imgDownload, imgFav,imgDislike;
+        public ImageView imgLike, imgUser, imgDownload, imgFav,imgDislike;
         public LinearLayout imageLinear;
         public View view;
 
@@ -157,6 +157,25 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
                 fav_click = fav_click + 1;
             }
         });
+
+        Picasso.with(context)
+                .load(previewNotes.getPicuri())
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        holder.imgUser.setImageBitmap(bitmap);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
 
         float width = holder.imgLike.getContext().getResources().getDimension(R.dimen.image);
         float height = holder.imgLike.getContext().getResources().getDimension(R.dimen.image);

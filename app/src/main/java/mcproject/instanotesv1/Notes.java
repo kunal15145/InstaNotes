@@ -8,8 +8,9 @@ public class Notes {
     private int like,imgCount,dislike;
     private boolean fav,isLiked,isDisliked;
     private ArrayList<String> list;
+    private String picuri;
 
-    public Notes(String title, String user, int like, int dislike, boolean fav, String link, int imgCount, boolean isLiked, boolean isDisliked, ArrayList<String> list){
+    public Notes(String title, String user, int like, int dislike, boolean fav, String link, int imgCount, boolean isLiked, boolean isDisliked, ArrayList<String> list,String s){
         this.title = title;
         this.user = user;
         this.like = like;
@@ -19,6 +20,7 @@ public class Notes {
         this.isLiked = isLiked;
         this.isDisliked=isDisliked;
         this.list = list;
+        this.picuri = s;
     }
 
     public String getUser() {
@@ -97,6 +99,14 @@ public class Notes {
 
     public void setList(ArrayList<String> list) {
         this.list = list;
+    }
+
+    public String getPicuri() {
+        return picuri;
+    }
+
+    public void setPicuri(String picuri) {
+        this.picuri = picuri;
     }
 }
 
