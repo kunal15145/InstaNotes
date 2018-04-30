@@ -1,6 +1,5 @@
 package mcproject.instanotesv1;
 
-import android.net.Uri;
 
 import java.util.ArrayList;
 
