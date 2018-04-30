@@ -102,9 +102,9 @@ public class FullImageViewer extends AppCompatActivity {
         {
             return;
         }
-        Bitmap res = (Bitmap)getIntent().getParcelableExtra("resourceInt");
+        Bitmap res = getIntent().getParcelableExtra("resourceInt");
 
-        ImageView view = (ImageView) findViewById(R.id.fullscreen_content);
+        ImageView view = findViewById(R.id.fullscreen_content);
 
         view.setImageBitmap(res);
 
