@@ -264,26 +264,30 @@ public class DatesTab extends AppCompatActivity{
                                                 else {
                                                     for (DocumentSnapshot documentSnapshot : documentSnapshots) {
                                                         ArrayList<Map<String, Object>> uplo = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
-                                                        uplo.add(NewUpload);
-                                                        firebaseFirestore.collection("uploads")
-                                                                .document(documentSnapshot.getId())
-                                                                .update("User_uploads", uplo)
-                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        int flag=1;
+                                                        for(int j=0;j<uplo.size();j++){
+                                                            if(uplo.get(j).containsValue(firebaseUser.getUid())){
+                                                                flag=0;
+                                                                break;
+                                                            }
+                                                        }
+                                                        if(flag==0){
+                                                            firebaseFirestore.collection("uploads")
+                                                                    .document(documentSnapshot.getId())
+                                                                    .update("User_uploads", uplo);
+
+                                                        }
+                                                        firebaseFirestore.collection("users")
+                                                                .document(firebaseUser.getUid())
+                                                                .get()
+                                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                                     @Override
-                                                                    public void onSuccess(Void aVoid) {
+                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                        String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                        int t = Integer.parseInt(instacoins);
                                                                         firebaseFirestore.collection("users")
                                                                                 .document(firebaseUser.getUid())
-                                                                                .get()
-                                                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                                                    @Override
-                                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                                                        String instacoins = (String) documentSnapshot.get("InstaCoins");
-                                                                                        int t = Integer.parseInt(instacoins);
-                                                                                        firebaseFirestore.collection("users")
-                                                                                                .document(firebaseUser.getUid())
-                                                                                                .update("InstaCoins",String.valueOf(t+1));
-                                                                                    }
-                                                                                });
+                                                                                .update("InstaCoins",String.valueOf(t+1));
                                                                     }
                                                                 });
 
