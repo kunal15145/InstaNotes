@@ -105,14 +105,11 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                                                 @Override
                                                 public void onSuccess(QuerySnapshot documentSnapshots) {
                                                     for(DocumentSnapshot documentSnapshot:documentSnapshots){
-                                                        ArrayList<Map<String,Object>> obj = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
-                                                        ArrayList<String> list1 = (ArrayList<String>) obj.get(0).get(Visitors);
-                                                        if(list1!=null) {
-                                                            list1.add(firebaseUser.getUid());
-                                                            firebaseFirestore.collection("uploads")
-                                                                    .document(documentSnapshot.getId())
-                                                                    .update(Visitors, list1);
-                                                        }
+                                                        ArrayList<String> l = (ArrayList<String>) documentSnapshot.get(Visitors);
+                                                        l.add(firebaseUser.getUid());
+                                                        firebaseFirestore.collection("uploads")
+                                                                .document(documentSnapshot.getId())
+                                                                .update(Visitors,l);
                                                     }
                                                 }
                                             });
