@@ -109,6 +109,20 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                                                         firebaseFirestore.collection("uploads")
                                                                 .document(documentSnapshot.getId())
                                                                 .update(Visitors, l);
+                                                        firebaseFirestore.collection("users")
+                                                                .document(firebaseUser.getUid())
+                                                                .get()
+                                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                    @Override
+                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                        String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                        int t = Integer.parseInt(instacoins);
+                                                                        firebaseFirestore.collection("users")
+                                                                                .document(firebaseUser.getUid())
+                                                                                .update("InstaCoins",String.valueOf(t-1));
+
+                                                                    }
+                                                                });
                                                     }
                                                 }
                                             });
