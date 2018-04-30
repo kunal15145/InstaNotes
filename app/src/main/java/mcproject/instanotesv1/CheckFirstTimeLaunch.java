@@ -1,10 +1,11 @@
 package mcproject.instanotesv1;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class CheckFirstTimeLaunch {
+public class CheckFirstTimeLaunch extends Activity {
 
     private int PREF_MODE = 0;
     private SharedPreferences sharedPreferences;
