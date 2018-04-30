@@ -3,6 +3,7 @@ package mcproject.instanotesv1;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,8 +41,8 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
 
     public class itemHolder extends RecyclerView.ViewHolder {
 
-        public TextView txtTitle, txtUser, txtLike;
-        public ImageView imgLike, imgUser, imgComment, imgDownload, imgFav;
+        public TextView txtTitle, txtUser, txtLike, textdislike;
+        public ImageView imgLike, imgUser, imgComment, imgDownload, imgFav,imgDislike;
         public LinearLayout imageLinear;
         public View view;
 
@@ -52,7 +53,8 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             txtUser = itemView.findViewById(R.id.textUser);
             txtLike = itemView.findViewById(R.id.textLike);
             imgLike = itemView.findViewById(R.id.imageLike);
-            imgComment = itemView.findViewById(R.id.imageComment);
+            imgDislike = itemView.findViewById(R.id.imagedislike);
+            textdislike = itemView.findViewById(R.id.textdislike);
             imgFav = itemView.findViewById(R.id.imageFav);
             imgDownload = itemView.findViewById(R.id.imageDownload);
             imgUser = itemView.findViewById(R.id.imageUser);
@@ -98,6 +100,16 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
             holder.imgLike.setImageResource(R.drawable.like);
         }
+        if(previewNotes.getisDisliked() == TRUE){
+            previewNotes.setDislike(previewNotes.getDislike());
+            holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+            holder.imgDislike.setImageResource(R.drawable.green_dislike);
+        }
+        else{
+            previewNotes.setDislike(previewNotes.getDislike());
+            holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+            holder.imgDislike.setImageResource(R.drawable.dislike);
+        }
         //change this to boolean and then if liked then show green else show normal and increment as always.
         holder.imgLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +124,22 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
                     previewNotes.setLike(previewNotes.getLike()+1);
                     holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
                     holder.imgLike.setImageResource(R.drawable.green_like);
+                }
+            }
+        });
+        holder.imgDislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(previewNotes.getisDisliked() == TRUE){
+                    previewNotes.setisDisliked(FALSE);
+                    previewNotes.setDislike(previewNotes.getDislike()-1);
+                    holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+                    holder.imgDislike.setImageResource(R.drawable.dislike);
+                }else {
+                    previewNotes.setisDisliked(TRUE);
+                    previewNotes.setDislike(previewNotes.getDislike()+1);
+                    holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+                    holder.imgDislike.setImageResource(R.drawable.green_dislike);
                 }
             }
         });
@@ -130,8 +158,8 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             }
         });
 
-        float width = holder.imgComment.getContext().getResources().getDimension(R.dimen.image);
-        float height = holder.imgComment.getContext().getResources().getDimension(R.dimen.image);
+        float width = holder.imgLike.getContext().getResources().getDimension(R.dimen.image);
+        float height = holder.imgLike.getContext().getResources().getDimension(R.dimen.image);
         for(int i = 0; i< previewNotes.getImgCount(); ++i){
             String s = previewNotes.getList().get(i);
             final ImageView image = new ImageView(holder.imgDownload.getContext());
@@ -162,8 +190,10 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
+                    Bitmap bitmap = drawable.getBitmap();
                     Intent intent = new Intent(v.getContext(), FullImageViewer.class);
-                    intent.putExtra("resourseInt", image.getId());
+                    intent.putExtra("resourseInt", bitmap);
                     context.startActivity(intent);
 
                 }

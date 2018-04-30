@@ -97,7 +97,7 @@ public class PreviewNotes extends AppCompatActivity {
                                 for (int i = 0; i < list.size(); i++) {
 
                                     final ArrayList<String> list1 = (ArrayList<String>) list.get(i).get("Images");
-                                    String s = (String) list.get(i).get("Dislikes");
+                                    final String s = (String) list.get(i).get("Dislikes");
                                     final String s1 = (String) list.get(i).get("Likes");
                                     String userid = (String) list.get(i).get("UserID");
                                     firebaseFirestore.collection("users")
@@ -107,7 +107,7 @@ public class PreviewNotes extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                     String name = (String) task.getResult().get("Name");
-                                                    previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), FALSE, "www.google.com", list1.size(), FALSE, list1));
+                                                    previewNotesList.add(new Notes(date, name, Integer.parseInt(s1),Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE,list1));
                                                 }
                                             });
 
@@ -134,7 +134,7 @@ public class PreviewNotes extends AppCompatActivity {
                                 for (int i = 0; i < list.size(); i++) {
 
                                     final ArrayList<String> list1 = (ArrayList<String>) list.get(i).get("Images");
-                                    String s = (String) list.get(i).get("Dislikes");
+                                    final String s = (String) list.get(i).get("Dislikes");
                                     final String s1 = (String) list.get(i).get("Likes");
                                     final String userid = (String) list.get(i).get("UserID");
                                     firebaseFirestore.collection("users")
@@ -145,7 +145,7 @@ public class PreviewNotes extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                     String name = (String) task.getResult().get("Name");
                                                     if(firebaseUser.getUid().equals(userid)){
-                                                        previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), FALSE, "www.google.com", list1.size(), FALSE, list1));
+                                                        previewNotesList.add(new Notes(date, name, Integer.parseInt(s1),Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE,list1));
                                                     }
                                                 }
                                             });
