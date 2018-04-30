@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,7 +38,6 @@ public class Tab1_ALL extends Fragment{
 
     RecyclerView recyclerView2;
     DatesALLAdapter adapter2;
-
     Calendar currentDate;
     int day,month,year;
     TextView choosedate;
@@ -45,8 +45,6 @@ public class Tab1_ALL extends Fragment{
     String coursename;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
-    private static final String OWN_TAG = "OWN";
-    private static final String DATE_TAG = "DATE";
     private static final String Course_TAG="Course";
 
     List<DatesALL> datesList;
@@ -102,8 +100,8 @@ public class Tab1_ALL extends Fragment{
                     @Override
                     public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                         for(DocumentSnapshot documentSnapshot:documentSnapshots){
-                            ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
-                            String date = (String) documentSnapshot.get("DATE");
+                            final ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
+                            final String date = (String) documentSnapshot.get("DATE");
                             SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
                             Date dt1= null;
                             try {
@@ -112,13 +110,26 @@ public class Tab1_ALL extends Fragment{
                                 e1.printStackTrace();
                             }
                             DateFormat format2=new SimpleDateFormat("EEEE");
-                            String finalDay=format2.format(dt1);
+                            final String finalDay=format2.format(dt1);
                             String s = (String) documentSnapshot.get("OWN");
                             if(s.equals("0")){
                                 datesList.add(new DatesALL(date,String.valueOf(list.size())+"uploads",finalDay,R.drawable.unlock));
                             }
                             else if(s.equals("1")){
-                                datesList.add(new DatesALL(date,String.valueOf(list.size())+"uploads",finalDay,R.drawable.lock));
+                                final String docid = documentSnapshot.getId();
+                                firebaseFirestore.collection("unlocks")
+                                        .document(firebaseUser.getUid())
+                                        .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                                                ArrayList<String> list1 = (ArrayList<String>) documentSnapshot.get("Unlocks");
+                                                if(list1.contains(docid)){
+                                                    datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
+                                                }
+                                                else datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.lock));
+                                            }
+                                        });
+//                                datesList.add(new DatesALL(date,String.valueOf(list.size())+"uploads",finalDay,R.drawable.lock));
                             }
                         }
                         datesList.sort(new Comparator<DatesALL>() {
@@ -130,7 +141,5 @@ public class Tab1_ALL extends Fragment{
                         adapter2.notifyDataSetChanged();
                     }
                 });
-
     }
-
 }

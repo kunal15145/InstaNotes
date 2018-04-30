@@ -122,7 +122,19 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void aVoid) {
-
+                                                                            firebaseFirestore.collection("users")
+                                                                                    .document(firebaseUser.getUid())
+                                                                                    .get()
+                                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                                        @Override
+                                                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                                            String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                                            int t = Integer.parseInt(instacoins);
+                                                                                            firebaseFirestore.collection("users")
+                                                                                                    .document(firebaseUser.getUid())
+                                                                                                    .update("InstaCoins",String.valueOf(t-1));
+                                                                                        }
+                                                                                    });
                                                                         }
                                                                     });
                                                         }
@@ -144,7 +156,25 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                                                             for(DocumentSnapshot doc2 : documentSnapshots){
                                                                 unl.add(doc2.getId());
                                                                 firebaseFirestore.collection("unlocks").document(doc.getId())
-                                                                        .update(Unlock_TAG, unl);
+                                                                        .update(Unlock_TAG, unl)
+                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void aVoid) {
+                                                                                firebaseFirestore.collection("users")
+                                                                                        .document(firebaseUser.getUid())
+                                                                                        .get()
+                                                                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                                            @Override
+                                                                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                                                String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                                                int t = Integer.parseInt(instacoins);
+                                                                                                firebaseFirestore.collection("users")
+                                                                                                        .document(firebaseUser.getUid())
+                                                                                                        .update("InstaCoins",String.valueOf(t-1));
+                                                                                            }
+                                                                                        });
+                                                                            }
+                                                                        });
                                                             }
                                                         }
                                                     });
