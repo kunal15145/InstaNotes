@@ -219,6 +219,8 @@ public class DatesTab extends AppCompatActivity{
                                 final Map<String,Object> NewUpload = new HashMap<>();
                                 NewUpload.put(User_ID_TAG, firebaseUser.getUid());
                                 NewUpload.put(IMAGES_TAG, download_filePath);
+                                NewUpload.put("Dislikes", "0");
+                                NewUpload.put("Likes", "0");
                                 firebaseFirestore.collection("uploads")
                                         .whereEqualTo(DATE_TAG, choosedate.getText())
                                         .whereEqualTo(Course_TAG, getIntent().getExtras().getString("CourseName"))
