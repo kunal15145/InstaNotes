@@ -38,6 +38,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -140,7 +141,7 @@ public class Tab2_PRIVATE extends Fragment{
                                 }
                             }
                         }
-                        datesList.sort(new Comparator<DatesPRIVATE>() {
+                        Collections.sort(datesList,new Comparator<DatesPRIVATE>() {
                             @Override
                             public int compare(DatesPRIVATE datesALL, DatesPRIVATE t1) {
                                 return -1*datesALL.getTitle().compareTo(t1.getTitle());

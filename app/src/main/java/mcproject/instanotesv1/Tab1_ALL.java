@@ -29,6 +29,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -128,12 +129,18 @@ public class Tab1_ALL extends Fragment{
                             }
 
                         }
-                        datesList.sort(new Comparator<DatesALL>() {
+                        Collections.sort(datesList, new Comparator<DatesALL>() {
                             @Override
                             public int compare(DatesALL datesALL, DatesALL t1) {
                                 return -1*datesALL.getTitle().compareTo(t1.getTitle());
                             }
                         });
+                        /*datesList.sort(new Comparator<DatesALL>() {
+                            @Override
+                            public int compare(DatesALL datesALL, DatesALL t1) {
+                                return -1*datesALL.getTitle().compareTo(t1.getTitle());
+                            }
+                        });*/
                         adapter2.notifyDataSetChanged();
                     }
                 });
