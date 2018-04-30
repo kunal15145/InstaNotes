@@ -102,7 +102,7 @@ public class Tab2_PRIVATE extends Fragment{
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter2 = new DatesPRIVATEAdapter(getActivity(), datesList);
+        adapter2 = new DatesPRIVATEAdapter(getActivity(), datesList,coursename);
 
         //setting adapter to recyclerview
         recyclerView2.setAdapter(adapter2);

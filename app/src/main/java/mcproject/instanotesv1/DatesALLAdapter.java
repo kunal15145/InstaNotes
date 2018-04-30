@@ -22,10 +22,12 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
 
     private Context ctx;
     private List<DatesALL> datesList;
+    private String coursename;
 
-    public DatesALLAdapter(Context ctx, List<DatesALL> datesList) {
+    public DatesALLAdapter(Context ctx, List<DatesALL> datesList, String coursename) {
         this.ctx = ctx;
         this.datesList = datesList;
+        this.coursename = coursename;
     }
 
     //Inflating the list
@@ -51,6 +53,8 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                 public void onClick(View view) {
                     Intent intent = new Intent(ctx,PreviewNotes.class);
                     intent.putExtra("Date",holder.textViewTitle.getText());
+                    intent.putExtra("coursename",coursename);
+                    intent.putExtra("Flag",0);
                     ctx.startActivity(intent);
                 }
             });

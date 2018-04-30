@@ -20,10 +20,12 @@ public class DatesPRIVATEAdapter extends RecyclerView.Adapter<DatesPRIVATEAdapte
 
     private Context ctx;
     private List<DatesPRIVATE> datesList;
+    private String coursename;
 
-    public DatesPRIVATEAdapter(Context ctx, List<DatesPRIVATE> datesList) {
+    public DatesPRIVATEAdapter(Context ctx, List<DatesPRIVATE> datesList, String coursename) {
         this.ctx = ctx;
         this.datesList = datesList;
+        this.coursename = coursename;
     }
 
     //Inflating the list
@@ -45,6 +47,8 @@ public class DatesPRIVATEAdapter extends RecyclerView.Adapter<DatesPRIVATEAdapte
             public void onClick(View view) {
                 Intent intent = new Intent(ctx,PreviewNotes.class);
                 intent.putExtra("Date",holder.textViewTitle.getText());
+                intent.putExtra("coursename",coursename);
+                intent.putExtra("Flag",1);
                 ctx.startActivity(intent);
             }
         });

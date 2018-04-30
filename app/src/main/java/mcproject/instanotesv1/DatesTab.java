@@ -123,7 +123,7 @@ public class DatesTab extends AppCompatActivity{
 
         coursename = (String) getIntent().getExtras().get("CourseName");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(coursename);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

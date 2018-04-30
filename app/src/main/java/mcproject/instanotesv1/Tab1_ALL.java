@@ -86,7 +86,7 @@ public class Tab1_ALL extends Fragment{
         datesList=new ArrayList<>();
         recyclerView2 = rootView.findViewById(R.id.recyclerView2);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter2 = new DatesALLAdapter(getActivity(), datesList);
+        adapter2 = new DatesALLAdapter(getActivity(), datesList,coursename);
         recyclerView2.setAdapter(adapter2);
         addnotes();
         return rootView;
