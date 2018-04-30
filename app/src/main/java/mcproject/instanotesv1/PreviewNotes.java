@@ -71,32 +71,8 @@ public class PreviewNotes extends AppCompatActivity {
 //        previewNotes = new Notes("Test3","Rajan Girsa",2,TRUE,"www.google.com",3,TRUE);
 //        previewNotesList.add(previewNotes);
 
-        firebaseFirestore.collection("uploads")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-                        if(e!=null){
-                            return;
-                        }
-                        else {
-                            for(final DocumentSnapshot documentSnapshot:documentSnapshots){
-                                if(documentSnapshot.get("DATE").equals(date)){
-                                    String uid = (String) documentSnapshot.get("UserID");
-                                    firebaseFirestore.collection("users")
-                                            .document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onEvent(DocumentSnapshot documentSnapshot1, FirebaseFirestoreException e) {
-                                            String name = (String) documentSnapshot1.get("Name");
-                                            ArrayList<String> list = (ArrayList<String>) documentSnapshot.get("Images");
-                                            previewNotesList.add(new Notes(date, name,5,FALSE,"www.google.com",list.size(),FALSE,list));
 
-                                        }
-                                    });
-                                }
-                            }
-                        }
-                        previewNotesAdapter.notifyDataSetChanged();
-                    }
-                });
+
+
     }
 }
