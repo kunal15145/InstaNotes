@@ -72,7 +72,6 @@ public class Account extends AppCompatActivity {
                             return;
                         }
                         else if(documentSnapshot!=null && documentSnapshot.exists()){
-                            Log.d("dasd", (String) documentSnapshot.get(INSTA_COINS));
                             credit.setText((CharSequence) documentSnapshot.get(INSTA_COINS)+" credits");
                         }
                         else {
