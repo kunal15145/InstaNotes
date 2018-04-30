@@ -194,15 +194,56 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             @Override
             public void onClick(View v) {
                 if(previewNotes.getisDisliked() == TRUE){
-                    previewNotes.setisDisliked(FALSE);
-                    previewNotes.setDislike(previewNotes.getDislike()-1);
-                    holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
-                    holder.imgDislike.setImageResource(R.drawable.dislike);
+                    firebaseFirestore.collection("uploads")
+                            .whereEqualTo(OWN_TAG, own)
+                            .whereEqualTo(Course_TAG, coursename)
+                            .whereEqualTo(DATE_TAG, date)
+                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot documentSnapshots) {
+                            for(DocumentSnapshot doc: documentSnapshots) {
+                                ArrayList<Map<String, Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
+                                for(int i=0;i<uplo.size();i++) {
+                                    if(uplo.get(i).containsValue(previewNotes.getUserid())){
+                                        previewNotes.setisDisliked(FALSE);
+                                        previewNotes.setDislike(previewNotes.getDislike()-1);
+                                        holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+                                        holder.imgDislike.setImageResource(R.drawable.dislike);
+                                        uplo.get(i).put("Dislikes", String.valueOf(Integer.parseInt((String)uplo.get(i).get("Dislikes"))-1));
+                                        firebaseFirestore.collection("uploads").document(doc.getId())
+                                                .update("User_uploads", uplo);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+
                 }else {
-                    previewNotes.setisDisliked(TRUE);
-                    previewNotes.setDislike(previewNotes.getDislike()+1);
-                    holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
-                    holder.imgDislike.setImageResource(R.drawable.green_dislike);
+                    firebaseFirestore.collection("uploads")
+                            .whereEqualTo(OWN_TAG, own)
+                            .whereEqualTo(Course_TAG, coursename)
+                            .whereEqualTo(DATE_TAG, date)
+                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot documentSnapshots) {
+                            for(DocumentSnapshot doc: documentSnapshots) {
+                                ArrayList<Map<String, Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
+                                for(int i=0;i<uplo.size();i++) {
+                                    if(uplo.get(i).containsValue(previewNotes.getUserid())){
+                                        previewNotes.setisDisliked(TRUE);
+                                        previewNotes.setDislike(previewNotes.getDislike()+1);
+                                        holder.textdislike.setText(String.valueOf(previewNotes.getDislike()));
+                                        holder.imgDislike.setImageResource(R.drawable.green_dislike);
+                                        uplo.get(i).put("Dislikes", String.valueOf(Integer.parseInt((String)uplo.get(i).get("Dislikes"))+1));
+                                        firebaseFirestore.collection("uploads").document(doc.getId())
+                                                .update("User_uploads", uplo);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -211,11 +252,56 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             @Override
             public void onClick(View v) {
                 if(fav_click%2 == 0){
-                    previewNotes.setFav(TRUE);
-                    holder.imgFav.setImageResource(R.drawable.green_star);
+                    firebaseFirestore.collection("uploads")
+                            .whereEqualTo(OWN_TAG, own)
+                            .whereEqualTo(Course_TAG, coursename)
+                            .whereEqualTo(DATE_TAG, date)
+                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot documentSnapshots) {
+                            for(DocumentSnapshot doc: documentSnapshots) {
+                                ArrayList<Map<String, Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
+                                for(int i=0;i<uplo.size();i++) {
+                                    if(uplo.get(i).containsValue(previewNotes.getUserid())){
+                                        previewNotes.setFav(TRUE);
+                                        holder.imgFav.setImageResource(R.drawable.green_star);
+                                        ArrayList<String> users=(ArrayList<String>)uplo.get(i).get("Favs");
+                                        users.add(firebaseUser.getUid());
+                                        uplo.get(i).put("Favs", users);
+                                        firebaseFirestore.collection("uploads").document(doc.getId())
+                                                .update("User_uploads", uplo);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }else{
-                    previewNotes.setFav(FALSE);
-                    holder.imgFav.setImageResource(R.drawable.star);
+
+                    firebaseFirestore.collection("uploads")
+                            .whereEqualTo(OWN_TAG, own)
+                            .whereEqualTo(Course_TAG, coursename)
+                            .whereEqualTo(DATE_TAG, date)
+                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot documentSnapshots) {
+                            for(DocumentSnapshot doc: documentSnapshots) {
+                                ArrayList<Map<String, Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
+                                for(int i=0;i<uplo.size();i++) {
+                                    if(uplo.get(i).containsValue(previewNotes.getUserid())){
+                                        previewNotes.setFav(FALSE);
+                                        holder.imgFav.setImageResource(R.drawable.star);
+                                        ArrayList<String> users=(ArrayList<String>)uplo.get(i).get("Favs");
+                                        users.remove(firebaseUser.getUid());
+                                        uplo.get(i).put("Favs", users);
+                                        firebaseFirestore.collection("uploads").document(doc.getId())
+                                                .update("User_uploads", uplo);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
                 fav_click = fav_click + 1;
             }

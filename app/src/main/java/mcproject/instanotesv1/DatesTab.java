@@ -98,7 +98,9 @@ public class DatesTab extends AppCompatActivity implements Notif_datepicker.Date
     private static final String OWN_TAG = "OWN";
     private static final String DATE_TAG = "DATE";
     private static final String Course_TAG="Course";
+    private static final String Visitors="Visitors";
     private static final String DIALOG_DATE = "Notification.DateDialog";
+    Spinner spinner;
 
     String coursename = null;
 
@@ -148,7 +150,7 @@ public class DatesTab extends AppCompatActivity implements Notif_datepicker.Date
                 final View view2=getLayoutInflater().inflate(R.layout.dialog_newnotes,null);
                 count=view2.findViewById(R.id.count);
                 count.setText(String.valueOf(currentcount));
-                final Spinner spinner=view2.findViewById(R.id.spinner1);
+                spinner=view2.findViewById(R.id.spinner1);
                 ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(DatesTab.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.privacy_array));
                 myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setSelection(0);
@@ -207,24 +209,98 @@ public class DatesTab extends AppCompatActivity implements Notif_datepicker.Date
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Log.d("sdfjkds", String.valueOf(download_filePath.size()));
-                                Map<String,Object> NewUpload = new HashMap<>();
+                                final Map<String,Object> NewUpload = new HashMap<>();
                                 NewUpload.put(User_ID_TAG, firebaseUser.getUid());
-                                NewUpload.put(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()));
-                                NewUpload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
-                                NewUpload.put(DATE_TAG, choosedate.getText());
                                 NewUpload.put(IMAGES_TAG, download_filePath);
-                                firebaseFirestore.collection("uploads").document().set(NewUpload)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                NewUpload.put("Dislikes", "0");
+                                NewUpload.put("Likes", "0");
+                                NewUpload.put("Favs", new ArrayList<String>());
+                                firebaseFirestore.collection("uploads")
+                                        .whereEqualTo(DATE_TAG, choosedate.getText())
+                                        .whereEqualTo(Course_TAG, getIntent().getExtras().getString("CourseName"))
+                                        .whereEqualTo(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()))
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
+                                            public void onSuccess(QuerySnapshot documentSnapshots) {
+                                                if(documentSnapshots.isEmpty()){
+                                                    final Map<String,Object> Newsuperupload = new HashMap<>();
+                                                    Newsuperupload.put(DATE_TAG, choosedate.getText());
+                                                    Newsuperupload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
+                                                    if(String.valueOf(spinner.getSelectedItemPosition()).equals("1")){
+                                                        Newsuperupload.put(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()));
+                                                        Newsuperupload.put(Visitors,new ArrayList<String>());
+                                                    }
+                                                    else Newsuperupload.put(OWN_TAG,String.valueOf(spinner.getSelectedItemPosition()));
+                                                    ArrayList<Map<String,Object>> uplo= new ArrayList<Map<String, Object>>();
+                                                    uplo.add(NewUpload);
+                                                    Newsuperupload.put("User_uploads", uplo);
+                                                    firebaseFirestore.collection("uploads").document().set(Newsuperupload)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    firebaseFirestore.collection("users")
+                                                                            .document(firebaseUser.getUid())
+                                                                            .get()
+                                                                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                                @Override
+                                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                                    String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                                    int t = Integer.parseInt(instacoins);
+                                                                                    firebaseFirestore.collection("users")
+                                                                                            .document(firebaseUser.getUid())
+                                                                                            .update("InstaCoins",String.valueOf(t+1));
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
 
-                                    }
-                                });
+                                                        }
+                                                    });
+                                                }
+                                                else {
+                                                    Log.d("sdlkfj", "Present");
+                                                    for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                                                        ArrayList<Map<String, Object>> uplo = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
+                                                        int flag=1;
+                                                        for(int j=0;j<uplo.size();j++){
+                                                            if(uplo.get(j).containsValue(firebaseUser.getUid())){
+                                                                flag=0;
+                                                                break;
+                                                            }
+                                                        }
+                                                        if(flag==0){
+                                                            firebaseFirestore.collection("uploads")
+                                                                    .document(documentSnapshot.getId())
+                                                                    .update("User_uploads", uplo);
+
+                                                        }
+                                                        firebaseFirestore.collection("users")
+                                                                .document(firebaseUser.getUid())
+                                                                .get()
+                                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                    @Override
+                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                        String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                        int t = Integer.parseInt(instacoins);
+                                                                        firebaseFirestore.collection("users")
+                                                                                .document(firebaseUser.getUid())
+                                                                                .update("InstaCoins",String.valueOf(t+1));
+                                                                    }
+                                                                });
+
+                                                    }
+                                                }
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
                                 uploadImage();
                                 dialog.dismiss();
                             }
@@ -505,36 +581,66 @@ public class DatesTab extends AppCompatActivity implements Notif_datepicker.Date
     }
 
     private void uploadImage() {
+        firebaseFirestore.collection("uploads")
+                .whereEqualTo(Course_TAG, getIntent().getExtras().getString("CourseName"))
+                .whereEqualTo(DATE_TAG, choosedate.getText())
+                .whereEqualTo(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()))
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documentSnapshots) {
+                        for (final DocumentSnapshot doc:documentSnapshots) {
+                            ArrayList<Map<String,Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
+                            for(int i=0;i<uplo.size();i++){
+                                if(uplo.get(i).containsValue(firebaseUser.getUid())){
+                                    Log.d("chiiz", uplo.get(i).toString());
+                                    download_filePath= (ArrayList<String>) uplo.get(i).get(IMAGES_TAG);
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                });
         if(filePath!=null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading "+String.valueOf(filePath.size())+" images");
             progressDialog.show();
             for(int i=0;i<filePath.size();i++) {
-                final StorageReference ref = storageReference.child("images/" + filePath.get(i));
-                Log.d("sdfjlsdf", String.valueOf(filePath.get(i)));
+                final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
                 ref.putFile(filePath.get(i))
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot){
+                            public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot){
+                                System.out.println(ref.getDownloadUrl().toString());
+                                Log.d("sadsa", String.valueOf(taskSnapshot.getDownloadUrl()));
                                 firebaseFirestore.collection("uploads")
-                                        .whereEqualTo(User_ID_TAG, firebaseUser.getUid())
                                         .whereEqualTo(Course_TAG, getIntent().getExtras().getString("CourseName"))
                                         .whereEqualTo(DATE_TAG, choosedate.getText())
+                                        .whereEqualTo(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()))
                                         .get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if(task.isSuccessful()){
-                                                    for (DocumentSnapshot doc:task.getResult()) {
-                                                        ArrayList<String> images = (ArrayList<String>) doc.get("Images");
-                                                        images.add(String.valueOf(ref.getDownloadUrl()));
-                                                        firebaseFirestore.collection("uploads").document(doc.getId())
-                                                                .update(IMAGES_TAG, images);
+                                            public void onSuccess(QuerySnapshot documentSnapshots) {
+                                                for (final DocumentSnapshot doc:documentSnapshots) {
+                                                    ArrayList<Map<String,Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
+                                                    for(int i=0;i<uplo.size();i++){
+                                                        if(uplo.get(i).containsValue(firebaseUser.getUid())){
+                                                            download_filePath.add(taskSnapshot.getDownloadUrl().toString());
+                                                            Log.d("oieurojksdfh", String.valueOf(download_filePath.size()));
+                                                            uplo.get(i).put(IMAGES_TAG, download_filePath);
+                                                            firebaseFirestore.collection("uploads").document(doc.getId())
+                                                                    .update("User_uploads", uplo);
+                                                            break;
+                                                        }
                                                     }
+
                                                 }
                                             }
                                         });
+
                             }
+
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
