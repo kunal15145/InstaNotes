@@ -94,6 +94,7 @@ public class DatesTab extends AppCompatActivity{
     private static final String OWN_TAG = "OWN";
     private static final String DATE_TAG = "DATE";
     private static final String Course_TAG="Course";
+    private static final String Visitors = "Visitors";
     String coursename = null;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -232,7 +233,11 @@ public class DatesTab extends AppCompatActivity{
                                                     final Map<String,Object> Newsuperupload = new HashMap<>();
                                                     Newsuperupload.put(DATE_TAG, choosedate.getText());
                                                     Newsuperupload.put(Course_TAG, getIntent().getExtras().getString("CourseName"));
-                                                    Newsuperupload.put(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()));
+                                                    if(String.valueOf(spinner.getSelectedItemPosition()).equals("1")){
+                                                        Newsuperupload.put(OWN_TAG, String.valueOf(spinner.getSelectedItemPosition()));
+                                                        Newsuperupload.put(Visitors,new ArrayList<String>());
+                                                    }
+                                                    else Newsuperupload.put(OWN_TAG,String.valueOf(spinner.getSelectedItemPosition()));
                                                     ArrayList<Map<String,Object>> uplo= new ArrayList<Map<String, Object>>();
                                                     uplo.add(NewUpload);
                                                     Newsuperupload.put("User_uploads", uplo);

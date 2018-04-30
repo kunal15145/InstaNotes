@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class Notes {
     private String title,user,link;
-    private int like,imgCount;
-    private boolean fav,isLiked;
+    private int like,imgCount,dislike;
+    private boolean fav,isLiked,isDisliked;
     private ArrayList<String> list;
 
-    public Notes(String title, String user, int like, boolean fav, String link, int imgCount, boolean isLiked, ArrayList<String> list){
+    public Notes(String title, String user, int like, int dislike, boolean fav, String link, int imgCount, boolean isLiked, boolean isDisliked, ArrayList<String> list){
         this.title = title;
         this.user = user;
         this.like = like;
@@ -17,6 +17,7 @@ public class Notes {
         this.link = link;
         this.imgCount = imgCount;
         this.isLiked = isLiked;
+        this.isDisliked=isDisliked;
         this.list = list;
     }
 
@@ -39,10 +40,18 @@ public class Notes {
     public int getLike() {
         return like;
     }
+    public int getDislike(){return dislike;}
 
     public void setLike(int like) {
         this.like = like;
     }
+
+    public void setDislike(int dislike)
+    {
+        this.dislike=dislike;
+    }
+
+
 
     public boolean isFav() {
         return fav;
@@ -71,9 +80,15 @@ public class Notes {
     public boolean getisLiked() {
         return isLiked;
     }
+    public boolean getisDisliked() {
+        return isDisliked;
+    }
 
     public void setisLiked(boolean liked) {
         isLiked = liked;
+    }
+    public void setisDisliked(boolean disliked) {
+        isDisliked = disliked;
     }
 
     public ArrayList<String> getList() {

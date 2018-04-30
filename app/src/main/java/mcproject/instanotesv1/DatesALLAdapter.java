@@ -44,6 +44,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
     private String coursename;
     private static final String OWN_TAG = "OWN";
     private static final String DATE_TAG = "DATE";
+    private static final String Visitors = "Visitors";
     private static final String Course_TAG="Course";
 
 
@@ -94,60 +95,24 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                     builder.setMessage("Do you want to unlock this lecture? This will cost you 1 instacoin")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                 @Override
-
                                 public void onClick(DialogInterface dialog, int which) {
-                                    firebaseFirestore.collection("unlocks")
-                                            .document(firebaseUser.getUid())
-                                            .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                                            if(!documentSnapshot.exists()){
-                                                final Map<String,Object> NewUnlock = new HashMap<>();
-                                                final ArrayList<String> unl=new ArrayList<String>();
-                                                firebaseFirestore.collection("uploads")
-                                                        .whereEqualTo(OWN_TAG, "1")
-                                                        .whereEqualTo(Course_TAG, coursename)
-                                                        .whereEqualTo(DATE_TAG, holder.textViewTitle.getText())
-                                                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onSuccess(QuerySnapshot documentSnapshots) {
-                                                        for(DocumentSnapshot doc2 : documentSnapshots){
-                                                            unl.add(doc2.getId());
-                                                            NewUnlock.put(Unlock_TAG, unl);
-                                                            firebaseFirestore.collection("unlocks").document(firebaseUser.getUid()).set(NewUnlock)
-                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                        @Override
-                                                                        public void onSuccess(Void aVoid) {
-
-                                                                        }
-                                                                    });
-                                                        }
+                                    firebaseFirestore.collection("uploads")
+                                            .whereEqualTo(OWN_TAG,"1")
+                                            .whereEqualTo(Course_TAG,coursename)
+                                            .whereEqualTo(DATE_TAG,holder.textViewTitle.getText())
+                                            .get()
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot documentSnapshots) {
+                                                    for(DocumentSnapshot documentSnapshot:documentSnapshots){
+                                                        ArrayList<String> l = (ArrayList<String>) documentSnapshot.get(Visitors);
+                                                        l.add(firebaseUser.getUid());
+                                                        firebaseFirestore.collection("uploads")
+                                                                .document(documentSnapshot.getId())
+                                                                .update(Visitors,l);
                                                     }
-                                                });
-
-
-                                            }
-                                            else{
-                                                final ArrayList<String> unl= (ArrayList<String>) documentSnapshot.get(Unlock_TAG);
-                                                firebaseFirestore.collection("uploads")
-                                                        .whereEqualTo(OWN_TAG, "1")
-                                                        .whereEqualTo(Course_TAG, coursename)
-                                                        .whereEqualTo(DATE_TAG, holder.textViewTitle.getText())
-                                                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onSuccess(QuerySnapshot documentSnapshots) {
-                                                        for(DocumentSnapshot doc2 : documentSnapshots){
-                                                            unl.add(doc2.getId());
-                                                            firebaseFirestore.collection("unlocks").document(firebaseUser.getUid())
-                                                                    .update(Unlock_TAG, unl);
-                                                        }
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    });
-
+                                                }
+                                            });
                                     dialog.dismiss();
                                 }
                             })
