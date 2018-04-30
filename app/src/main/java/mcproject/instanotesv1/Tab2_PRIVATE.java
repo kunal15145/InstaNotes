@@ -124,20 +124,22 @@ public class Tab2_PRIVATE extends Fragment{
                     @Override
                     public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                         for(DocumentSnapshot documentSnapshot:documentSnapshots){
-                            ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
-                            String date = (String) documentSnapshot.get("DATE");
-                            SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
-                            Date dt1= null;
-                            try {
-                                dt1 = format1.parse(date);
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                            }
-                            DateFormat format2=new SimpleDateFormat("EEEE");
-                            String finalDay=format2.format(dt1);
-                            for(int i=0;i<list.size();i++){
-                                if(list.get(i).get("UserID").equals(firebaseUser.getUid())){
-                                    datesList.add(new DatesPRIVATE(date,finalDay,R.drawable.lock));
+                            if(documentSnapshot.exists()) {
+                                ArrayList<Map<String, Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
+                                String date = (String) documentSnapshot.get("DATE");
+                                SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+                                Date dt1 = null;
+                                try {
+                                    dt1 = format1.parse(date);
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                }
+                                DateFormat format2 = new SimpleDateFormat("EEEE");
+                                String finalDay = format2.format(dt1);
+                                for (int i = 0; i < list.size(); i++) {
+                                    if (list.get(i).get("UserID").equals(firebaseUser.getUid())) {
+                                        datesList.add(new DatesPRIVATE(date, finalDay, R.drawable.lock));
+                                    }
                                 }
                             }
                         }

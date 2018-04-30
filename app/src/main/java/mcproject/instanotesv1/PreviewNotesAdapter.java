@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -100,9 +101,17 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
         holder.imgDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), previewNotes.getLink(), Toast.LENGTH_SHORT).show();
+                ArrayList<String> imagestodownload = previewNotes.getList();
+                File wallpaperDirectory = new File("/sdcard/Instanotes/");
+                if(!wallpaperDirectory.isDirectory()){
+                    wallpaperDirectory.mkdirs();
+                }
+                else {
+                    
+                }
             }
         });
+
         if(previewNotes.getisLiked() == TRUE){
             previewNotes.setLike(previewNotes.getLike());
             holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
