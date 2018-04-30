@@ -112,7 +112,7 @@ public class PreviewNotes extends AppCompatActivity {
                                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                                 String name = (String) task.getResult().get("Name");
                                                                 String uri = (String) task.getResult().get("PicUri");
-                                                                previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri));
+                                                                previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri, userid));
                                                             }
                                                         });
                                             }
@@ -136,7 +136,7 @@ public class PreviewNotes extends AppCompatActivity {
                                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                                 String name = (String) task.getResult().get("Name");
                                                                 String uri = (String) task.getResult().get("PicUri");
-                                                                previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri));
+                                                                previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri, userid));
                                                             }
                                                         });
                                             }
@@ -176,7 +176,7 @@ public class PreviewNotes extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                         String name = (String) task.getResult().get("Name");
                                                         String uri = (String) task.getResult().get("PicUri");
-                                                        previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri));
+                                                        previewNotesList.add(new Notes(date, name, Integer.parseInt(s1), Integer.parseInt(s), FALSE, "www.google.com", list1.size(), FALSE, FALSE, list1,uri, userid));
                                                     }
                                                 });
                                     }

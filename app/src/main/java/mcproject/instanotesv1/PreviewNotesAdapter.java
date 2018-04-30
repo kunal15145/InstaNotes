@@ -18,13 +18,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -41,6 +46,9 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
     private String OWN_TAG = "OWN";
     private String DATE_TAG = "DATE";
     private String Course_TAG="Course";
+    private String own;
+    private String coursename;
+    private String date;
 
     public class itemHolder extends RecyclerView.ViewHolder {
 
@@ -64,15 +72,15 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
         }
     }
 
-    public PreviewNotesAdapter(List<Notes> previewNotesList, PreviewNotes previewNotes, String coursename, String own, String date){
+    public PreviewNotesAdapter(List<Notes> previewNotesList, PreviewNotes previewNotes, String coursenames, String owns, String dates){
         this.previewNotesList = previewNotesList;
         this.context = previewNotes;
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        OWN_TAG=own;
-        Course_TAG=coursename;
-        DATE_TAG=date;
+        own=owns;
+        coursename=coursenames;
+        date=dates;
     }
 
     @Override
@@ -121,17 +129,56 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             @Override
             public void onClick(View v) {
                 if(previewNotes.getisLiked() == TRUE){
-//                    firebaseFirestore.collection("uploads")
-//                            .whereEqualTo()
-                    previewNotes.setisLiked(FALSE);
-                    previewNotes.setLike(previewNotes.getLike()-1);
-                    holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
-                    holder.imgLike.setImageResource(R.drawable.like);
+                    firebaseFirestore.collection("uploads")
+                            .whereEqualTo(OWN_TAG, own)
+                            .whereEqualTo(Course_TAG, coursename)
+                            .whereEqualTo(DATE_TAG, date)
+                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot documentSnapshots) {
+                            for(DocumentSnapshot doc: documentSnapshots) {
+                                ArrayList<Map<String, Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
+                                for(int i=0;i<uplo.size();i++) {
+                                    if(uplo.get(i).containsValue(previewNotes.getUserid())){
+                                        previewNotes.setisLiked(FALSE);
+                                        previewNotes.setLike(previewNotes.getLike() - 1);
+                                        uplo.get(i).put("Likes", String.valueOf(Integer.parseInt((String)uplo.get(i).get("Likes"))-1));
+                                        holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
+                                        holder.imgLike.setImageResource(R.drawable.like);
+                                        firebaseFirestore.collection("uploads").document(doc.getId())
+                                                .update("User_uploads", uplo);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }else {
-                    previewNotes.setisLiked(TRUE);
-                    previewNotes.setLike(previewNotes.getLike()+1);
-                    holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
-                    holder.imgLike.setImageResource(R.drawable.green_like);
+                    firebaseFirestore.collection("uploads")
+                            .whereEqualTo(OWN_TAG, own)
+                            .whereEqualTo(Course_TAG, coursename)
+                            .whereEqualTo(DATE_TAG, date)
+                            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot documentSnapshots) {
+                            for(DocumentSnapshot doc: documentSnapshots) {
+                                ArrayList<Map<String, Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
+                                for(int i=0;i<uplo.size();i++) {
+                                    if(uplo.get(i).containsValue(previewNotes.getUserid())){
+                                        previewNotes.setisLiked(TRUE);
+                                        previewNotes.setLike(previewNotes.getLike()+1);
+                                        holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
+                                        holder.imgLike.setImageResource(R.drawable.green_like);
+                                        uplo.get(i).put("Likes", String.valueOf(Integer.parseInt((String)uplo.get(i).get("Likes"))+1));
+                                        firebaseFirestore.collection("uploads").document(doc.getId())
+                                                .update("User_uploads", uplo);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+
                 }
             }
         });
