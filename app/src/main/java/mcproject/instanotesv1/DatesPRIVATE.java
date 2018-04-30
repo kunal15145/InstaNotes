@@ -5,7 +5,7 @@ package mcproject.instanotesv1;
  */
 
 public class DatesPRIVATE {
-    private String title,dateperson;
+    private String title;
 
     private String shortdesc;
     private int image;
