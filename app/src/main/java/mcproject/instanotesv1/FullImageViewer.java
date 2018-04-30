@@ -1,6 +1,7 @@
 package mcproject.instanotesv1;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,11 +102,11 @@ public class FullImageViewer extends AppCompatActivity {
         {
             return;
         }
-        int res = extras.getInt("resourseInt");
+        Bitmap res = (Bitmap)getIntent().getParcelableExtra("resourceInt");
 
         ImageView view = (ImageView) findViewById(R.id.fullscreen_content);
 
-        view.setImageResource(res);
+        view.setImageBitmap(res);
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {

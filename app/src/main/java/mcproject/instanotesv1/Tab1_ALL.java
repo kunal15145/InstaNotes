@@ -113,6 +113,7 @@ public class Tab1_ALL extends Fragment{
                             final String finalDay=format2.format(dt1);
                             final String s = (String) documentSnapshot.get("OWN");
                             if(s.equals("0")){
+
                                 datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
                             }
                             else if(s.equals("1")){
