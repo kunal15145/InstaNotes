@@ -57,15 +57,13 @@
     <string name="help4detail">The app works on a credit based system. Earn credits by uploading notes and spend these credits to download notes</string>
     <string name="action_favorites">Favorites</string>
     <string name="action_request">Request for notes</string>
+    <string name="title_activity_full_image_viewer">Full Image Viewer</string> <!--Change kr lio isse-->
+    <string name="date_picker_title">Pick date for notes.</string>
 
     <string-array name="privacy_array">
         <item>Public</item>
         <item>Private</item>
     </string-array>
-
-    <string name="title_activity_full_image_viewer">FullImageViewer</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 
 </resources>

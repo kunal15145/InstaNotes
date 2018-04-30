@@ -86,12 +86,12 @@
             android:screenOrientation="portrait"
             android:name=".DatesTab"
             android:label="@string/title_activity_dates_tab"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".FullImageViewer"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_full_image_viewer"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme"/>
     </application>
 
 </manifest>

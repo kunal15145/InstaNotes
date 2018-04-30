@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -257,12 +256,13 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
                     .into(new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            System.out.println("Hee;lll");
                             image.setImageBitmap(bitmap);
                         }
 
                         @Override
                         public void onBitmapFailed(Drawable errorDrawable) {
-                            Log.d("dasdas",errorDrawable.toString());
+                            
                         }
 
                         @Override
