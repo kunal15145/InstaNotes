@@ -94,7 +94,7 @@ public class Tab1_ALL extends Fragment{
     }
 
     private void addnotes() {
-
+        datesList.clear();
         firebaseFirestore.collection("uploads")
                 .whereEqualTo(Course_TAG,coursename)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -124,7 +124,7 @@ public class Tab1_ALL extends Fragment{
                         datesList.sort(new Comparator<DatesALL>() {
                             @Override
                             public int compare(DatesALL datesALL, DatesALL t1) {
-                                return datesALL.getTitle().compareTo(t1.getTitle());
+                                return -1*datesALL.getTitle().compareTo(t1.getTitle());
                             }
                         });
                         adapter2.notifyDataSetChanged();

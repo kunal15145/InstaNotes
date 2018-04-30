@@ -114,7 +114,7 @@ public class Tab2_PRIVATE extends Fragment{
 
     private void addprivatenotes() {
 
-
+        datesList.clear();
         firebaseFirestore.collection("uploads")
                 .whereEqualTo(Course_TAG,coursename)
                 .whereEqualTo(OWN_TAG,"1")
@@ -134,13 +134,16 @@ public class Tab2_PRIVATE extends Fragment{
                             }
                             DateFormat format2=new SimpleDateFormat("EEEE");
                             String finalDay=format2.format(dt1);
-                            String s = (String) documentSnapshot.get("OWN");
-                            datesList.add(new DatesPRIVATE(date,finalDay,R.drawable.lock));
+                            for(int i=0;i<list.size();i++){
+                                if(list.get(i).get("UserID").equals(firebaseUser.getUid())){
+                                    datesList.add(new DatesPRIVATE(date,finalDay,R.drawable.lock));
+                                }
+                            }
                         }
                         datesList.sort(new Comparator<DatesPRIVATE>() {
                             @Override
                             public int compare(DatesPRIVATE datesALL, DatesPRIVATE t1) {
-                                return datesALL.getTitle().compareTo(t1.getTitle());
+                                return -1*datesALL.getTitle().compareTo(t1.getTitle());
                             }
                         });
                         adapter2.notifyDataSetChanged();
