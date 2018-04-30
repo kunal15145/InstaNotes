@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "1070727904600-95vipliuag1efoq46id257ovrjug3bk0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mcproject.instanotesv1",
+            "certificate_hash": "b80e1625583b553bb66f786acccaead76f980dfe"
+          }
+        },
+        {
+          "client_id": "1070727904600-lvas8ucbopahl6b0kpet64drh7btnlpm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mcproject.instanotesv1",
+            "certificate_hash": "ca14b537e3944eedd4e70b9746d384510a59fa98"
+          }
+        },
+        {
+          "client_id": "1070727904600-hvqa0r18g1nq695uauhhpc6hns27kpp0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mcproject.instanotesv1",
+            "certificate_hash": "b1f72120ed11cd8c45c8ffe752e991131c4db480"
+          }
+        },
+        {
           "client_id": "1070727904600-q38f5ki323rvq527622cqtmvfkces9ip.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -2,6 +2,7 @@ package mcproject.instanotesv1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,10 +21,17 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
 
     private Context ctx;
     private List<DatesALL> datesList;
+    private String coursename;
 
     public DatesALLAdapter(Context ctx, List<DatesALL> datesList) {
         this.ctx = ctx;
         this.datesList = datesList;
+    }
+
+    public DatesALLAdapter(Context ctx, List<DatesALL> datesList, String coursename) {
+        this.ctx = ctx;
+        this.datesList = datesList;
+        this.coursename = coursename;
     }
 
     //Inflating the list
