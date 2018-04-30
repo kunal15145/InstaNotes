@@ -38,6 +38,9 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
+    private String OWN_TAG = "OWN";
+    private String DATE_TAG = "DATE";
+    private String Course_TAG="Course";
 
     public class itemHolder extends RecyclerView.ViewHolder {
 
@@ -61,12 +64,15 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
         }
     }
 
-    public PreviewNotesAdapter(List<Notes> previewNotesList, PreviewNotes previewNotes){
+    public PreviewNotesAdapter(List<Notes> previewNotesList, PreviewNotes previewNotes, String coursename, String own, String date){
         this.previewNotesList = previewNotesList;
         this.context = previewNotes;
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        OWN_TAG=own;
+        Course_TAG=coursename;
+        DATE_TAG=date;
     }
 
     @Override
@@ -115,6 +121,8 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
             @Override
             public void onClick(View v) {
                 if(previewNotes.getisLiked() == TRUE){
+//                    firebaseFirestore.collection("uploads")
+//                            .whereEqualTo()
                     previewNotes.setisLiked(FALSE);
                     previewNotes.setLike(previewNotes.getLike()-1);
                     holder.txtLike.setText(String.valueOf(previewNotes.getLike()));

@@ -109,7 +109,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                                                         l.add(firebaseUser.getUid());
                                                         firebaseFirestore.collection("uploads")
                                                                 .document(documentSnapshot.getId())
-                                                                .update(Visitors,l);
+                                                                .update(Visitors, l);
                                                     }
                                                 }
                                             });

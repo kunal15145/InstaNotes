@@ -55,7 +55,7 @@ public class PreviewNotes extends AppCompatActivity {
         type = (int) getIntent().getExtras().get("Flag");
 
         recyclerView = findViewById(R.id.recycler_view);
-        previewNotesAdapter = new PreviewNotesAdapter(previewNotesList, this);
+        previewNotesAdapter = new PreviewNotesAdapter(previewNotesList, this, coursnema, String.valueOf(type), date);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
