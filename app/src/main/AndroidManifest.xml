@@ -22,6 +22,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".my_courses"
+            android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:label="@string/title_activity_my_courses"
             android:theme="@style/AppTheme.NoActionBar">
@@ -29,7 +30,8 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartScreen">
+        <activity android:name=".StartScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,15 +40,18 @@
         </activity>
         <activity
             android:name=".IntroductionScreen"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".join_courses"
             android:hardwareAccelerated="true">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
-        <activity android:name=".SearchResultsActivity">
+        <activity android:name=".SearchResultsActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
 
@@ -57,19 +62,28 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".PreviewNotes" />
-        <activity android:name=".Notifications" />
-        <activity android:name=".Transactions" />
-        <activity android:name=".Account" />
-        <activity android:name=".Help" />
-        <activity android:name=".feedback" />
-        <activity android:name=".settings" />
+        <activity android:name=".PreviewNotes"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Notifications"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Transactions"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Account"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Help"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".feedback"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".settings"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Admin_course"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_admin_course"
             android:theme="@style/AppTheme" />
         <activity android:name=".Admin_addcourses" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".DatesTab"
             android:label="@string/title_activity_dates_tab"
             android:theme="@style/AppTheme"></activity>
