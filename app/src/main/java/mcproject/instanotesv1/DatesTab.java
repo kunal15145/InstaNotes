@@ -221,6 +221,7 @@ public class DatesTab extends AppCompatActivity{
                                 NewUpload.put(IMAGES_TAG, download_filePath);
                                 NewUpload.put("Dislikes", "0");
                                 NewUpload.put("Likes", "0");
+                                NewUpload.put("Favs", new ArrayList<String>());
                                 firebaseFirestore.collection("uploads")
                                         .whereEqualTo(DATE_TAG, choosedate.getText())
                                         .whereEqualTo(Course_TAG, getIntent().getExtras().getString("CourseName"))
@@ -267,6 +268,7 @@ public class DatesTab extends AppCompatActivity{
                                                     });
                                                 }
                                                 else {
+                                                    Log.d("sdlkfj", "Present");
                                                     for (DocumentSnapshot documentSnapshot : documentSnapshots) {
                                                         ArrayList<Map<String, Object>> uplo = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
                                                         int flag=1;
