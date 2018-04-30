@@ -274,20 +274,6 @@ public class DatesTab extends AppCompatActivity implements Notif_datepicker.Date
 
     @Override
     public void onFinishDialog(final Date date) {
-        firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                           @Override
-                                           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                               if (task.isSuccessful()) {
-                                                   DocumentSnapshot document = task.getResult();
-//                                                   if (document.exists()) {
-//                                                       already = (ArrayList<Notification_send>) document.getData().get("Already"); //course from user
-//                                                   }
-                                               }
-                                           }
-                                       });
-
-//        already.add(new Notification_send(firebaseUser.getEmail(),date,coursename));
 
         Map<String, Object> notification = new HashMap<>();
         notification.put("User",firebaseUser.getEmail());
