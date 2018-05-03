@@ -6,9 +6,9 @@ import org.junit.Rule;
 
 import static org.junit.Assert.*;
 
-public class feedbackTest {
-
+public class SettingsTest {
     @Rule
-    public ActivityTestRule<feedback> activityActivityTestRule = new ActivityTestRule<>(feedback.class, true, true);
+    public ActivityTestRule<settings> activityActivityTestRule = new ActivityTestRule<>(settings.class, true, true);
+
 
 }

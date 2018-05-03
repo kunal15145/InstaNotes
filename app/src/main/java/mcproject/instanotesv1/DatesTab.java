@@ -278,25 +278,26 @@ public class DatesTab extends AppCompatActivity{
                                                                 break;
                                                             }
                                                         }
-                                                        if(flag==0){
+                                                        if(flag==1) {
+                                                            uplo.add(NewUpload);
                                                             firebaseFirestore.collection("uploads")
                                                                     .document(documentSnapshot.getId())
                                                                     .update("User_uploads", uplo);
+                                                            firebaseFirestore.collection("users")
+                                                                    .document(firebaseUser.getUid())
+                                                                    .get()
+                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                        @Override
+                                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                            String instacoins = (String) documentSnapshot.get("InstaCoins");
+                                                                            int t = Integer.parseInt(instacoins);
+                                                                            firebaseFirestore.collection("users")
+                                                                                    .document(firebaseUser.getUid())
+                                                                                    .update("InstaCoins",String.valueOf(t+1));
+                                                                        }
+                                                                    });
 
                                                         }
-                                                        firebaseFirestore.collection("users")
-                                                                .document(firebaseUser.getUid())
-                                                                .get()
-                                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                                    @Override
-                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                                        String instacoins = (String) documentSnapshot.get("InstaCoins");
-                                                                        int t = Integer.parseInt(instacoins);
-                                                                        firebaseFirestore.collection("users")
-                                                                                .document(firebaseUser.getUid())
-                                                                                .update("InstaCoins",String.valueOf(t+1));
-                                                                    }
-                                                                });
 
                                                     }
                                                 }
