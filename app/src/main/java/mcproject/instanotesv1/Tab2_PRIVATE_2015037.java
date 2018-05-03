@@ -70,22 +70,22 @@ public class Tab2_PRIVATE_2015037 extends Fragment{
         day=currentDate.get(Calendar.DAY_OF_MONTH);
         month=currentDate.get(Calendar.MONTH);
         year=currentDate.get(Calendar.YEAR);
-
-
-        choosedate=rootView.findViewById(R.id.choosedate);
-        choosedate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog=new DatePickerDialog(rootView.getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month=month+1;
-                        choosedate.setText(dayOfMonth+"/"+month+"/"+year);
-                    }
-                },year,month,day);
-                datePickerDialog.show();
-            }
-        });
+//
+//
+//        choosedate=rootView.findViewById(R.id.choosedate);
+//        choosedate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DatePickerDialog datePickerDialog=new DatePickerDialog(rootView.getContext(), new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                        month=month+1;
+//                        choosedate.setText(dayOfMonth+"/"+month+"/"+year);
+//                    }
+//                },year,month,day);
+//                datePickerDialog.show();
+//            }
+//        });
 
 
         datesList = new ArrayList<>();
