@@ -3,9 +3,12 @@ package mcproject.instanotesv1;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,9 +26,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +59,7 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
     private String own;
     private String coursename;
     private String date;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public class itemHolder extends RecyclerView.ViewHolder {
 
@@ -99,10 +111,30 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
         }
         holder.imgDownload.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), previewNotes.getLink(), Toast.LENGTH_SHORT).show();
+            public void onClick(final View v) {
+                ArrayList<String> imagestodownload = previewNotes.getList();
+                File wallpaperDirectory = new File(Environment.getExternalStorageDirectory()+"/sdcard/Instanotes/");
+                if(!wallpaperDirectory.isDirectory()){
+                    System.out.println("down1");
+                    wallpaperDirectory.mkdirs();
+                }
+                System.out.println("down");
+                String directoryname = coursename+date+"/";
+                File subdirectory = new File(Environment.getExternalStorageDirectory()+"/sdcard/Instanotes/"+directoryname+"/");
+                if(!subdirectory.isDirectory()){
+                    subdirectory.mkdirs();
+                }
+                System.out.println("down2");
+                String pathname = Environment.getExternalStorageDirectory()+"/sdcard/Instanotes/"+directoryname+"/";
+                for(String s:imagestodownload) {
+
+                    pathname = pathname+String.valueOf(imagestodownload.indexOf(s))+".jpg";
+                    new task().execute(s,pathname);
+
+                }
             }
         });
+
         if(previewNotes.getisLiked() == TRUE){
             previewNotes.setLike(previewNotes.getLike());
             holder.txtLike.setText(String.valueOf(previewNotes.getLike()));
@@ -364,6 +396,58 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
     @Override
     public int getItemCount() {
         return previewNotesList.size();
+    }
+
+    public Bitmap getBitmapFromURL(String src) {
+        try {
+            java.net.URL url = new java.net.URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url
+                    .openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public class task extends AsyncTask<String,String,Bitmap>{
+
+        String pathname = null;
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            System.out.println(strings[0]);
+            pathname = strings[1];
+            System.out.println(pathname);
+            return getBitmapFromURL(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(pathname);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (out != null) {
+                        out.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+        }
     }
 
 }

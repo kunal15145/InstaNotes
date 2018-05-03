@@ -120,27 +120,7 @@ public class DatesALLAdapter extends RecyclerView.Adapter<DatesALLAdapter.DatesV
                                                                         firebaseFirestore.collection("users")
                                                                                 .document(firebaseUser.getUid())
                                                                                 .update("InstaCoins",String.valueOf(t-1));
-                                                                        final Map<String,Object> Newtransactions = new HashMap<>();
-                                                                        firebaseFirestore.collection("transactions").document(firebaseUser.getUid())
-                                                                                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                                            @Override
-                                                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                                                if(!documentSnapshot.exists()){
-                                                                                    ArrayList<String> transact=new ArrayList<String>();
-                                                                                    transact.add((String) documentSnapshot.get("Name")+" unlocked new notes in "+coursename+" on date "+holder.textViewTitle.getText());
-                                                                                    Newtransactions.put("user_transactions", transact);
-                                                                                    firebaseFirestore.collection("transactions").document(firebaseUser.getUid())
-                                                                                            .set(Newtransactions);
-                                                                                }
-                                                                                else{
-                                                                                    ArrayList<String> transact;
-                                                                                    transact= (ArrayList<String>) documentSnapshot.get("user_transactions");
-                                                                                    transact.add((String) documentSnapshot.get("Name")+" unlocked new notes in "+coursename+" on date "+holder.textViewTitle.getText());
-                                                                                    firebaseFirestore.collection("transactions").document(firebaseUser.getUid())
-                                                                                            .update("user_transactions", transact);
-                                                                                }
-                                                                            }
-                                                                        });
+
                                                                     }
                                                                 });
                                                     }

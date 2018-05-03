@@ -102,7 +102,7 @@ public class Tab1_ALL extends Fragment{
                         for(DocumentSnapshot documentSnapshot:documentSnapshots){
 
                             if(documentSnapshot.exists()){
-
+                                System.out.println(documentSnapshot.getId());
                                 final ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) documentSnapshot.get("User_uploads");
                                 final String date = (String) documentSnapshot.get("DATE");
                                 SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
@@ -119,7 +119,7 @@ public class Tab1_ALL extends Fragment{
                                 if(s.equals("0")){
                                     datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
                                 }
-                                else if(visitors.contains(firebaseUser.getUid())){
+                                else if(visitors!=null && visitors.contains(firebaseUser.getUid())){
                                     datesList.add(new DatesALL(date,String.valueOf(list.size())+" uploads",finalDay,R.drawable.unlock));
 
                                 }
