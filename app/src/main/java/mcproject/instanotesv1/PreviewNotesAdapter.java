@@ -127,6 +127,7 @@ public class PreviewNotesAdapter extends RecyclerView.Adapter<PreviewNotesAdapte
         holder.imgLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("sjdhfk", "Like pressed");
                 if(previewNotes.getisLiked() == TRUE){
                     firebaseFirestore.collection("uploads")
                             .whereEqualTo(OWN_TAG, own)
