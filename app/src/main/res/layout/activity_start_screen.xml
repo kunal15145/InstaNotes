@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@drawable/screen1_bg"
-    tools:context="mcproject.instanotesv1.StartScreen">
+    tools:context="mcproject.instanotesv1.StartScreen_2015037">
 
     <ImageView
         android:id="@+id/imageView20"

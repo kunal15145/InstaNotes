@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".my_courses"
+            android:name=".my_courses_2015037"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:label="@string/title_activity_my_courses"
@@ -30,7 +30,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartScreen"
+        <activity android:name=".StartScreen_2015037"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,18 +39,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroductionScreen"
+            android:name=".IntroductionScreen_2015037"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:screenOrientation="portrait"
-            android:name=".join_courses"
+            android:name=".join_courses_2015037"
             android:hardwareAccelerated="true">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
-        <activity android:name=".SearchResultsActivity"
+        <activity android:name=".SearchResultsActivity_2015037"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -62,33 +62,33 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".PreviewNotes"
+        <activity android:name=".PreviewNotes_2015037"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Notifications"
+        <activity android:name=".Notifications_2015037"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Transactions"
+        <activity android:name=".Transactions_2015037"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Account"
+        <activity android:name=".Account_2015037"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Help"
+        <activity android:name=".Help_2015037"
             android:screenOrientation="portrait"/>
-        <activity android:name=".feedback"
+        <activity android:name=".feedback_2015037"
             android:screenOrientation="portrait"/>
-        <activity android:name=".settings"
+        <activity android:name=".settings_2015037"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Admin_course"
+            android:name=".Admin_course_2015037"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_admin_course"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Admin_addcourses" />
+        <activity android:name=".Admin_addcourses_2015037" />
         <activity
             android:screenOrientation="portrait"
-            android:name=".DatesTab"
+            android:name=".DatesTab_2015037"
             android:label="@string/title_activity_dates_tab"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name=".FullImageViewer"
+            android:name=".FullImageViewer_2015037"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_full_image_viewer"
             android:theme="@style/FullscreenTheme"/>

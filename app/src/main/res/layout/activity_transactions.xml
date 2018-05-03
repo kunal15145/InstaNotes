@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFCF9"
-    tools:context="mcproject.instanotesv1.Transactions">
+    tools:context="mcproject.instanotesv1.Transactions_2015037">
     <include layout="@layout/appbar" />
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_actionbar"
