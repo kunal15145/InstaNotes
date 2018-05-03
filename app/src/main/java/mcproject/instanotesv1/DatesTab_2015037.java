@@ -584,11 +584,12 @@ public class DatesTab_2015037 extends AppCompatActivity implements Notif_datepic
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot documentSnapshots) {
+                        Log.d("sdfkshdf", "gotcha");
                         for (final DocumentSnapshot doc:documentSnapshots) {
                             ArrayList<Map<String,Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
                             for(int i=0;i<uplo.size();i++){
                                 if(uplo.get(i).containsValue(firebaseUser.getUid())){
-                                    Log.d("chiiz", uplo.get(i).toString());
+
                                     download_filePath= (ArrayList<String>) uplo.get(i).get(IMAGES_TAG);
                                     break;
                                 }
@@ -620,6 +621,7 @@ public class DatesTab_2015037 extends AppCompatActivity implements Notif_datepic
                                                 for (final DocumentSnapshot doc:documentSnapshots) {
                                                     ArrayList<Map<String,Object>> uplo= (ArrayList<Map<String, Object>>) doc.get("User_uploads");
                                                     for(int i=0;i<uplo.size();i++){
+                                                        Log.d("sdflsd", String.valueOf(uplo.get(i).containsValue(firebaseUser.getUid())));
                                                         if(uplo.get(i).containsValue(firebaseUser.getUid())){
                                                             download_filePath.add(taskSnapshot.getDownloadUrl().toString());
                                                             Log.d("oieurojksdfh", String.valueOf(download_filePath.size()));

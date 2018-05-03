@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -425,6 +426,7 @@ public class PreviewNotesAdapter_2015037 extends RecyclerView.Adapter<PreviewNot
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
+            Toast.makeText(context, "Downloaded", Toast.LENGTH_SHORT).show();
             FileOutputStream out = null;
             try {
                 out = new FileOutputStream(pathname);
