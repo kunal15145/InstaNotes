@@ -5,10 +5,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/transac"
-            android:icon="@android:drawable/ic_menu_recent_history"
-            android:title="My Transactions" />
-        <item
             android:id="@+id/help"
             android:icon="@android:drawable/ic_menu_help"
             android:title="Help" />
@@ -16,10 +12,6 @@
             android:id="@+id/feedback"
             android:icon="@android:drawable/ic_menu_report_image"
             android:title="Feedback" />
-        <item
-            android:id="@+id/settings"
-            android:icon="@android:drawable/ic_menu_manage"
-            android:title="Settings" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@android:drawable/btn_dialog"

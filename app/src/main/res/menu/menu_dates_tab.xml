@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="mcproject.instanotesv1.DatesTab">
+    tools:context="mcproject.instanotesv1.DatesTab_2015037">
     <item
         android:id="@+id/action_favorites1"
         android:orderInCategory="100"
